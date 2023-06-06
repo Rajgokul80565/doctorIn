@@ -7,7 +7,24 @@ import asyncHandler from "express-async-handler";
 // @access public
 const authUser = asyncHandler( async (req, res) => {
 
-    res.status(201).json({message:"Auth User"});
+    let {email, password} = req.body;
+    
+    let user = await User.findOne({email});
+
+
+    if(user && ( await user.matchPassword(password))){
+        generateToken(res,user._id);
+        res.status(201).json({
+            _id:user._id,
+            name:user.name,
+            email:user.email,
+        })
+    }else{
+        res.status(401);
+        throw new Error('Invalid email and password')
+    }
+
+   
 });
 
 // @desc Registrer User
@@ -46,7 +63,13 @@ const registerUser = asyncHandler (async (req, res) => {
 // @access public
 const loginOutUser =  asyncHandler( async (req, res) => {
 
-    res.status(201).json({message:"loginOutUser"});
+    res.cookie("jwt","",{ 
+        httpOnly:true,
+        expires: new Date(0)
+    });
+
+
+    res.status(201).json({message:"User Logged out"});
 });
 
 // @desc  get user profile
