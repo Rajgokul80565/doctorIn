@@ -63,6 +63,7 @@ const registerUser = asyncHandler (async (req, res) => {
 // @access public
 const loginOutUser =  asyncHandler( async (req, res) => {
 
+    //Cleaning the jwt token when the user logout
     res.cookie("jwt","",{ 
         httpOnly:true,
         expires: new Date(0)
@@ -72,12 +73,21 @@ const loginOutUser =  asyncHandler( async (req, res) => {
     res.status(201).json({message:"User Logged out"});
 });
 
-// @desc  get user profile
+// @desc  get user profile. Auth middleware runs before this and 
+// set the req.user to whatever the protect auth middleware returns which is user details by
+// verifying the token(via cookies).
 // @route GET - /api/user/profile
 // @access private
 const getUserProfile = asyncHandler( async(req, res) => {
 
-    res.status(201).json({message:"getUserProfile"});
+    const user = {
+        _id:req.user._id,
+        name:req.user.name,
+        email:req.user.email,
+    }
+
+
+    res.status(201).json(user);
 });
 
 // @desc  update user profile
@@ -85,7 +95,24 @@ const getUserProfile = asyncHandler( async(req, res) => {
 // @access private
 const updateUserProfile = asyncHandler ( async (req, res) => {
 
-    res.status(201).json({message:"updateUserProfile"});
+    let user = await User.findById(req.user._id).select("-password");
+
+    if(user){
+        user.name = req.body.name || req.user.name;
+        user.email = req.body.email || req.user.email;
+
+        if(req.body.password){
+            user.password = req.body.password || req.user.password;
+        }
+
+        const updatedUser = await user.save();
+
+        res.status(200).json(updatedUser);
+
+    }else{
+        res.status(404);
+        throw new Error("User Not Found!");
+    }
 });
 
 
