@@ -1,0 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@1,300&display=swap');
+
+
+
+.brandlogo{
+    font-family: 'Pacifico', cursive;
+    font-size: 23px;
+    padding-top: 15px;
+    padding-left: 20px;
+    
+}

@@ -1,8 +1,9 @@
 import React from 'react'
 
+
 function Header() {
   return (
-    <div>Jwt.</div>
+    <div  className="brandlogo" >Jwt.</div>
   )
 }
 
