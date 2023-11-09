@@ -11,7 +11,7 @@ function Home() {
         }}>
         <div style={{width:"300px" ,height: "300px"}}>
         <div>
-            <h2 style={{marginBottom:"10px"}}>Hi there!</h2>
+            <h2 style={{marginBottom:"10px"}}>Hi there</h2>
             <h5 style={{color:"#8e8a8a"}}>Welcome to Jwt. Json web token project</h5>
         </div>
         <div style={{display: "flex", justifyContent: "space-around", marginTop: "30px"}}>
