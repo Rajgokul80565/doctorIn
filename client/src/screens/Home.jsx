@@ -9,7 +9,7 @@ function Home() {
         justifyContent: "center",
         paddingTop:"150px"
         }}>
-        <div style={{width:"300px" ,height: "300px"}}>
+        <div style={{width:"400px" ,height: "400px"}}>
         <div>
             <h2 style={{marginBottom:"10px"}}>Hi there</h2>
             <h5 style={{color:"#8e8a8a"}}>Welcome to Jwt. Json web token project</h5>
