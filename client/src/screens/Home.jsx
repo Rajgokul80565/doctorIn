@@ -21,7 +21,7 @@ function Home() {
           </div>
           <div className='logSignBtnDiv'>
           <button className='btn-log'>Log in</button>
-          <p>don't have an account yet <a>Sign in</a></p>
+          <p>don't have an account yet <a href=''>Sign in</a> </p> 
           </div>
 
         </div>
