@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@1,300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 
 
 
@@ -8,5 +8,116 @@
     font-size: 23px;
     padding-top: 15px;
     padding-left: 20px;
+    position: relative;
+    background-color: white;
     
+}
+
+/* Loginpage styles */
+.welcomeText {
+    font-family: 'Poppins', sans-serif;
+    font-weight: bold;
+}
+.secondaryWelcome {
+    font-family: 'Poppins', sans-serif;
+    font-size: 9px;
+    color: rgb(120, 118, 118);
+}
+
+#logMainLayer {
+    height: 100vh; 
+    display: flex;
+    justify-content:space-around;
+    align-items:center;
+    position:relative;
+}
+
+#logLeft {
+    display: flex;
+    justify-content:center;
+    align-items:center;
+    width: 100%;
+    height:100%;
+}
+
+#logRight {
+    width: 100%;
+    height:100%;
+    display: flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.logSignCard{
+    display: flex;
+    flex-direction:column;
+    justify-content:space-between;
+    align-items:center;
+    height:500px;
+    width:500px;
+    position: relative;
+    
+}
+.logSignFirstCard{
+    display: flex;
+    flex-direction:column;
+    gap: 10px;
+    align-items:center;
+    width: 100%;
+    height: 50%;
+}
+
+.logSignFormDiv{
+    display: flex; 
+    flex-direction:column;
+    align-items: center;
+    width: 100%;
+    height: 35%;
+    position: absolute;
+    top: 100px;
+   
+    
+}
+
+.logSignFormDiv > *{
+   
+    width: 50%; /* Adjust the width for the label */
+    box-sizing: border-box;
+}
+
+.logSignFormDiv label {
+    font-family: 'Poppins', sans-serif;
+    font-size: 9px;
+    color: rgb(71, 70, 70);
+    margin-top: 30px;
+}
+.logSignFormDiv input{
+    border: none;
+    outline: none;
+    margin-top: 15px;
+    border-bottom: 1.6px solid rgb(197, 196, 196);
+}
+
+.logSignBtnDiv{
+    position: absolute;
+    bottom: 160px;
+    display: flex;
+    flex-direction: column;
+    align-items:center;
+}
+
+.logSignBtnDiv p {
+    font-family: 'Poppins', sans-serif;
+    font-size: 9px;
+    color: rgb(120, 118, 118);
+    margin-top: 10px;
+}
+
+.btn-log {
+    width:250px;
+    height: 40px;
+    border: none;
+    border-radius:15px;
+    background-color: black;
+    color: white;
 }
