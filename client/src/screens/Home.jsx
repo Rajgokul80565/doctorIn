@@ -1,11 +1,13 @@
 import React from 'react';
 import "../App.css";
+// import { ReactComponent as LoginImg } from "../../public/images/login_img.svg"
+import LoginImg from "../assets/images/login_img.svg"
 
 function Home() {
   return (
     <div id='logMainLayer'>
         <div id='logLeft'>
-          Illustration comes here
+          <img className='loginRightImg' src={LoginImg} alt="login image" />
         </div>
         <div id='logRight'>
         <div className='logSignCard'>
@@ -21,7 +23,7 @@ function Home() {
           </div>
           <div className='logSignBtnDiv'>
           <button className='btn-log'>Log in</button>
-          <p>don't have an account yet <a href=''>Sign in</a> </p> 
+          <p>don't have an account yet, <a href=''>Sign in</a> </p> 
           </div>
 
         </div>
