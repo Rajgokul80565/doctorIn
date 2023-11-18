@@ -1,6 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 
+body {
+    overflow: hidden;
+}
 
 
 .brandlogo{
@@ -38,6 +41,7 @@
     align-items:center;
     width: 100%;
     height:100%;
+    position: relative;
 }
 
 #logRight {
@@ -48,9 +52,12 @@
     align-items:center;
 }
 
-.loginRightImg {
+.loginLeftImg {
     width:300px;
     height: 300px;
+    position: absolute;
+    top:100px;
+
 }
 
 .logSignCard{
@@ -79,14 +86,11 @@
     width: 100%;
     height: 35%;
     position: absolute;
-    top: 100px;
-   
-    
+    top: 85px;
 }
 
 .logSignFormDiv > *{
-   
-    width: 50%; /* Adjust the width for the label */
+    width: 50%; 
     box-sizing: border-box;
 }
 
@@ -104,9 +108,25 @@
     padding-bottom: 4px;
 }
 
+.passwordField {
+    position:relative;
+  
+}
+.passwordField input {
+    position:absolute;
+    width: 100%;
+
+}
+
+.passwordEyeIcon {
+    position:absolute;
+    right: 15px;
+    bottom: -30px;
+}
+
 .logSignBtnDiv{
     position: absolute;
-    bottom: 160px;
+    bottom: 150px;
     display: flex;
     flex-direction: column;
     align-items:center;
@@ -128,3 +148,4 @@
     background-color: black;
     color: white;
 }
+

@@ -1,13 +1,27 @@
-import React from 'react';
+import React, {useState} from 'react';
 import "../App.css";
 // import { ReactComponent as LoginImg } from "../../public/images/login_img.svg"
 import LoginImg from "../assets/images/login_img.svg"
+import { FaRegEye } from "react-icons/fa";
+import { FaRegEyeSlash } from "react-icons/fa";
 
 function Home() {
+
+  const [showPassword, setShowPassword] = useState(false);
+  const [eyeIcon, setEyeIcon] = useState(false);
+
+  let switchPassword = () => {
+    setShowPassword(!showPassword);
+    setEyeIcon(!eyeIcon);
+  }
+
+ 
+
+
   return (
     <div id='logMainLayer'>
         <div id='logLeft'>
-          <img className='loginRightImg' src={LoginImg} alt="login image" />
+          <img className='loginLeftImg' src={LoginImg} alt="login image" />
         </div>
         <div id='logRight'>
         <div className='logSignCard'>
@@ -19,7 +33,10 @@ function Home() {
               <label htmlFor="email">Email</label>
               <input type="text" name="email" />
               <label htmlFor="email">Password</label>
-              <input type="password" name="password" />
+              <div className='passwordField'>
+              <input type={showPassword ? "text" : "password"} name="password" />
+              { eyeIcon ? <FaRegEye onClick={switchPassword} className='passwordEyeIcon' /> : <FaRegEyeSlash onClick={switchPassword} className='passwordEyeIcon'/> }
+              </div>
           </div>
           <div className='logSignBtnDiv'>
           <button className='btn-log'>Log in</button>
