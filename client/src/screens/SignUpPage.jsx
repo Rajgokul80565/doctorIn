@@ -5,7 +5,7 @@ import LoginImg from "../assets/images/login_img.svg"
 import { FaRegEye } from "react-icons/fa";
 import { FaRegEyeSlash } from "react-icons/fa";
 
-function Login() {
+function SignUp() {
 
   const [showPassword, setShowPassword] = useState(false);
   const [eyeIcon, setEyeIcon] = useState(false);
@@ -48,4 +48,4 @@ function Login() {
   )
 }
 
-export default Login;
+export default SignUp;
