@@ -37,7 +37,7 @@ function Login() {
           </div>
           <div className='logSignBtnDiv'>
           <button className='btn-log'>Log in</button>
-          <p>don't have an account yet, <a href=''>SignUp</a> </p> 
+          <p>don't have an account yet, <a href=''>SignU</a> </p> 
           </div>
 
         </div>
