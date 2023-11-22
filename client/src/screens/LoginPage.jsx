@@ -3,6 +3,7 @@ import "../App.css";
 import LoginImg from "../assets/images/login_img.svg"
 import { FaRegEye } from "react-icons/fa";
 import { FaRegEyeSlash } from "react-icons/fa";
+import withHeader from "../HOCs/Header";
 
 function Login() {
 

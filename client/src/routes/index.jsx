@@ -2,10 +2,9 @@ import React from 'react'
 import {
     createBrowserRouter,
     createRoutesFromElements, 
-    Route
+    Route,
+    RouterProvider
 } from "react-router-dom";
-
-
 import {
     Login,
     SignUp,
@@ -13,17 +12,15 @@ import {
 } from "../screens";
 
 
-
-
 function RouterApp() {
 
-    const router = createBrowserRouter(createRoutesFromElements(
-        <Route path='/' element={<Login />} />
-    ))
+    const routers = createBrowserRouter(createRoutesFromElements(
+        <Route path='/' element={<Login/>} />
+    ));
     
   return (
-    <div>index</div>
+    <RouterProvider router={routers} />
   )
 }
 
-export default index
+export default RouterApp;
