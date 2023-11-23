@@ -23,10 +23,12 @@ function SignUp() {
         <div id='logRight'>
         <div className='logSignCard'>
           <div className='logSignFirstCard'>
-          <h2 className='welcomeText'>Welcome back!</h2>
+          <h2 className='welcomeText'>Welcome</h2>
           <h6 className='secondaryWelcome'>please enter your details</h6>
           </div>
           <div className='logSignFormDiv'>
+          <label htmlFor="email">Email</label>
+              <input type="text" name="email" />
               <label htmlFor="email">Email</label>
               <input type="text" name="email" />
               <label htmlFor="email">Password</label>

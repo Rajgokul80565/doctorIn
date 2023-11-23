@@ -10,12 +10,15 @@ import {
     SignUp,
     Home,
 } from "../screens";
+import Navbar from "../components/Navbar"
 
 
 function RouterApp() {
 
     const routers = createBrowserRouter(createRoutesFromElements(
+      <Route element={<Navbar/>}>
         <Route path='/' element={<Login/>} />
+      </Route>
     ));
     
   return (
