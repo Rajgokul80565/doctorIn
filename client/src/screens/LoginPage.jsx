@@ -3,6 +3,8 @@ import "../App.css";
 import LoginImg from "../assets/images/login_img.svg"
 import { FaRegEye } from "react-icons/fa";
 import { FaRegEyeSlash } from "react-icons/fa";
+import { Link } from 'react-router-dom';
+import { routes } from "../routes/routes";
 
 function Login() {
 
@@ -36,7 +38,7 @@ function Login() {
           </div>
           <div className='logSignBtnDiv'>
           <button className='btn-log'>Log in</button>
-          <p>don't have an account yet, <a href=''>SignUp</a> </p> 
+          <p>don't have an account yet, <Link to={routes.signup}> <a href=''>SignUp</a></Link> </p> 
           </div>
 
         </div>
