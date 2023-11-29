@@ -30,7 +30,7 @@ function Login() {
           <div className='logSignFormDiv'>
               <label htmlFor="email">Email</label>
               <input type="text" name="email" />
-              <label htmlFor="email">Password</label>
+              <label htmlFor="email">Passwor</label>
               <div className='passwordField'>
               <input type={showPassword ? "text" : "password"} name="password" />
               { eyeIcon ? <FaRegEye onClick={switchPassword} className='passwordEyeIcon' /> : <FaRegEyeSlash onClick={switchPassword} className='passwordEyeIcon'/> }
