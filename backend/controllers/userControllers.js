@@ -3,7 +3,7 @@ import generateToken from "../utils/generateToken.js";
 import asyncHandler from "express-async-handler";
 
 // @desc Authenticate User
-// @route POST - /api/user/auth
+// @route POST - /api/users/auth
 // @access public
 const authUser = asyncHandler( async (req, res) => {
 

@@ -20,6 +20,7 @@ function RouterApp() {
       <Route element={<Navbar/>}>
         <Route path={routes.login} element={<Login/>} />
         <Route path={routes.signup} element={<SignUp/>} />
+        <Route path={routes.home} element={<Home/>} />
       </Route>
     ));
     

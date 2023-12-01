@@ -1,19 +1,53 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import "../App.css";
 import LoginImg from "../assets/images/login_img.svg"
 import { FaRegEye } from "react-icons/fa";
 import { FaRegEyeSlash } from "react-icons/fa";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { routes } from "../routes/routes";
+import { useLoginMutation } from "../redux/slices/userSlice";
+import { useDispatch, useSelector} from "react-redux";
+import { setCrenditails } from '../redux/slices/authslice';
+import { toast } from 'react-toastify';
+
 
 function Login() {
 
   const [showPassword, setShowPassword] = useState(false);
   const [eyeIcon, setEyeIcon] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const [login, {isLoading}] = useLoginMutation();
+
+ const userInfo = useSelector((state) => state.userInfo);
+
+ useEffect(() => {
+  if(userInfo){
+    navigate(routes.home);
+  }
+ },[navigate, userInfo]);
 
   let switchPassword = () => {
     setShowPassword(!showPassword);
     setEyeIcon(!eyeIcon);
+  }
+
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    console.log("login credentials", email, password);
+    try {
+      let res = await login({email: email, password: password}).unwrap();
+      console.log("resLogin", res);
+      dispatch(setCrenditails({...res}));
+      navigate(routes.home);
+    } catch (err) {
+      console.log( "error",err.data.message);
+      toast.error(err.data.message || err.message);
+    }
   }
 
   return (
@@ -29,15 +63,19 @@ function Login() {
           </div>
           <div className='logSignFormDiv'>
               <label htmlFor="email">Email</label>
-              <input type="text" name="email" />
+              <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} name="email" />
               <label htmlFor="email">Passwor</label>
               <div className='passwordField'>
-              <input type={showPassword ? "text" : "password"} name="password" />
+              <input 
+              type={showPassword ? "text" : "password"} 
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              name="password" />
               { eyeIcon ? <FaRegEye onClick={switchPassword} className='passwordEyeIcon' /> : <FaRegEyeSlash onClick={switchPassword} className='passwordEyeIcon'/> }
               </div>
           </div>
           <div className='logSignBtnDiv'>
-          <button className='btn-log'>Log in</button>
+          <button className='btn-log' onClick={onSubmit}>Log in</button>
           <p>don't have an account yet, <Link to={routes.signup}> <a href=''>SignUp</a></Link> </p> 
           </div>
 
