@@ -12,21 +12,23 @@ function Navbar() {
 
   const [userDetail, setUserDetail] = useState({});
   const [dropDown, setDropDown] = useState(false);
-  const [logout, {isLoading}] = useLogoutMutation();
+  const [logout] = useLogoutMutation();
   const dispatch = useDispatch();
   const navigate =useNavigate();
 
-    useEffect(() => {
       let userInfo = localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')) : {};
-      setUserDetail({...userInfo});
-    },[])
+    
 
-    console.log("dropDown", dropDown);
+
+    console.log("dropDown", dropDown, userDetail);
 
     const logOutHandler = async() => {
       try {
         let logOutUser =  await logout().unwrap();
+        userInfo= {};
+        setUserDetail({});
         dispatch(clearCreditails());
+        setDropDown(false);
         navigate(routes.login);
       } catch (error) {
         console.log("err", error.message);
@@ -41,10 +43,10 @@ function Navbar() {
         Jwt.
         </div>
         <div id='navbarProfileDiv'>
-        {userDetail?.name && <CgProfile id='navbarProfile'  />}
-        {userDetail?.name && <h5 id='navbarProfileName'>{userDetail?.name}</h5>}
-        {userDetail?.name && <RiArrowDropDownLine onClick={() => setDropDown(!dropDown)}/>}
-        {(userDetail?.name && dropDown) &&  <div className="dropdown-content">
+        {userInfo?.name && <CgProfile id='navbarProfile'  />}
+        {userInfo?.name && <h5 id='navbarProfileName'>{userInfo?.name}</h5>}
+        {userInfo?.name && <RiArrowDropDownLine onClick={() => setDropDown(!dropDown)}/>}
+        {(userInfo?.name && dropDown) &&  <div className="dropdown-content">
       <a onClick={logOutHandler}>Logout</a>
     
     </div>}
