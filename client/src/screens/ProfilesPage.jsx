@@ -10,9 +10,9 @@ import { useDispatch, useSelector} from "react-redux";
 import {useRegisterMutation} from "../redux/slices/userSlice";
 import {setCrenditails} from "../redux/slices/authslice"
 import { toast } from 'react-toastify';
-import {validateEmail} from "../utils/"
+import {validateEmail} from "../utils"
 
-function SignUp() {
+function ProfileScreen() {
 
   const [showPassword, setShowPassword] = useState(false);
   const [eyeIcon, setEyeIcon] = useState(false);
@@ -56,7 +56,7 @@ function SignUp() {
         <div id='logRight'>
         <div className='logSignCard'>
           <div className='logSignFirstCard'>
-          <h2 className='welcomeText'>Welcome</h2>
+          <h2 className='welcomeText'>Update profile</h2>
           <h6 className='secondaryWelcome'>please enter your details</h6>
           </div>
           <div className='logSignFormDiv'>
@@ -71,8 +71,7 @@ function SignUp() {
               </div>
           </div>
           <div className='signBtnDiv'>
-          <button onClick={onSubmitRegister} className='btn-log'>Sign up</button>
-          <p>already have an account, <Link to={routes.login}><a href=''>Login</a> </Link></p> 
+          <button onClick={onSubmitRegister} className='btn-log'>Update</button>
           </div>
         </div>
         </div>
@@ -81,4 +80,4 @@ function SignUp() {
   )
 }
 
-export default SignUp;
+export default ProfileScreen;

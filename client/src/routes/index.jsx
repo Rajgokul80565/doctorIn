@@ -9,9 +9,11 @@ import {
     Login,
     SignUp,
     Home,
+    ProfileScreen
 } from "../screens";
 import Navbar from "../components/Navbar"
 import {routes} from "./routes";
+import PrivateRoute from "./privateRoute";
 
 
 function RouterApp() {
@@ -20,7 +22,12 @@ function RouterApp() {
       <Route element={<Navbar/>}>
         <Route path={routes.login} element={<Login/>} />
         <Route path={routes.signup} element={<SignUp/>} />
+        <Route path="" element={<PrivateRoute/>}>
         <Route path={routes.home} element={<Home/>} />
+        </Route>
+        <Route path="" element={<PrivateRoute/>}>
+        <Route path={routes.profile} element={<ProfileScreen/>} />
+        </Route>
       </Route>
     ));
     
