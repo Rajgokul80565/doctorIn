@@ -1,4 +1,4 @@
-import React, {useState,useEffect} from 'react'
+import React, {useState,useEffect, useRef} from 'react'
 import { Outlet, useNavigate } from "react-router-dom";
 import { CgProfile } from "react-icons/cg";
 import { IoIosLogOut } from "react-icons/io"
@@ -8,6 +8,7 @@ import {useLogoutMutation} from "../redux/slices/userSlice";
 import {routes} from "../routes/routes";
 import {clearCreditails} from "../redux/slices/authslice"
 import { LiaUserEditSolid } from "react-icons/lia";
+import {useClickOutside} from "../hooks"
 
 function Navbar() {
 
@@ -16,14 +17,18 @@ function Navbar() {
   const [logout] = useLogoutMutation();
   const dispatch = useDispatch();
   const navigate =useNavigate();
+  let menuRef = useRef("menu")
 
       let userInfo = localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')) : {};
     
+      useClickOutside(menuRef,()=>{
+        setDropDown(!dropDown);
+      })
 
-
-    console.log("dropDown", dropDown, userDetail);
+    console.log("dropDownWorking", dropDown, userDetail);
 
     const logOutHandler = async() => {
+      console.log("logOutHandlerclicking..")
       try {
         let logOutUser =  await logout().unwrap();
         userInfo= {};
@@ -37,6 +42,11 @@ function Navbar() {
      
     }
 
+    const onEditBtn = () => {
+      setDropDown(false);
+      navigate(routes.profile);
+    }
+
   return (
     <>
         <div  id='navbar' >
@@ -48,13 +58,13 @@ function Navbar() {
         <>
         <CgProfile id='navbarProfile'  />
         <h5 id='navbarProfileName'>{userInfo?.name}</h5>
-        <RiArrowDropDownLine onClick={() => setDropDown(!dropDown)}/>
+        <RiArrowDropDownLine ref={menuRef} />
         </>
         )}
-        {(userInfo?.name && true) &&  
-        <div className="dropdown-menu" >
+        {(userInfo?.name) &&  
+        <div ref={menuRef} className={`dropdown-menu ${dropDown ? "active" : "inactive"}`} >
           <ul>
-          <DropdownItem onClick={()=> navigate(routes.profile)} icon={LiaUserEditSolid} text={"Edit Profile"}/>
+          <DropdownItem onClick={onEditBtn} icon={LiaUserEditSolid} text={"Edit Profile"}/>
             <DropdownItem onClick={logOutHandler} icon={IoIosLogOut} text={"Logout"}/>
           </ul>
     
@@ -72,7 +82,7 @@ function Navbar() {
 function DropdownItem(props) {
   const Icon = props?.icon;
   return (
-    <li className="dropdownItem">
+    <li onClick={props?.onClick} className="dropdownItem">
         <Icon className="dropdown-icon"/>
         <a>{props?.text}</a>
     </li>

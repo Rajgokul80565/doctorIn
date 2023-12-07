@@ -24,13 +24,12 @@ function Login() {
 
   const [login, {isLoading}] = useLoginMutation();
 
- const userInfo = useSelector((state) => state.userInfo);
+ const {userInfo} = useSelector((state) => state.auth);
 
- useEffect(() => {
-  if(userInfo){
-    navigate(routes.home);
-  }
- },[navigate, userInfo]);
+useEffect(()=> {
+  console.log("rend...pls");
+},[userInfo])
+
 
   let switchPassword = () => {
     setShowPassword(!showPassword);

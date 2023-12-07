@@ -1,8 +1,10 @@
 import React from 'react';
 import "../App.css";
+import {useSelector} from "react-redux"
 
 
 function Home() {
+  
 
   return (
     <div>

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import "../App.css";
 // import { ReactComponent as LoginImg } from "../../public/images/login_img.svg"
 import SignupImg from "../assets/images/signUp2.svg"
@@ -7,7 +7,7 @@ import { FaRegEyeSlash } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import {routes} from "../routes/routes";
 import { useDispatch, useSelector} from "react-redux";
-import {useRegisterMutation} from "../redux/slices/userSlice";
+import {useUpdateprofileMutation} from "../redux/slices/userSlice";
 import {setCrenditails} from "../redux/slices/authslice"
 import { toast } from 'react-toastify';
 import {validateEmail} from "../utils"
@@ -19,9 +19,20 @@ function ProfileScreen() {
   const [name , setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const {userInfo} = useSelector((state) => state.auth);
+
+
+  useEffect(()=> {
+    if(userInfo){
+      setName(userInfo.name);
+      setEmail(userInfo.email);
+    }
+  },[userInfo.name, userInfo.email])
+
+  console.log("updateProfile", userInfo); 
 
   const dispatch = useDispatch();
-  const [register, {isLoading, error}] = useRegisterMutation();
+  const [updateprofile, {isLoading, error}] = useUpdateprofileMutation();
   const navigate = useNavigate();
 
   let switchPassword = () => {
@@ -29,14 +40,14 @@ function ProfileScreen() {
     setEyeIcon(!eyeIcon);
   }
 
-  const onSubmitRegister = async(e) => {
+  const onSubmitUpdate = async(e) => {
     e.preventDefault();
     if(validateEmail(email)) {
       try {
-        let res = await register({name:name, email:email, password:password}).unwrap();
+        let res = await updateprofile({_id:userInfo._id,name:name, email:email, password:password}).unwrap();
         dispatch(setCrenditails({...res}));
+        toast.success("Profile updated!");
         navigate(routes.home);
-        nav
       } catch (error) {
         console.log("err", error.message);
         toast.error(error.data.message || error.message);
@@ -71,7 +82,7 @@ function ProfileScreen() {
               </div>
           </div>
           <div className='signBtnDiv'>
-          <button onClick={onSubmitRegister} className='btn-log'>Update</button>
+          <button onClick={onSubmitUpdate} className='btn-log'>Update</button>
           </div>
         </div>
         </div>
