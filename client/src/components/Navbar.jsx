@@ -3,6 +3,7 @@ import { Outlet, useNavigate } from "react-router-dom";
 import { CgProfile } from "react-icons/cg";
 import { IoIosLogOut } from "react-icons/io"
 import { RiArrowDropDownLine } from "react-icons/ri"
+import { RiArrowDropUpLine } from "react-icons/ri";
 import { useDispatch, useSelector } from 'react-redux';
 import {useLogoutMutation} from "../redux/slices/userSlice";
 import {routes} from "../routes/routes";
@@ -17,13 +18,14 @@ function Navbar() {
   const [logout] = useLogoutMutation();
   const dispatch = useDispatch();
   const navigate =useNavigate();
-  let menuRef = useRef("menu")
+  let menuRef = useRef()
 
       let userInfo = localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')) : {};
     
       useClickOutside(menuRef,()=>{
-        setDropDown(!dropDown);
-      })
+        setDropDown(false);
+      });
+
 
     console.log("dropDownWorking", dropDown, userDetail);
 
@@ -53,16 +55,16 @@ function Navbar() {
         <div id="brandlogo">
         Jwt.
         </div>
-        <div id='navbarProfileDiv'>
+        <div  onClick={() => setDropDown(!dropDown)}  ref={menuRef} id='navbarProfileDiv'>
         {userInfo?.name && (
         <>
         <CgProfile id='navbarProfile'  />
         <h5 id='navbarProfileName'>{userInfo?.name}</h5>
-        <RiArrowDropDownLine ref={menuRef} />
+        {dropDown ?  <RiArrowDropUpLine />  : <RiArrowDropDownLine /> }
         </>
         )}
         {(userInfo?.name) &&  
-        <div ref={menuRef} className={`dropdown-menu ${dropDown ? "active" : "inactive"}`} >
+        <div  className={`dropdown-menu ${dropDown ? "active" : "inactive"}`} >
           <ul>
           <DropdownItem onClick={onEditBtn} icon={LiaUserEditSolid} text={"Edit Profile"}/>
             <DropdownItem onClick={logOutHandler} icon={IoIosLogOut} text={"Logout"}/>

@@ -41,6 +41,7 @@ function ProfileScreen() {
   }
 
   const onSubmitUpdate = async(e) => {
+    console.log("emailProfile", email, typeof email);
     e.preventDefault();
     if(validateEmail(email)) {
       try {
