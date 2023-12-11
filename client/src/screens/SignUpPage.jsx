@@ -30,6 +30,7 @@ function SignUp() {
   }
 
   const onSubmitRegister = async(e) => {
+    console.log("emailSign", email, typeof email);
     e.preventDefault();
     if(validateEmail(email)) {
       try {

@@ -15,6 +15,14 @@ const userSchema = mongoose.Schema(
         password:{
             type:String,
             required:true,
+        },
+        roleType:{
+            type:Number,
+            default:0,
+        },
+        roleName:{
+            type:String,
+            default:"patient",
         }
     }, {
         timestamps:true,

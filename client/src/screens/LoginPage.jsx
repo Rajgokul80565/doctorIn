@@ -7,7 +7,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { routes } from "../routes/routes";
 import { useLoginMutation } from "../redux/slices/userSlice";
 import { useDispatch, useSelector} from "react-redux";
-import { setCrenditails } from '../redux/slices/authslice';
+import { setCrenditails, clearCreditails } from '../redux/slices/authslice';
 import { toast } from 'react-toastify';
 
 
@@ -27,8 +27,8 @@ function Login() {
  const {userInfo} = useSelector((state) => state.auth);
 
 useEffect(()=> {
-  console.log("rend...pls");
-},[userInfo])
+  dispatch(clearCreditails());
+},[])
 
 
   let switchPassword = () => {
@@ -44,7 +44,11 @@ useEffect(()=> {
       let res = await login({email: email, password: password}).unwrap();
       console.log("resLogin", res);
       dispatch(setCrenditails({...res}));
-      navigate(routes.home);
+      if(res?.roleType == 1){
+        navigate(routes.doctorHome);
+      }else{
+        navigate(routes.userHome);
+      }   
     } catch (err) {
       console.log( "error",err.data.message);
       toast.error(err.data.message || err.message);
@@ -79,9 +83,7 @@ useEffect(()=> {
           <button className='btn-log' onClick={onSubmit}>Log in</button>
           <p>don't have an account yet, <Link to={routes.signup}> <a href=''>SignUp</a></Link> </p> 
           </div>
-
         </div>
-         
         </div>
          
     </div>

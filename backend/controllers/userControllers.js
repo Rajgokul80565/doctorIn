@@ -18,6 +18,8 @@ const authUser = asyncHandler( async (req, res) => {
             _id:user._id,
             name:user.name,
             email:user.email,
+            roleType:user.roleType,
+            roleName:user.roleName,
         })
     }else{
         res.status(401);

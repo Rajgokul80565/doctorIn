@@ -9,6 +9,8 @@ import {
     Login,
     SignUp,
     Home,
+    Admindashboard,
+    UserDashboard,
     ProfileScreen
 } from "../screens";
 import Navbar from "../components/Navbar"
@@ -23,10 +25,10 @@ function RouterApp() {
         <Route path={routes.login} element={<Login/>} />
         <Route path={routes.signup} element={<SignUp/>} />
         <Route path="" element={<PrivateRoute/>}>
-        <Route path={routes.home} element={<Home/>} />
+        <Route path={routes.doctorHome} element={<Admindashboard/>} />
         </Route>
         <Route path="" element={<PrivateRoute/>}>
-        <Route path={routes.profile} element={<ProfileScreen/>} />
+        <Route path={routes.userHome} element={<UserDashboard/>} />
         </Route>
       </Route>
     ));

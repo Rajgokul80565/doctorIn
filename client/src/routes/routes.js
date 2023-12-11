@@ -4,6 +4,8 @@ const routes = {
     login:"/login",
     signup:"/signup",
     profile:"/profile",
+    userHome:"/user/dashboard",
+    doctorHome:"/doctor/dashboard",
 }
 
 export {routes} ;
