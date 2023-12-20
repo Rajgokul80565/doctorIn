@@ -37,9 +37,7 @@ useEffect(()=> {
   }
 
   const onSubmit = async (e) => {
-    console.log("emailLogin", email, typeof email);
     e.preventDefault();
-    console.log("login credentials", email, password);
     try {
       let res = await login({email: email, password: password}).unwrap();
       console.log("resLogin", res);
