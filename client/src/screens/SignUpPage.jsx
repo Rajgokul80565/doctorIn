@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import "../App.css";
 // import { ReactComponent as LoginImg } from "../../public/images/login_img.svg"
 import SignupImg from "../assets/images/signUp2.svg"
@@ -8,7 +8,7 @@ import { Link, useNavigate } from "react-router-dom";
 import {routes} from "../routes/routes";
 import { useDispatch, useSelector} from "react-redux";
 import {useRegisterMutation} from "../redux/slices/userSlice";
-import {setCrenditails} from "../redux/slices/authslice"
+import {clearCreditails, setCrenditails} from "../redux/slices/authslice"
 import { toast } from 'react-toastify';
 import {validateEmail} from "../utils/"
 
@@ -28,6 +28,9 @@ function SignUp() {
     setShowPassword(!showPassword);
     setEyeIcon(!eyeIcon);
   }
+  useEffect(()=> {
+    dispatch(clearCreditails())
+  },[])
 
   const onSubmitRegister = async(e) => {
     console.log("emailSign", email, typeof email);

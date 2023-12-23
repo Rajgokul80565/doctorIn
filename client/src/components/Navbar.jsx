@@ -11,6 +11,7 @@ import {clearCreditails} from "../redux/slices/authslice"
 import { LiaUserEditSolid } from "react-icons/lia";
 import {useClickOutside} from "../hooks"
 
+
 function Navbar() {
 
   const [userDetail, setUserDetail] = useState({});
@@ -19,9 +20,8 @@ function Navbar() {
   const dispatch = useDispatch();
   const navigate =useNavigate();
   let menuRef = useRef()
+  const {userInfo} = useSelector((state) => state.auth);
 
-      let userInfo = localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')) : {};
-    
       useClickOutside(menuRef,()=>{
         setDropDown(false);
       });
