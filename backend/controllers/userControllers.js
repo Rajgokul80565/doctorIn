@@ -1,6 +1,8 @@
 import User from "../models/userModel.js";
+import Booking from "../models/bookingModel.js";
 import generateToken from "../utils/generateToken.js";
 import asyncHandler from "express-async-handler";
+
 
 // @desc Authenticate User
 // @route POST - /api/users/auth
@@ -117,6 +119,66 @@ const updateUserProfile = asyncHandler ( async (req, res) => {
     }
 });
 
+// userName:{
+//         type: String,
+//         required: true,
+//     },
+//     userId:{
+//         type:String,
+//         required: true,
+//     },
+//     doctorName:{
+//         type:String,
+//         required: true,
+//     },
+//      doctorId:{
+//         type:String,
+//         required: true,
+//      },
+//      specialist:{
+//         type:String,
+//         required: true,
+//      },
+//      status:{
+//         type:Boolean,
+//         required: true,
+//      },
+//      bookingDateTime:{
+//         type:Date,
+//         required: true,
+//      },
+
+// @desc  Booking appoinment
+// @route POST - /api/users/booking
+// @access private
+const bookingAppointment = asyncHandler (async (req,res)=> {
+   let {userName,userId,doctorName,doctorId,specialist,bookingDateTime } = req?.body;
+   // status -remaining
+
+    let book = await Booking.create({
+        userName,
+        userId,
+        doctorName,
+        doctorId,
+        specialist,
+        bookingDateTime,
+        status:true,
+    });
+
+    if(book){
+        res.status(201).json({
+            _id:book._id,
+            doctorName,
+            doctorId,
+            specialist,
+            bookingDateTime
+        });
+    }else{
+        res.status(400);
+        throw new Error('invalid Booking data')
+    };
+})
 
 
-export { authUser, registerUser, loginOutUser, getUserProfile , updateUserProfile};
+
+export { authUser, registerUser, loginOutUser, getUserProfile , updateUserProfile,bookingAppointment};
