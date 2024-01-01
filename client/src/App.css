@@ -1,6 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 
+
+:root {
+    --primary-color: hotpink;
+    --secondary-color:rgb(120, 118, 118);
+    --brand-font-style:'Pacifico', cursive;
+    --secondry-font-style: 'Poppins', sans-serif;
+  }
 body {
     overflow: hidden;
 }
@@ -13,7 +20,7 @@ body {
 }
 
 #brandlogo{
-    font-family: 'Pacifico', cursive;
+    font-family: var(--brand-font-style);
     font-size: 23px;
     padding-top: 15px;
     padding-left: 20px;
@@ -41,7 +48,7 @@ body {
 }
 
 #navbarProfileName{
-    font-family: 'Poppins', sans-serif;
+    font-family: var(--secondry-font-style);
     font-size: 14px;
     font-weight: normal;
 }
@@ -52,13 +59,13 @@ body {
 
 /* Loginpage styles */
 .welcomeText {
-    font-family: 'Poppins', sans-serif;
+    font-family: var(--secondry-font-style);
     font-weight: bold;
 }
 .secondaryWelcome {
-    font-family: 'Poppins', sans-serif;
+    font-family:var(--secondry-font-style);
     font-size: 9px;
-    color: rgb(120, 118, 118);
+    color: var(--secondary-color);
 }
 
 #logMainLayer {
@@ -131,7 +138,7 @@ body {
 }
 
 .logSignFormDiv label {
-    font-family: 'Poppins', sans-serif;
+    font-family: var(--secondry-font-style);
     font-size: 9px;
     color: rgb(71, 70, 70);
     margin-top: 30px;
@@ -169,9 +176,9 @@ body {
 }
 
 .logSignBtnDiv p {
-    font-family: 'Poppins', sans-serif;
+    font-family: var(--secondry-font-style);
     font-size: 9px;
-    color: rgb(120, 118, 118);
+    color:  var( --secondary-color);
     margin-top: 10px;
     word-spacing: 1px;
 }
@@ -195,9 +202,9 @@ body {
 }
 
 .signBtnDiv p {
-    font-family: 'Poppins', sans-serif;
+    font-family:var(--secondry-font-style);
     font-size: 9px;
-    color: rgb(120, 118, 118);
+    color:  var( --secondary-color);
     margin-top: 10px;
     word-spacing: 1px;
 }

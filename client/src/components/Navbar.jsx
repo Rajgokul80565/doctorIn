@@ -33,7 +33,6 @@ function Navbar() {
       console.log("logOutHandlerclicking..")
       try {
         let logOutUser =  await logout().unwrap();
-        userInfo= {};
         setUserDetail({});
         dispatch(clearCreditails());
         setDropDown(false);

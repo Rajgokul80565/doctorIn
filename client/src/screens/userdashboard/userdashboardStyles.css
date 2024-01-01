@@ -1,0 +1,31 @@
+.main{
+    min-height:100vh;
+    display: grid;
+    grid-template-columns: 1fr 7fr;
+}
+
+.sidebar_main{
+    background-color:pink;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+}
+
+
+.sidebar_icon{
+    font-size: 1.6rem;
+}
+.main_content{
+    background-color:aqua;
+}
+
+.sidebar_main_item{
+    display: flex;
+    flex-direction: row;
+}
+
+.sidebar_main_item h6{
+    font-family:  var(--secondry-font-style);
+     font-size:0.9rem;  
+ }
