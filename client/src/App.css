@@ -3,7 +3,7 @@
 
 
 :root {
-    --primary-color: hotpink;
+    --primary-color: #FFFFFF;
     --secondary-color:rgb(120, 118, 118);
     --brand-font-style:'Pacifico', cursive;
     --secondry-font-style: 'Poppins', sans-serif;
@@ -17,6 +17,8 @@ body {
     display:flex;
     justify-content:space-between;
     align-items: center;
+    border-bottom: 1px solid #f5f5f5;
+    background-color: var(--primary-color);
 }
 
 #brandlogo{
