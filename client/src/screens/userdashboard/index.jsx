@@ -4,6 +4,7 @@ import { IoMdHome } from "react-icons/io";
 import { FaBloggerB } from "react-icons/fa6";
 import { FaArrowRight } from "react-icons/fa";
 import { FaArrowLeft } from "react-icons/fa";
+import {ToolTip} from "../../components"
 
 function UserDashboard() {
 
@@ -12,20 +13,23 @@ function UserDashboard() {
   return (
     <div className={`main ${openSide ? "active" : "inactive"}`}>
         <div className="sidebar_main">
-        <div className="sidebar_main_item">
+        <ToolTip text="Home" show={openSide}>
+        <div  className="sidebar_main_item">
         <IoMdHome className='sidebar_icon'/>
         { openSide && <h6>Home</h6>}
           
         </div>
-       
+        </ToolTip>
+        <ToolTip text="blogs"  show={openSide}>
         <div className="sidebar_main_item">
         <FaBloggerB />
         { openSide && <h6>Blogs</h6>}
        
         </div>
+        </ToolTip>
         {openSide ? (
           <div onClick={() => setOpenSide(!openSide)} className="sidebar_main_item sidebar_btn">
-          <FaArrowLeft/>
+          <FaArrowLeft className="sidebar_btn_icon"/>
         </div>
         ) : (
           <div onClick={() => setOpenSide(!openSide)} className="sidebar_main_item sidebar_btn">
@@ -38,7 +42,8 @@ function UserDashboard() {
         </div>
         
         <div className="main_content">
-          maincontent
+            <div className="left_Main">LeftMain</div>
+            <div className="right_Main">BookingMain</div>
         </div>
     </div>
   )

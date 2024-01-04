@@ -5,13 +5,12 @@
 }
 .main.active{
     grid-template-columns: 1fr 10fr;
+    transition: 600ms;
 }
 .main.inactive{
     grid-template-columns: 1fr 20fr;
+    transition: 600ms;
 }
-
-
-
 
 .sidebar_main{
     display: flex;
@@ -28,6 +27,7 @@
     gap: 10px;
     align-items: center;
     margin-top: 30px;
+    cursor: pointer;
 }
 
 .sidebar_main_item h6{
@@ -53,10 +53,17 @@
 .sidebar_icon{
     font-size: 1.4rem;
 }
-.main_content{
 
-    display: flex;
-    justify-content:center;
-    align-items:center;
+.main_content{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
 }
+.left_Main{
+    background-color: antiquewhite;
+}
+
+.right_Main{
+    background-color:aqua
+}
+
 

@@ -42,6 +42,7 @@ function Navbar() {
       }
      
     }
+    console.log("userInfo123", userInfo);
 
     const onEditBtn = () => {
       setDropDown(false);
