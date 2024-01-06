@@ -1,0 +1,46 @@
+#doctorcard_main{
+    background-color:rgb(255, 255, 255);
+    max-width: 200px;
+    height: 200px;
+    display: grid;
+    grid-template-rows: 3fr 4fr;
+    /* border: 1px solid rgb(215, 214, 214); */
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 30px;
+    /* display: flex;
+    flex-direction: column;
+    justify-content:space-around; */
+}
+
+
+.doctorcardProfile_sec{
+    display: flex;
+    justify-content:space-around;
+    align-items:center;
+   
+}
+.details_sec{
+    border-top: 1px solid rgb(225, 225, 225);
+}
+
+.doctorcardProfile_sec p {
+    font-family: var(--secondry-font-style);
+    font-size:0.9rem;
+    color:var( --secondary-color);
+}
+.profileCard_Icon{
+   font-size:30px;
+}
+
+.details_sec{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+.details_item{
+    display: flex;
+    justify-content:space-between;
+    gap: 20px;
+    align-items:center;
+}

@@ -4,7 +4,8 @@ import { IoMdHome } from "react-icons/io";
 import { FaBloggerB } from "react-icons/fa6";
 import { FaArrowRight } from "react-icons/fa";
 import { FaArrowLeft } from "react-icons/fa";
-import {ToolTip} from "../../components"
+import {ToolTip, DoctorsCard} from "../../components";
+
 
 function UserDashboard() {
 
@@ -43,7 +44,9 @@ function UserDashboard() {
         
         <div className="main_content">
             <div className="left_Main">LeftMain</div>
-            <div className="right_Main">BookingMain</div>
+            <div className="right_Main">
+            <DoctorsCard/>
+            </div>
         </div>
     </div>
   )
