@@ -26,7 +26,7 @@
 .doctorcardProfile_sec p {
     font-family: var(--secondry-font-style);
     font-size:0.9rem;
-    color:var( --secondary-color);
+    color:#62A2E2;
 }
 .profileCard_Icon{
    font-size:30px;
@@ -35,12 +35,19 @@
 .details_sec{
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
+    justify-content: space-around;
+    padding:10px;
+    align-items:flex-start;
 }
 .details_item{
     display: flex;
-    justify-content:space-between;
-    gap: 20px;
+    gap: 10px;
     align-items:center;
+    overflow-wrap: break-word;
+}
+
+.details_item p{
+    font-family: var(--secondry-font-style);
+    font-size:0.6rem;
+    color:var( --secondary-color);
 }

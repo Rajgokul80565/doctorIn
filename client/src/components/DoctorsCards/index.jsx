@@ -1,6 +1,10 @@
 import React from 'react';
 import "./doctorcards.css";
 import { TfiLayoutPlaceholder } from "react-icons/tfi"
+import { MdOutlineWorkOutline } from "react-icons/md";
+import { MdAccessTime } from "react-icons/md";
+import { MdWorkspacePremium } from "react-icons/md";
+
 
 function DoctorsCard() {
   return (
@@ -11,16 +15,17 @@ function DoctorsCard() {
        </div>
        <div className="details_sec">
         <div className="details_item">
-          <p>specialist:</p>
-          <p>cardio</p>
+        <MdOutlineWorkOutline/>
+          <p>cardiologist</p>
         </div>
         <div className="details_item">
-          <p>work:</p>
-          <p>Monday to Friday, 10am-5pm</p>
+    
+        <MdWorkspacePremium/>
+         <p>7 years of experience</p>
         </div>
         <div className="details_item">
-          <p>status:</p>
-          <p>available</p>
+        <MdAccessTime/>
+        <p>Monday to Friday, 10am-5pm</p>
         </div>
        </div>
     </div>
