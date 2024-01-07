@@ -28,6 +28,9 @@ function DoctorsCard() {
         <p>Monday to Friday, 10am-5pm</p>
         </div>
        </div>
+       <button>
+        Book
+       </button>
     </div>
   )
 }

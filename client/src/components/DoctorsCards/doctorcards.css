@@ -3,13 +3,24 @@
     max-width: 200px;
     height: 200px;
     display: grid;
-    grid-template-rows: 3fr 4fr;
+    grid-template-rows: 3fr 5fr 1.3fr;
     /* border: 1px solid rgb(215, 214, 214); */
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    border-radius: 30px;
-    /* display: flex;
-    flex-direction: column;
-    justify-content:space-around; */
+    /* #38c6e6 */
+    border-radius: 20px;
+}
+
+#doctorcard_main button{
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    border: none;
+    background-color: black;
+    color: white;
+    font-family: var(--secondry-font-style);
+    font-size: 0.8rem;
+ 
+    cursor: pointer;
+
 }
 
 

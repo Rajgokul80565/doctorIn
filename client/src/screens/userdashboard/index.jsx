@@ -46,7 +46,21 @@ function UserDashboard() {
             <div className="left_Main">LeftMain</div>
             <div className="right_Main">
             <div className="doctor_list_container_1">
-            <DoctorsCard/>
+            <div id='card_slider'>
+            <div className="card_slider_item">
+            <DoctorsCard />
+            </div>
+            <div className="card_slider_item">
+            <DoctorsCard />
+            </div>
+            <div className="card_slider_item">
+            <DoctorsCard />
+            </div>
+            <div className="card_slider_item">
+            <DoctorsCard />
+            </div>
+            </div>
+           
             </div>
             <div className="doctor_list_container_2">
             

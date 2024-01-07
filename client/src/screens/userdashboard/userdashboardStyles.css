@@ -1,7 +1,7 @@
 .main{
     min-height:100vh;
     display: grid;
-    background-color: #F4F6F9;
+
 }
 .main.active{
     grid-template-columns: 1fr 10fr;
@@ -68,13 +68,52 @@
     grid-template-rows: 1fr 1fr;
 }
 
+.doctor_list_container_1{
+    display: flex;
+    justify-content:center;
+    align-items:center;
+    scrollbar-width: none;
+    transition: 600ms;
+}
 
+#card_slider{
+    width: 600px;
+    height: 300px;
+    display: flex;
+    gap: 20px;
+    align-items:center;
+    white-space: nowrap;
+    overflow-x: scroll;
+  
+    
+}
+#card_slider::-webkit-scrollbar{
+    display: none;
+}
+
+.card_slider_item{
+    display:inline-block;
+}
+
+
+
+/* .doctor_list_container_1::before{
+    content: "";
+  position:absolute;
+  margin:-20px;
+  width:40px;
+  height:40px;
+  transform:rotate(45deg);
+  background-color:#000; 
+} */
+
+/* 
 .doctor_list_container_1{
     background-color:antiquewhite;
-}
-.doctor_list_container_2{
+} */
+/* .doctor_list_container_2{
     background-color:green;
-}
+} */
 
 
 
