@@ -66,6 +66,7 @@
 .right_Main{
     display: grid;
     grid-template-rows: 1fr 1fr;
+   
 }
 
 .doctor_list_container_1{
@@ -74,6 +75,13 @@
     align-items:center;
     scrollbar-width: none;
     transition: 600ms;
+    gap: 15px;
+
+  
+}
+
+.card_slider_icon{
+    cursor: pointer;
 }
 
 #card_slider{
@@ -84,8 +92,9 @@
     align-items:center;
     white-space: nowrap;
     overflow-x: scroll;
-  
-    
+    padding-left: 10px;
+    padding-right: 10px;
+    scroll-behavior: smooth;
 }
 #card_slider::-webkit-scrollbar{
     display: none;
