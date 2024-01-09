@@ -129,55 +129,7 @@
     background-color:green;
 } */
 
-.left_Main{
-    display:grid;
-    grid-template-rows: 1fr 3fr 2fr;
-    gap: 20px;
-    align-items:stretch;
-    align-self:center;
-   
-    
-}
-.left_userinfo{
-    display: grid;
-    grid-template-columns:5fr 1fr;
-    padding-left: 50px;
-    align-items: center;
-}
 
-
-.left_userinfo h6{
-    font-family: var(--secondry-font-style);
-    font-size:30px;
-    font-weight:700;
-}
-
-#settingsIcon{
-    font-size: 40px;
-    opacity: 0.5;
-    color: rgb(120, 117, 117);
-    transition: 500ms;
-}
-
-#username{
-    color:var(--primary-app-color);
-}
-#right_blog {
-   
-    display: flex;
-    align-items: center;
-    justify-content:center;
-   
-    
-}
-#right_result{
- 
-    display: flex;
-    align-items: center;
-    justify-content:center;
-   
- 
-}
 
 /* #left_userinfo{
     background:blanchedalmond;
