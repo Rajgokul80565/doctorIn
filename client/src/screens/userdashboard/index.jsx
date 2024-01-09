@@ -7,9 +7,8 @@ import { FaArrowLeft } from "react-icons/fa";
 import {ToolTip, DoctorsCard} from "../../components";
 import { IoIosArrowBack } from "react-icons/io";
 import { IoIosArrowForward } from "react-icons/io";
-import { CiSettings } from "react-icons/ci";
 import { LiaUserEditSolid } from "react-icons/lia";
-import { IoMdSettings } from "react-icons/io";
+
 import { useDispatch, useSelector} from "react-redux";
 
 
