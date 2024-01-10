@@ -68,7 +68,23 @@ function UserDashboard() {
         
         <div className="main_content">
             <div className="left_Main">
-     
+            <div className="left_userinfo">
+              <div>
+              <h6>Hello,</h6>
+                  {userInfo?.name && (
+                  <h6 id="username">{userInfo?.name}</h6>
+                  )}
+              </div>
+                  {/* <CiSettings id="settingsIcon" /> */}
+                  <LiaUserEditSolid id="settingsIcon" />
+                  {/* <IoMdSettings id="settingsIcon" /> */}
+              </div>
+              <div id="right_blog">
+                    {/* Blogs here */}
+              </div>
+              <div id="right_result">
+              {/* results here */}
+</div>
             </div>
 
             <div className="right_Main">
