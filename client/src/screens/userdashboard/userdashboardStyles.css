@@ -76,9 +76,8 @@
     scrollbar-width: none;
     transition: 600ms;
     gap: 15px;
-
-  
 }
+
 
 .card_slider_icon{
     cursor: pointer;
@@ -98,6 +97,12 @@
 }
 #card_slider::-webkit-scrollbar{
     display: none;
+}
+#card_slider:before{
+   content: " ";
+    width:100px;
+    height:100%;
+    background: red;
 }
 
 .card_slider_item{
@@ -123,6 +128,76 @@
 /* .doctor_list_container_2{
     background-color:green;
 } */
+
+.left_Main{
+    display:grid;
+    grid-template-rows: 1fr 3fr 2fr;
+    gap: 20px;
+    align-items:stretch;
+    align-self:center;
+   
+    
+}
+.left_userinfo{
+    display: grid;
+    grid-template-columns:5fr 1fr;
+    padding-left: 50px;
+    align-items: center;
+}
+
+
+.left_userinfo h6{
+    font-family: var(--secondry-font-style);
+    font-size:30px;
+    font-weight:700;
+}
+
+#settingsIcon{
+    font-size: 40px;
+    opacity: 0.5;
+    color: rgb(120, 117, 117);
+    transition: 500ms;
+}
+
+#username{
+    color:var(--primary-app-color);
+}
+#right_blog {
+   
+    display: flex;
+    align-items: center;
+    justify-content:center;
+   
+    
+}
+#right_result{
+ 
+    display: flex;
+    align-items: center;
+    justify-content:center;
+   
+ 
+}
+
+/* #left_userinfo{
+    background:blanchedalmond;
+    height: 100%;
+    width: 100%;
+}
+#right_blog {
+    background:purple;
+    height: 100%;
+    width: 100%;
+    
+}
+#right_result{
+    background:palegreen;
+    height: 100%;
+    width: 100%;
+ 
+} */
+
+
 
 
 

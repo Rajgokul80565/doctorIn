@@ -7,23 +7,33 @@ import { FaArrowLeft } from "react-icons/fa";
 import {ToolTip, DoctorsCard} from "../../components";
 import { IoIosArrowBack } from "react-icons/io";
 import { IoIosArrowForward } from "react-icons/io";
+import { CiSettings } from "react-icons/ci";
+import { LiaUserEditSolid } from "react-icons/lia";
+import { IoMdSettings } from "react-icons/io";
+import { useDispatch, useSelector} from "react-redux";
 
 
 function UserDashboard() {
 
   const [openSide, setOpenSide] = useState(false);
-
+  const {userInfo} = useSelector((state) => state.auth);
   const sliderLeft = () => {
     debugger;
     let sliderback = document.getElementById("card_slider");
     sliderback.scrollLeft = sliderback.scrollLeft - 550;
   }
-
+  console.log("userDashboard", userInfo);
   const sliderRight = () => {
     debugger;
     let sliderForward = document.getElementById("card_slider");
     sliderForward.scrollLeft = sliderForward.scrollLeft + 550;
   }
+  
+// email: "ali@gmail.com"
+// name: "Ali Abdaal"
+// roleName: "patient"
+// roleType: 0
+// _id: "658449ebdaf1cdade7bcd952"
 
   return (
     <div className={`main ${openSide ? "active" : "inactive"}`}>
@@ -57,7 +67,10 @@ function UserDashboard() {
         </div>
         
         <div className="main_content">
-            <div className="left_Main">LeftMain</div>
+            <div className="left_Main">
+     
+            </div>
+
             <div className="right_Main">
             <div className="doctor_list_container_1">
             <IoIosArrowBack onClick={sliderLeft} className="card_slider_icon"/>

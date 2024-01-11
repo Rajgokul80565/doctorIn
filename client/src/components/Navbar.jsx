@@ -53,7 +53,7 @@ function Navbar() {
     <>
         <div  id='navbar' >
         <div id="brandlogo">
-        Jwt.
+        DocIn.
         </div>
         <div  onClick={() => setDropDown(!dropDown)}  ref={menuRef} id='navbarProfileDiv'>
         {userInfo?.name && (
