@@ -28,6 +28,9 @@ function RouterApp() {
         <Route path={routes.doctorHome} element={<Admindashboard/>} />
         </Route>
         <Route path="" element={<PrivateRoute/>}>
+        <Route path={routes.profile} element={<ProfileScreen/>} />
+        </Route>
+        <Route path="" element={<PrivateRoute/>}>
         <Route path={routes.userHome} element={<UserDashboard/>} />
         </Route>
       </Route>

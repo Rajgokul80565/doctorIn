@@ -67,7 +67,7 @@ useEffect(()=> {
           <div className='logSignFormDiv'>
               <label htmlFor="email">Email</label>
               <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} name="email" />
-              <label htmlFor="email">Passwor</label>
+              <label htmlFor="email">Password</label>
               <div className='passwordField'>
               <input 
               type={showPassword ? "text" : "password"} 

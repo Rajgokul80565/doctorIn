@@ -1,1 +1,1 @@
-export {validateEmail} from "./validations";
+export {validateEmail, convertToBase64} from "./validations";

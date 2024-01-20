@@ -80,6 +80,7 @@ body {
     justify-content:space-around;
     align-items:center;
     position:relative;
+   
 }
 
 #logLeft {
@@ -289,5 +290,7 @@ body {
     font-size: 15px;
     transition: 500ms;
   }
+/* Profile page*/
+
 
 

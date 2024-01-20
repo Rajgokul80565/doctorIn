@@ -21,7 +21,11 @@ const doctorSchema = mongoose.Schema({
     availabilityStatus:{
         type: Boolean,
         required: true,
-    }
+    },
+    profilePicture:{
+        type:String,
+        default:"",
+    },
 },
 {timestamps: true}
 );

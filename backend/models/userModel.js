@@ -23,6 +23,10 @@ const userSchema = mongoose.Schema(
         roleName:{
             type:String,
             default:"patient",
+        },
+        profilePicture:{
+            type:String,
+            default:"",
         }
     }, {
         timestamps:true,

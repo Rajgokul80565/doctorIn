@@ -24,10 +24,10 @@ function ProfileScreen() {
 
   useEffect(()=> {
     if(userInfo){
-      setName(userInfo.name);
-      setEmail(userInfo.email);
+      setName(userInfo?.name);
+      setEmail(userInfo?.email);
     }
-  },[userInfo.name, userInfo.email])
+  },[userInfo?.name, userInfo?.email])
 
   console.log("updateProfile", userInfo); 
 
@@ -62,7 +62,7 @@ function ProfileScreen() {
 
   return (
     <div id='logMainLayer'>
-        <div id='logLeft'>
+        {/* <div id='logLeft'>
           <img className='loginLeftImg' src={SignupImg} alt="login image" />
         </div>
         <div id='logRight'>
@@ -86,7 +86,8 @@ function ProfileScreen() {
           <button onClick={onSubmitUpdate} className='btn-log'>Update</button>
           </div>
         </div>
-        </div>
+        </div> */}
+        
          
     </div>
   )
