@@ -24,7 +24,7 @@ function UserDashboard() {
       let selectedFile = e?.target?.files?.[0];
       let base64Format = await convertToBase64(selectedFile);
       setProfile(base64Format);
-      console.log("selectedFile", base64Format);
+     
   }
 
 
