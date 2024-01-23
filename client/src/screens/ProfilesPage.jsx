@@ -61,35 +61,64 @@ function ProfileScreen() {
   }
 
   return (
-    <div id='logMainLayer'>
-        {/* <div id='logLeft'>
-          <img className='loginLeftImg' src={SignupImg} alt="login image" />
+    <div id="profileMain">
+        <div id="profileDiv">
+          <div className='left_profile_div'>
+          <div className='profile_header'>
+          <h3>Profile & setting</h3>
+          </div>
+          <div className='profile_type'>
+          <p>Personal Info</p>
+          </div>
+          
+          </div>
+          <div className='right_profile_div'>
+            <div className='upper_right_ptofile'>
+            <div className='update-btn-card'>               
+             <h3 className='update-btn-card_content'>Personal Info</h3>
+              <p>You can update your profile photo and details here</p>
+            </div>
+              <div className='update-btn-div' >
+              <button>Update</button>
+            </div>
+            </div>
+            
+            
+            <div>
+                main content
+            </div>
+          </div>
         </div>
-        <div id='logRight'>
-        <div className='logSignCard'>
-          <div className='logSignFirstCard'>
-          <h2 className='welcomeText'>Update profile</h2>
-          <h6 className='secondaryWelcome'>please enter your details</h6>
-          </div>
-          <div className='logSignFormDiv'>
-          <label htmlFor="email">Name</label>
-              <input type="text" value={name} onChange={(e) => setName(e.target.value)} name="name" />
-              <label htmlFor="email">Email</label>
-              <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} name="email" />
-              <label htmlFor="email">Password</label>
-              <div className='passwordField'>
-              <input type={showPassword ? "text" : "password"} value={password} onChange={(e) => setPassword(e.target.value)} name="password" />
-              { eyeIcon ? <FaRegEye onClick={switchPassword} className='passwordEyeIcon' /> : <FaRegEyeSlash onClick={switchPassword} className='passwordEyeIcon'/> }
-              </div>
-          </div>
-          <div className='signBtnDiv'>
-          <button onClick={onSubmitUpdate} className='btn-log'>Update</button>
-          </div>
-        </div>
-        </div> */}
+    </div>
+    // <div id='logMainLayer'>
+    //     <div id='logLeft'>
+    //       <img className='loginLeftImg' src={SignupImg} alt="login image" />
+    //     </div>
+    //     <div id='logRight'>
+    //     <div className='logSignCard'>
+    //       <div className='logSignFirstCard'>
+    //       <h2 className='welcomeText'>Update profile</h2>
+    //       <h6 className='secondaryWelcome'>please enter your details</h6>
+    //       </div>
+    //       <div className='logSignFormDiv'>
+    //       <label htmlFor="email">Name</label>
+    //           <input type="text" value={name} onChange={(e) => setName(e.target.value)} name="name" />
+    //           <label htmlFor="email">Email</label>
+    //           <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} name="email" />
+    //           <label htmlFor="email">Password</label>
+    //           <div className='passwordField'>
+    //           <input type={showPassword ? "text" : "password"} value={password} onChange={(e) => setPassword(e.target.value)} name="password" />
+    //           { eyeIcon ? <FaRegEye onClick={switchPassword} className='passwordEyeIcon' /> : <FaRegEyeSlash onClick={switchPassword} className='passwordEyeIcon'/> }
+    //           </div>
+    //       </div>
+    //       <div className='signBtnDiv'>
+    //       <button onClick={onSubmitUpdate} className='btn-log'>Update</button>
+    //       </div>
+    //     </div>
+    //     </div>
         
          
-    </div>
+    // </div>
   )
 }
 
