@@ -1,16 +1,20 @@
 import React, {useState, useEffect} from 'react';
 import "../App.css";
 // import { ReactComponent as LoginImg } from "../../public/images/login_img.svg"
-import SignupImg from "../assets/images/signUp2.svg"
-import { FaRegEye } from "react-icons/fa";
-import { FaRegEyeSlash } from "react-icons/fa";
+// import SignupImg from "../assets/images/signUp2.svg"
+// import { FaRegEye } from "react-icons/fa";
+// import { FaRegEyeSlash } from "react-icons/fa";
+import profilePlaceholder from "../assets/images/profile2.jpg"
 import { Link, useNavigate } from "react-router-dom";
 import {routes} from "../routes/routes";
 import { useDispatch, useSelector} from "react-redux";
 import {useUpdateprofileMutation} from "../redux/slices/userSlice";
 import {setCrenditails} from "../redux/slices/authslice"
 import { toast } from 'react-toastify';
-import {validateEmail} from "../utils"
+import {validateEmail} from "../utils";
+import { FaEdit } from "react-icons/fa";
+import { convertToBase64 } from "../utils";
+// import { CiEdit } from "react-icons/ci";
 
 function ProfileScreen() {
 
@@ -20,6 +24,7 @@ function ProfileScreen() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const {userInfo} = useSelector((state) => state.auth);
+  const [profile, setProfile] = useState("");
 
 
   useEffect(()=> {
@@ -56,8 +61,15 @@ function ProfileScreen() {
     }else{
       toast.error("Invalid email!");
     }
-   
+  }
 
+
+
+  const handleProfileImg = async (e) => {
+      let selectedFile = e?.target?.files?.[0];
+      let base64Format = await convertToBase64(selectedFile);
+      setProfile(base64Format);
+     
   }
 
   return (
@@ -82,10 +94,24 @@ function ProfileScreen() {
               <button>Update</button>
             </div>
             </div>
-            
-            
-            <div>
-                main content
+            <div className="profile_details">
+                <div className="profile_upload_div"
+                 
+                >
+
+                  <label htmlFor="file-upload">
+                    <input
+                type="file"
+                    name="profileFile"
+                    id="file-upload" 
+                    style={{display: 'none'}}
+                    accept='.jpeg, .png, .jpg'
+                    onChange={(e) => handleProfileImg(e)}
+                    />
+                                        <img className='profile_image' src={profile || profilePlaceholder} alt="profile image" />
+                    <FaEdit className="profile_edit_icon"/>
+                    </label>
+                </div>
             </div>
           </div>
         </div>

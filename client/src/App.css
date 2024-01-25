@@ -104,7 +104,7 @@ body {
     width:300px;
     height: 300px;
     position: absolute;
-    top:100px;
+    margin-bottom: 140px;
 
 }
 
@@ -316,6 +316,8 @@ body {
   flex-direction: column;
   align-items: center;
   padding-left: 20px ;
+  box-shadow: 10px 0 10px -2px #eeeeee;
+  border-radius: 0px 20px 0px 0px;
 }
 
 /* .left_profile_div::after{
@@ -339,7 +341,7 @@ background-color: #6E68F0;
 }
 .profile_type{
     display: flex;
-    height: 40px;
+    height: 20px;
     width: 100%;
     align-items: center;
 }
@@ -351,22 +353,59 @@ background-color: #6E68F0;
 
 .right_profile_div{
     display:grid;
-    grid-template-rows: 1fr 3fr;
+    grid-template-rows: 1fr 4fr;
+    padding-left: 40px;
 }
 
 .upper_right_ptofile{
     display:grid;
     grid-template-columns: 3fr 1fr;
     padding-top:20px;
-    padding-left: 30px;
-
+}
+.update-btn-card h3 {
+    font-family: var(--secondry-font-style);
+    font-size: 1rem;
+}
+.update-btn-card p {
+    font-family: var(--secondry-font-style);
+    font-size: 0.7rem;
+    color: var( --secondary-color);
 }
 
 .update-btn-div button{
     height: 30px;
     width: 70px;
     border:none;
+    border-radius:7px;
+    cursor: pointer;
     color: white;
     font-family: var(--secondry-font-style);
     background:var( --primary-app-color);
+}
+
+.profile_upload_div{
+    display: inline;
+    position: relative;
+    cursor: pointer;
+}
+
+.profile_upload_div img{
+    height:170px;
+    width:150px;
+}
+.profile_edit_icon{
+    position: absolute;
+    font-size:22px;
+    opacity:-1px;
+    color: rgb(225, 225, 225);
+    bottom:10px;
+    right: 60px;
+}
+.profile_edit_icon:hover{
+    color:rgb(146, 146, 146);
+}
+
+.profile_image{
+ 
+    border-radius: 100px;
 }
