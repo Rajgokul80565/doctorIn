@@ -1,9 +1,9 @@
 import React, {useState, useEffect} from 'react';
 import "../App.css";
 // import { ReactComponent as LoginImg } from "../../public/images/login_img.svg"
-// import SignupImg from "../assets/images/signUp2.svg"
-// import { FaRegEye } from "react-icons/fa";
-// import { FaRegEyeSlash } from "react-icons/fa";
+import SignupImg from "../assets/images/signUp2.svg"
+import { FaRegEye } from "react-icons/fa";
+import { FaRegEyeSlash } from "react-icons/fa";
 import profilePlaceholder from "../assets/images/profile2.jpg"
 import { Link, useNavigate } from "react-router-dom";
 import {routes} from "../routes/routes";
@@ -95,10 +95,7 @@ function ProfileScreen() {
             </div>
             </div>
             <div className="profile_details">
-                <div className="profile_upload_div"
-                 
-                >
-
+                <div className="profile_upload_div">
                   <label htmlFor="file-upload">
                     <input
                 type="file"
@@ -111,6 +108,40 @@ function ProfileScreen() {
                                         <img className='profile_image' src={profile || profilePlaceholder} alt="profile image" />
                     <FaEdit className="profile_edit_icon"/>
                     </label>
+                </div>
+                <div id="profile_form_main">
+                    <div  className="profile_input">
+                        <label>Name</label>
+                        <input type="text" value={name} onChange={(e) => setName(e.target.value)} name="name" />
+                    </div>
+                    <div  className="profile_input">
+                        <label>Email</label>
+                        <input disabled="true" type="text"  value={email} onChange={(e) => setEmail(e.target.value)} name="email"  />
+                    </div>
+                    <div  className="profile_input">
+                        <label>Password</label>
+                        <input type="password" />
+                    </div>
+                    {userInfo?.roleType == 1 && (
+                      <>
+                      <div className="profile_input">
+                        <label>Specialist</label>
+                        <input type="text" />
+                    </div>
+                    <div className="profile_input">
+                        <label>Availability Status</label>
+                        <div>
+                        <label class="switch">
+  <input type="checkbox"  />
+  <span class="slider">Online</span>
+</label>
+
+                        </div>
+                        
+                    </div>
+                      </>
+                    )}
+                   
                 </div>
             </div>
           </div>

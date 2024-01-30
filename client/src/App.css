@@ -299,7 +299,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-       padding: 20px;
+    padding: 20px;
 }
 
 #profileDiv{
@@ -397,8 +397,8 @@ background-color: #6E68F0;
     position: absolute;
     font-size:22px;
     opacity:-1px;
-    color: rgb(225, 225, 225);
-    bottom:10px;
+    color: rgb(86, 86, 86);
+    bottom:18px;
     right: 60px;
 }
 .profile_edit_icon:hover{
@@ -406,6 +406,117 @@ background-color: #6E68F0;
 }
 
 .profile_image{
- 
     border-radius: 100px;
 }
+
+#profile_form_main{
+    margin-top: 35px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+}
+
+.profile_input{
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+}
+
+.profile_input label{
+    font-family: var(--secondry-font-style);
+    font-size:14px;
+    color: var( --secondary-color);
+}
+
+.profile_input input[type="text"]{
+    outline: none;
+    width: 20rem;
+    height: 1.8rem;
+    margin-top: 1px;
+    border-radius: 10px;
+    border: 1.5px solid rgb(197, 196, 196);
+    transition: 0.5s;
+    padding-bottom: 4px;
+    padding-left: 24px;
+    padding-top: 4px;
+}
+.profile_input input[type="password"]{
+    outline: none;
+    width: 20rem;
+    height: 1.8rem;
+    margin-top: 1px;
+    border-radius: 10px;
+    border: 1.5px solid rgb(197, 196, 196);
+    transition: 0.5s;
+    padding-bottom: 4px;
+    padding-left: 24px;
+    padding-top: 4px;
+}
+
+.profile_input input[type="text"]:focus {
+    border: 2.2px solid #b9b9b9;
+
+}
+
+/* The switch - the box around the slider */
+.switch {
+    font-size: 17px;
+    position: relative;
+    display: inline-block;
+    width: 3.5em;
+    height: 2em;
+  }
+  
+  /* Hide default HTML checkbox */
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  /* The slider */
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    inset: 0;
+    /* background: #c1bff7; */
+    background: grey;
+    border-radius: 50px;
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.320, 1);
+  }
+  
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 1.4em;
+    width: 1.4em;
+    left: 0.3em;
+    bottom: 0.3em;
+    background-color: white;
+    border-radius: 50px;
+    box-shadow: 0 0px 20px rgba(0,0,0,0.4);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+  
+  .switch input:checked + .slider {
+    /* background: var(--primary-app-color); */
+    background: rgb(106, 220, 106);
+  }
+  
+  .switch input:focus + .slider {
+    box-shadow: 0 0 1px rgb(106, 220, 106);;
+  }
+  
+  .switch input:checked + .slider:before {
+    transform: translateX(1.6em);
+    width: 2em;
+    height: 2em;
+    bottom: 0;
+  }
+
+
+
+
+/* .profile_input > label, input{
+  display: block;
+} */
+
