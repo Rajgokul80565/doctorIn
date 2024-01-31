@@ -25,6 +25,7 @@ function ProfileScreen() {
   const [password, setPassword] = useState("");
   const {userInfo} = useSelector((state) => state.auth);
   const [profile, setProfile] = useState("");
+  const [status, setStatus] = useState(false);
 
 
   useEffect(()=> {
@@ -50,10 +51,11 @@ function ProfileScreen() {
     e.preventDefault();
     if(validateEmail(email)) {
       try {
-        let res = await updateprofile({_id:userInfo._id,name:name, email:email, password:password}).unwrap();
-        dispatch(setCrenditails({...res}));
-        toast.success("Profile updated!");
-        navigate(routes.home);
+        let res = await updateprofile({_id:userInfo._id,name:name, email:email, password:password, availabilityStatus:status, profilePicture:profile}).unwrap();
+        console.log("resss", res);
+        // dispatch(setCrenditails({...res}));
+        // toast.success("Profile updated!");
+        // navigate(routes.home);
       } catch (error) {
         console.log("err", error.message);
         toast.error(error.data.message || error.message);
@@ -71,6 +73,8 @@ function ProfileScreen() {
       setProfile(base64Format);
      
   }
+
+  console.log("checkbox", status);
 
   return (
     <div id="profileMain">
@@ -91,7 +95,7 @@ function ProfileScreen() {
               <p>You can update your profile photo and details here</p>
             </div>
               <div className='update-btn-div' >
-              <button>Update</button>
+              <button onClick={onSubmitUpdate}>Update</button>
             </div>
             </div>
             <div className="profile_details">
@@ -132,9 +136,9 @@ function ProfileScreen() {
                         <label>Availability Status</label>
                         <div>
                         <label class="switch">
-  <input type="checkbox"  />
-  <span class="slider">Online</span>
-</label>
+                          <input type="checkbox" value={status}  onChange={(e) => setStatus(prevState => !prevState)} />
+                          <span class="slider"><p>online</p></span>
+                        </label>
 
                         </div>
                         

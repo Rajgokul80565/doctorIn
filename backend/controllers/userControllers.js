@@ -101,22 +101,32 @@ const updateUserProfile = asyncHandler ( async (req, res) => {
 
     let user = await User.findById(req.user._id).select("-password");
 
-    if(user){
-        user.name = req.body.name || req.user.name;
-        user.email = req.body.email || req.user.email;
+    console.log("userLOg -", user);
+    console.log("bodyLog -", req.body);
 
-        if(req.body.password){
-            user.password = req.body.password || req.user.password;
-        }
+    res.status(200).json({result:"result"});
 
-        const updatedUser = await user.save();
 
-        res.status(200).json(updatedUser);
+    // if(user){
+    //     if(user?.roleType == 1){
+          
 
-    }else{
-        res.status(404);
-        throw new Error("User Not Found!");
-    }
+    //     }
+    //     user.name = req.body.name || req.user.name;
+    //     user.email = req.body.email || req.user.email;
+
+    //     if(req.body.password){
+    //         user.password = req.body.password || req.user.password;
+    //     }
+
+    //     const updatedUser = await user.save();
+
+    //     res.status(200).json(updatedUser);
+
+    // }else{
+    //     res.status(404);
+    //     throw new Error("User Not Found!");
+    // }
 });
 
 // userName:{

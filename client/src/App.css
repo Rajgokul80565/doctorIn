@@ -462,7 +462,7 @@ background-color: #6E68F0;
     font-size: 17px;
     position: relative;
     display: inline-block;
-    width: 3.5em;
+    width: 5.5em;
     height: 2em;
   }
   
@@ -478,6 +478,10 @@ background-color: #6E68F0;
     position: absolute;
     cursor: pointer;
     inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content:flex-start;
+    padding-left: 0.4rem;
     /* background: #c1bff7; */
     background: grey;
     border-radius: 50px;
@@ -487,10 +491,9 @@ background-color: #6E68F0;
   .slider:before {
     position: absolute;
     content: "";
-    height: 1.4em;
-    width: 1.4em;
-    left: 0.3em;
-    bottom: 0.3em;
+    height: 2em;
+    width: 2.2em;
+    left: 0rem;
     background-color: white;
     border-radius: 50px;
     box-shadow: 0 0px 20px rgba(0,0,0,0.4);
@@ -500,16 +503,19 @@ background-color: #6E68F0;
   .switch input:checked + .slider {
     /* background: var(--primary-app-color); */
     background: rgb(106, 220, 106);
+   
   }
   
   .switch input:focus + .slider {
-    box-shadow: 0 0 1px rgb(106, 220, 106);;
+    box-shadow: 0 0 1px rgb(106, 220, 106);
+    
   }
   
   .switch input:checked + .slider:before {
     transform: translateX(1.6em);
     width: 2em;
     height: 2em;
+    left: 1.7rem;
     bottom: 0;
   }
 

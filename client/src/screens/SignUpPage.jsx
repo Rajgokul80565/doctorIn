@@ -39,11 +39,14 @@ function SignUp() {
       try {
         let res = await register({name:name, email:email, password:password}).unwrap();
         dispatch(setCrenditails({...res}));
-        navigate(routes.home);
-        nav
+        if(res?.roleType == 1){
+          navigate(routes.doctorHome);
+        }else{
+          navigate(routes.userHome);
+        }  
       } catch (error) {
-        console.log("err", error.message);
-        toast.error(error.data.message || error.message);
+        console.log("err", error?.message);
+        toast.error(error?.data?.message || error?.message);
       }
     }else{
       toast.error("Invalid email!");
