@@ -157,6 +157,7 @@
     opacity: 0.5;
     color: rgb(120, 117, 117);
     transition: 500ms;
+    cursor: pointer;
 }
 
 #username{

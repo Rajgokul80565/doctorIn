@@ -32,6 +32,7 @@ function ProfileScreen() {
     if(userInfo){
       setName(userInfo?.name);
       setEmail(userInfo?.email);
+      setProfile(userInfo?.profilePicture);
     }
   },[userInfo?.name, userInfo?.email])
 
@@ -53,9 +54,13 @@ function ProfileScreen() {
       try {
         let res = await updateprofile({_id:userInfo._id,name:name, email:email, password:password, availabilityStatus:status, profilePicture:profile}).unwrap();
         console.log("resss", res);
-        // dispatch(setCrenditails({...res}));
-        // toast.success("Profile updated!");
-        // navigate(routes.home);
+        dispatch(setCrenditails({...res}));   
+        toast.success("Profile updated!");
+        if(userInfo?.roleType == 1){
+        navigate(routes.doctorHome);
+      }else{
+        navigate(routes.userHome);
+      }
       } catch (error) {
         console.log("err", error.message);
         toast.error(error.data.message || error.message);
@@ -96,6 +101,7 @@ function ProfileScreen() {
             </div>
               <div className='update-btn-div' >
               <button onClick={onSubmitUpdate}>Update</button>
+              <button onClick={() => navigate(routes.userHome)}>cancel</button>
             </div>
             </div>
             <div className="profile_details">
@@ -120,7 +126,7 @@ function ProfileScreen() {
                     </div>
                     <div  className="profile_input">
                         <label>Email</label>
-                        <input disabled="true" type="text"  value={email} onChange={(e) => setEmail(e.target.value)} name="email"  />
+                        <input disabled={true} type="text"  value={email} onChange={(e) => setEmail(e.target.value)} name="email"  />
                     </div>
                     <div  className="profile_input">
                         <label>Password</label>

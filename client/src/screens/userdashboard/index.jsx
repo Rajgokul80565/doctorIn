@@ -8,10 +8,12 @@ import {ToolTip, DoctorsCard} from "../../components";
 import { IoIosArrowBack } from "react-icons/io";
 import { IoIosArrowForward } from "react-icons/io";
 import { LiaUserEditSolid } from "react-icons/lia";
+import { Link, useNavigate } from "react-router-dom";
 import profilePlaceHolder from "../../assets/images/profile2.jpg";
 import { convertToBase64 } from "../../utils";
 
 import { useDispatch, useSelector} from "react-redux";
+import { routes } from '../../routes/routes';
 
 
 function UserDashboard() {
@@ -19,6 +21,7 @@ function UserDashboard() {
   const [openSide, setOpenSide] = useState(false);
   const {userInfo} = useSelector((state) => state.auth);
   const [profile, setProfile] = useState("");
+  const navigate = useNavigate();
 
   const handleProfileImg = async (e) => {
       let selectedFile = e?.target?.files?.[0];
@@ -87,21 +90,11 @@ function UserDashboard() {
                   )}
               </div>
                   {/* <CiSettings id="settingsIcon" /> */}
-                  <LiaUserEditSolid id="settingsIcon" />
+                  <LiaUserEditSolid onClick={() => navigate(routes.profile)} id="settingsIcon" />
                   {/* <IoMdSettings id="settingsIcon" /> */}
               </div>
               <div id="right_blog">
-                    <label htmlFor="file-upload">
-                      <img className='profile_placeHolder_img' src={profile || profilePlaceHolder} alt="profile_Img" />
-                    </label>
-                    <input 
-                    type="file"
-                    label="Image"
-                    name="profileFile"
-                    id="file-upload" 
-                    accept='.jpeg, .png, .jpg'
-                    onChange={(e) => handleProfileImg(e)}
-                    />
+            
               </div>
               <div id="right_result">
               {/* results here */}

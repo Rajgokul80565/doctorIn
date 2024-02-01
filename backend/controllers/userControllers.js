@@ -22,6 +22,7 @@ const authUser = asyncHandler( async (req, res) => {
             email:user.email,
             roleType:user.roleType,
             roleName:user.roleName,
+            profilePicture:user.profilePicture
         })
     }else{
         res.status(401);
@@ -101,32 +102,29 @@ const updateUserProfile = asyncHandler ( async (req, res) => {
 
     let user = await User.findById(req.user._id).select("-password");
 
-    console.log("userLOg -", user);
-    console.log("bodyLog -", req.body);
+    // console.log("userLOg -", user);
+    // console.log("reqUserLog -", req.body);
+    // console.log("bodyLog -", req.user);
 
-    res.status(200).json({result:"result"});
 
+    if(user){
+        user.name = req.body.name || req.user.name;
+        user.email = req.body.email || req.user.email;
+        user.profilePicture = req.body.profilePicture || req.user.profilePicture
 
-    // if(user){
-    //     if(user?.roleType == 1){
-          
+        if(req.body.password){
+            user.password = req.body.password || req.user.password;
+        }
 
-    //     }
-    //     user.name = req.body.name || req.user.name;
-    //     user.email = req.body.email || req.user.email;
+        const updatedUser = await user.save();
+        console.log("updatedUser", updatedUser)
 
-    //     if(req.body.password){
-    //         user.password = req.body.password || req.user.password;
-    //     }
+        res.status(200).json(updatedUser);
 
-    //     const updatedUser = await user.save();
-
-    //     res.status(200).json(updatedUser);
-
-    // }else{
-    //     res.status(404);
-    //     throw new Error("User Not Found!");
-    // }
+    }else{
+        res.status(404);
+        throw new Error("User Not Found!");
+    }
 });
 
 // userName:{
