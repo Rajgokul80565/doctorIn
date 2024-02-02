@@ -3,6 +3,8 @@ import Booking from "../models/bookingModel.js";
 import generateToken from "../utils/generateToken.js";
 import asyncHandler from "express-async-handler";
 
+import Doctor from '../models/doctorsModel.js';
+
 
 // @desc Authenticate User
 // @route POST - /api/users/auth
@@ -101,10 +103,13 @@ const getUserProfile = asyncHandler( async(req, res) => {
 const updateUserProfile = asyncHandler ( async (req, res) => {
 
     let user = await User.findById(req.user._id).select("-password");
+    // let doctor = await Doctor.findById()
 
-    // console.log("userLOg -", user);
-    // console.log("reqUserLog -", req.body);
-    // console.log("bodyLog -", req.user);
+    console.log("userLOg -", user);
+    console.log("reqUserLog -", req.body);
+    console.log("bodyLog -", req.user);
+
+    res.status(200).json({result:"vanthuruchu"});
 
 
     if(user){
@@ -117,6 +122,9 @@ const updateUserProfile = asyncHandler ( async (req, res) => {
         }
 
         const updatedUser = await user.save();
+        if(user.roleType === 1 || req.user.roleType === 1){
+            
+        }
         console.log("updatedUser", updatedUser)
 
         res.status(200).json(updatedUser);

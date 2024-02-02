@@ -10,7 +10,8 @@
     --secondry-font-style: 'Poppins', sans-serif;
   }
 body {
-    overflow: hidden;
+    
+    overflow:initial !important;
     scroll-behavior: smooth;
 }
 
@@ -306,7 +307,7 @@ body {
     background:rgb(255, 255, 255);
     display: grid;
     width:80rem;
-    height: 38rem;
+    height: 39rem;
     grid-template-columns: 1fr 4fr;
     
  
@@ -353,8 +354,9 @@ background-color: #6E68F0;
 
 .right_profile_div{
     display:grid;
-    grid-template-rows: 1fr 4fr;
+    grid-template-rows: 1fr 5fr;
     padding-left: 40px;
+    
 }
 
 .upper_right_ptofile{
@@ -370,6 +372,11 @@ background-color: #6E68F0;
     font-family: var(--secondry-font-style);
     font-size: 0.7rem;
     color: var( --secondary-color);
+}
+.update-btn-div{
+    display: flex;
+ 
+    justify-content: space-around;
 }
 
 .update-btn-div button{
@@ -421,25 +428,15 @@ background-color: #6E68F0;
     grid-template-columns: 1fr 2fr;
 }
 
+
+
 .profile_input label{
     font-family: var(--secondry-font-style);
     font-size:14px;
     color: var( --secondary-color);
 }
 
-.profile_input input[type="text"]{
-    outline: none;
-    width: 20rem;
-    height: 1.8rem;
-    margin-top: 1px;
-    border-radius: 10px;
-    border: 1.5px solid rgb(197, 196, 196);
-    transition: 0.5s;
-    padding-bottom: 4px;
-    padding-left: 24px;
-    padding-top: 4px;
-}
-.profile_input input[type="password"]{
+.profile_input input[type="text"], input[type="number"],input[type="password"]{
     outline: none;
     width: 20rem;
     height: 1.8rem;
@@ -452,7 +449,8 @@ background-color: #6E68F0;
     padding-top: 4px;
 }
 
-.profile_input input[type="text"]:focus {
+
+.profile_input input[type="text"],input[type="number"],input[type="password"]:focus {
     border: 2.2px solid #b9b9b9;
 
 }

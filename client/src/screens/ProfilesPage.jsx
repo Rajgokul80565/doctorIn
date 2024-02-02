@@ -15,6 +15,7 @@ import {validateEmail} from "../utils";
 import { FaEdit } from "react-icons/fa";
 import { convertToBase64 } from "../utils";
 // import { CiEdit } from "react-icons/ci";
+import { bcrypt } from 'bcryptjs';
 
 function ProfileScreen() {
 
@@ -93,6 +94,7 @@ function ProfileScreen() {
           </div>
           
           </div>
+          
           <div className='right_profile_div'>
             <div className='upper_right_ptofile'>
             <div className='update-btn-card'>               
@@ -108,7 +110,7 @@ function ProfileScreen() {
                 <div className="profile_upload_div">
                   <label htmlFor="file-upload">
                     <input
-                type="file"
+                    type="file"
                     name="profileFile"
                     id="file-upload" 
                     style={{display: 'none'}}
@@ -124,6 +126,7 @@ function ProfileScreen() {
                         <label>Name</label>
                         <input type="text" value={name} onChange={(e) => setName(e.target.value)} name="name" />
                     </div>
+                  
                     <div  className="profile_input">
                         <label>Email</label>
                         <input disabled={true} type="text"  value={email} onChange={(e) => setEmail(e.target.value)} name="email"  />
@@ -137,6 +140,10 @@ function ProfileScreen() {
                       <div className="profile_input">
                         <label>Specialist</label>
                         <input type="text" />
+                    </div>
+                    <div className="profile_input">
+                        <label>Experience</label>
+                        <input type="number" />
                     </div>
                     <div className="profile_input">
                         <label>Availability Status</label>

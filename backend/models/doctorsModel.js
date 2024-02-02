@@ -18,6 +18,11 @@ const doctorSchema = mongoose.Schema({
         type: String,
         required: true,
     },
+    experience:{
+        type: Number,
+        required: true,
+        default: 0,
+    },
     availabilityStatus:{
         type: Boolean,
         required: true,
