@@ -87,6 +87,13 @@ const loginOutUser =  asyncHandler( async (req, res) => {
 // @access private
 const getUserProfile = asyncHandler( async(req, res) => {
 
+    // let userCheck = await User.find({email:"ali@gmail.com"}).select("-password");
+    // let doctor = await Doctor.find({ loginId: req.user._id});
+    // console.log("userCheck", userCheck);
+    // console.log("doctorCheck -", doctor);
+    // console.log("user -",req.user);
+    // console.log("body -", req.body);
+
     const user = {
         _id:req.user._id,
         name:req.user.name,
@@ -103,7 +110,9 @@ const getUserProfile = asyncHandler( async(req, res) => {
 const updateUserProfile = asyncHandler ( async (req, res) => {
 
     let user = await User.findById(req.user._id).select("-password");
-    // let doctor = await Doctor.findById()
+    let doctor = await Doctor.find({ loginId: req.user._id});
+
+    
 
     console.log("userLOg -", user);
     console.log("reqUserLog -", req.body);

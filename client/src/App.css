@@ -436,7 +436,7 @@ background-color: #6E68F0;
     color: var( --secondary-color);
 }
 
-.profile_input input[type="text"], input[type="number"],input[type="password"]{
+.profile_input input[type="text"], .profile_input input[type="number"], .profile_input input[type="password"]{
     outline: none;
     width: 20rem;
     height: 1.8rem;
@@ -450,7 +450,7 @@ background-color: #6E68F0;
 }
 
 
-.profile_input input[type="text"],input[type="number"],input[type="password"]:focus {
+.profile_input input[type="text"],.profile_input input[type="number"], .profile_input input[type="password"]:focus {
     border: 2.2px solid #b9b9b9;
 
 }
