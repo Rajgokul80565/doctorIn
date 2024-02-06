@@ -6,10 +6,6 @@ const doctorSchema = mongoose.Schema({
         type: String,
         required: true,
     },
-    doctorId:{
-        type: String,
-        required: true,
-    },
     loginId:{
         type: String,
         required: true,

@@ -27,21 +27,33 @@ function ProfileScreen() {
   const {userInfo} = useSelector((state) => state.auth);
   const [profile, setProfile] = useState("");
   const [status, setStatus] = useState(false);
+  const [formData, setFormData] = useState({});
+  const dispatch = useDispatch();
+  const [updateprofile, {isLoading, error}] = useUpdateprofileMutation();
+  const navigate = useNavigate();
 
 
   useEffect(()=> {
     if(userInfo){
-      setName(userInfo?.name);
-      setEmail(userInfo?.email);
-      setProfile(userInfo?.profilePicture);
+      // setName(userInfo?.name);
+      // setEmail(userInfo?.email);
+      // setProfile(userInfo?.profilePicture);
+      setFormData({
+        name:userInfo?.name,
+        email:userInfo?.email,
+        profilePicture:userInfo?.profilePicture,
+     
+      })
     }
   },[userInfo?.name, userInfo?.email])
 
   console.log("updateProfile", userInfo); 
 
-  const dispatch = useDispatch();
-  const [updateprofile, {isLoading, error}] = useUpdateprofileMutation();
-  const navigate = useNavigate();
+ 
+
+  const handleChange = (e) => {
+      setFormData({...formData, [e.target.id]:e.target.value});
+  }
 
   let switchPassword = () => {
     setShowPassword(!showPassword);
@@ -49,11 +61,12 @@ function ProfileScreen() {
   }
 
   const onSubmitUpdate = async(e) => {
-    console.log("emailProfile", email, typeof email);
     e.preventDefault();
-    if(validateEmail(email)) {
+    console.log("formData", formData);
+
+    if(validateEmail(formData?.email)) {
       try {
-        let res = await updateprofile({_id:userInfo._id,name:name, email:email, password:password, availabilityStatus:status, profilePicture:profile}).unwrap();
+        let res = await updateprofile({_id:userInfo._id,...formData}).unwrap();
         console.log("resss", res);
         dispatch(setCrenditails({...res}));   
         toast.success("Profile updated!");
@@ -71,13 +84,11 @@ function ProfileScreen() {
     }
   }
 
-
-
   const handleProfileImg = async (e) => {
       let selectedFile = e?.target?.files?.[0];
       let base64Format = await convertToBase64(selectedFile);
-      setProfile(base64Format);
-     
+      // setProfile(base64Format);
+     setFormData({...formData, profilePicture:base64Format});
   }
 
   console.log("checkbox", status);
@@ -117,33 +128,33 @@ function ProfileScreen() {
                     accept='.jpeg, .png, .jpg'
                     onChange={(e) => handleProfileImg(e)}
                     />
-                                        <img className='profile_image' src={profile || profilePlaceholder} alt="profile image" />
+                                        <img className='profile_image' src={formData.profilePicture || profilePlaceholder} alt="profile image" />
                     <FaEdit className="profile_edit_icon"/>
                     </label>
                 </div>
                 <div id="profile_form_main">
                     <div  className="profile_input">
                         <label>Name</label>
-                        <input type="text" value={name} onChange={(e) => setName(e.target.value)} name="name" />
+                        <input type="text" value={formData?.name} id="name" onchange={(e) => handleChange(e)} name="name" />
                     </div>
                   
                     <div  className="profile_input">
                         <label>Email</label>
-                        <input disabled={true} type="text"  value={email} onChange={(e) => setEmail(e.target.value)} name="email"  />
+                        <input disabled={true} type="text" id='email'  value={formData?.email} onChange={(e) => handleChange(e)} name="email"  />
                     </div>
                     <div  className="profile_input">
                         <label>Password</label>
-                        <input type="password" />
+                        <input type="password" id='password' name='password' value={formData?.password} onChange={(e) => handleChange(e)}/>
                     </div>
                     {userInfo?.roleType == 1 && (
                       <>
                       <div className="profile_input">
                         <label>Specialist</label>
-                        <input type="text" />
+                        <input type="text" id='specialist' name='specialist' value={formData?.specialist} onChange={(e) => handleChange(e)}/>
                     </div>
                     <div className="profile_input">
                         <label>Experience</label>
-                        <input type="number" />
+                        <input type="number" id='experience' name='experience' value={formData?.experience} onChange={(e) =>handleChange(e)}/>
                     </div>
                     <div className="profile_input">
                         <label>Availability Status</label>

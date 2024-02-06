@@ -11,11 +11,10 @@ import Doctor from '../models/doctorsModel.js';
 // @access public
 const authUser = asyncHandler( async (req, res) => {
 
-    let {email, password} = req.body;
-    
+    let {email, password} = req.body; 
+
     let user = await User.findOne({email});
-
-
+    
     if(user && ( await user.matchPassword(password))){
         generateToken(res,user._id);
         res.status(201).json({
@@ -108,18 +107,14 @@ const getUserProfile = asyncHandler( async(req, res) => {
 // @route PUT - /api/user/profile
 // @access private
 const updateUserProfile = asyncHandler ( async (req, res) => {
+    debugger;
 
-    let user = await User.findById(req.user._id).select("-password");
+    let user = await User.findById(req.user._id).select("-password");  
     let doctor = await Doctor.find({ loginId: req.user._id});
 
-    
-
-    console.log("userLOg -", user);
-    console.log("reqUserLog -", req.body);
-    console.log("bodyLog -", req.user);
-
-    res.status(200).json({result:"vanthuruchu"});
-
+    // console.log("userLOg -", user);
+    // console.log("reqUserLog -", req.body);
+    // console.log("bodyLog -", req.user);
 
     if(user){
         user.name = req.body.name || req.user.name;
@@ -130,9 +125,54 @@ const updateUserProfile = asyncHandler ( async (req, res) => {
             user.password = req.body.password || req.user.password;
         }
 
+        console.log("userInside",user);
+
         const updatedUser = await user.save();
         if(user.roleType === 1 || req.user.roleType === 1){
-            
+          
+            console.log("doctorThere", doctor);
+           
+                if(doctor.length > 0){
+                    doctor[0].doctorName = req.body.name || req.user.name;
+                    doctor[0].loginId = req.user._id;
+                    doctor[0].specialist = req.body.specialist;
+                    doctor[0].experience = req.body.experience || 0;
+                    doctor[0].availabilityStatus = req.body.status || false;
+                    doctor[0].profilePicture =  req.body.profilePicture || req.user.profilePicture;
+                    console.log("doctorInside", doctor);
+                    const updateDoctor = await doctor[0].save();
+                    console.log("updateDocs", updateDoctor);
+                    // res.status(200).json({...updatedUser, 
+                    //     specialist:updateDoctor.specialist,
+                    //     experience:updateDoctor.experience,
+                    //     availabilityStatus:updateDoctor.availabilityStatus,
+                    // });
+                
+                }else{
+                    let creatDoctor = await Doctor.create({
+                        doctorName:req.body.name || req.user.name,
+                        loginId:req.user._id,
+                        specialist:req.body.specialist,
+                        experience:req.body.experience || 0,
+                        availabilityStatus:req.body.status || false,
+                        profilePicture: req.body.profilePicture || req.user.profilePicture,
+                    });
+
+                    if(creatDoctor){
+                        res.status(201).json({
+                            _id:creatDoctor._id,
+                            doctorName:req.body.name || req.user.name,
+                            specialist:req.body.specialist,
+                            experience:req.body.experience || 0,
+                            availabilityStatus:req.body.status || false,
+                            profilePicture: req.body.profilePicture || req.user.profilePicture,
+                        });
+                    }else{
+                        res.status(400);
+                        throw new Error('Invalid Doctor data');
+                        return;
+                    };
+                }
         }
         console.log("updatedUser", updatedUser)
 
