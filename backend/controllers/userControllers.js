@@ -17,14 +17,31 @@ const authUser = asyncHandler( async (req, res) => {
     
     if(user && ( await user.matchPassword(password))){
         generateToken(res,user._id);
-        res.status(201).json({
-            _id:user._id,
-            name:user.name,
-            email:user.email,
-            roleType:user.roleType,
-            roleName:user.roleName,
-            profilePicture:user.profilePicture
-        })
+        let doctor = await Doctor.find({ loginId: user._id});
+        console.log("doctrAuth", doctor);
+        if(doctor.length > 0){
+            res.status(201).json({
+                _id:user._id,
+                name:user.name,
+                email:user.email,
+                roleType:user.roleType,
+                roleName:user.roleName,
+                profilePicture:user.profilePicture,
+                specialist:doctor[0].specialist,
+                experience:doctor[0].experience,
+                availabilityStatus:doctor[0].availabilityStatus
+            })
+        }else{
+            res.status(201).json({
+                _id:user._id,
+                name:user.name,
+                email:user.email,
+                roleType:user.roleType,
+                roleName:user.roleName,
+                profilePicture:user.profilePicture
+            })
+        }
+       
     }else{
         res.status(401);
         throw new Error('Invalid email or password')
@@ -111,6 +128,7 @@ const updateUserProfile = asyncHandler ( async (req, res) => {
 
     let user = await User.findById(req.user._id).select("-password");  
     let doctor = await Doctor.find({ loginId: req.user._id});
+    let docData = {};
 
     // console.log("userLOg -", user);
     // console.log("reqUserLog -", req.body);
@@ -142,11 +160,17 @@ const updateUserProfile = asyncHandler ( async (req, res) => {
                     console.log("doctorInside", doctor);
                     const updateDoctor = await doctor[0].save();
                     console.log("updateDocs", updateDoctor);
+                    docData={
+                        specialist:updateDoctor.specialist,
+                        experience:updateDoctor.experience,
+                        availabilityStatus:updateDoctor.availabilityStatus,
+                    };
                     // res.status(200).json({...updatedUser, 
                     //     specialist:updateDoctor.specialist,
                     //     experience:updateDoctor.experience,
                     //     availabilityStatus:updateDoctor.availabilityStatus,
                     // });
+                    // return;
                 
                 }else{
                     let creatDoctor = await Doctor.create({
@@ -170,13 +194,15 @@ const updateUserProfile = asyncHandler ( async (req, res) => {
                     }else{
                         res.status(400);
                         throw new Error('Invalid Doctor data');
-                        return;
+                       
                     };
                 }
         }
-        console.log("updatedUser", updatedUser)
+        console.log("updatedUser", updatedUser);
+        let combineData = { ...updatedUser.toObject(), ...docData};
+        console.log("combineData", combineData);
 
-        res.status(200).json(updatedUser);
+        res.status(200).json(combineData);
 
     }else{
         res.status(404);

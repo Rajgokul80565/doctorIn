@@ -14,6 +14,7 @@ import { toast } from 'react-toastify';
 import {validateEmail} from "../utils";
 import { FaEdit } from "react-icons/fa";
 import { convertToBase64 } from "../utils";
+import Spinner from '../components/Loading spinner/spinner';
 // import { CiEdit } from "react-icons/ci";
 import { bcrypt } from 'bcryptjs';
 
@@ -21,17 +22,14 @@ function ProfileScreen() {
 
   const [showPassword, setShowPassword] = useState(false);
   const [eyeIcon, setEyeIcon] = useState(false);
-  const [name , setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const {userInfo} = useSelector((state) => state.auth);
-  const [profile, setProfile] = useState("");
   const [status, setStatus] = useState(false);
   const [formData, setFormData] = useState({});
   const dispatch = useDispatch();
   const [updateprofile, {isLoading, error}] = useUpdateprofileMutation();
   const navigate = useNavigate();
 
+  console.log("isLoading", isLoading);
 
   useEffect(()=> {
     if(userInfo){
@@ -42,8 +40,12 @@ function ProfileScreen() {
         name:userInfo?.name,
         email:userInfo?.email,
         profilePicture:userInfo?.profilePicture,
-     
-      })
+        specialist:userInfo?.specialist,
+        experience:userInfo?.experience,
+        // availabilityStatus: userInfo?.availabilityStatus,
+
+      });
+      setStatus(userInfo?.availabilityStatus);
     }
   },[userInfo?.name, userInfo?.email])
 
@@ -52,6 +54,7 @@ function ProfileScreen() {
  
 
   const handleChange = (e) => {
+    console.log("working...", e.target.id, e.target.value);
       setFormData({...formData, [e.target.id]:e.target.value});
   }
 
@@ -62,6 +65,7 @@ function ProfileScreen() {
 
   const onSubmitUpdate = async(e) => {
     e.preventDefault();
+    formData.status = status;
     console.log("formData", formData);
 
     if(validateEmail(formData?.email)) {
@@ -113,8 +117,10 @@ function ProfileScreen() {
               <p>You can update your profile photo and details here</p>
             </div>
               <div className='update-btn-div' >
-              <button onClick={onSubmitUpdate}>Update</button>
-              <button onClick={() => navigate(routes.userHome)}>cancel</button>
+              <button onClick={onSubmitUpdate}>
+                {isLoading ?  <Spinner style={{width: '25px', height:"25px"}}/> :  <p>Update</p> }
+                </button>
+              <button onClick={() => navigate(userInfo?.roleType == 1 ? routes.doctorHome : routes.userHome)}>cancel</button>
             </div>
             </div>
             <div className="profile_details">
@@ -132,10 +138,11 @@ function ProfileScreen() {
                     <FaEdit className="profile_edit_icon"/>
                     </label>
                 </div>
+              
                 <div id="profile_form_main">
                     <div  className="profile_input">
                         <label>Name</label>
-                        <input type="text" value={formData?.name} id="name" onchange={(e) => handleChange(e)} name="name" />
+                        <input type="text" value={formData?.name} id="name" onChange={(e) => handleChange(e)} name="name" />
                     </div>
                   
                     <div  className="profile_input">
@@ -160,12 +167,10 @@ function ProfileScreen() {
                         <label>Availability Status</label>
                         <div>
                         <label class="switch">
-                          <input type="checkbox" value={status}  onChange={(e) => setStatus(prevState => !prevState)} />
+                          <input type="checkbox" id="availabilityStatus" value={status} checked={status && "checked"} onChange={(e) => setStatus(!status)} />
                           <span class="slider"><p>online</p></span>
                         </label>
-
                         </div>
-                        
                     </div>
                       </>
                     )}

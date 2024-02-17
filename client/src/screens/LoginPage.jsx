@@ -9,6 +9,7 @@ import { useLoginMutation } from "../redux/slices/userSlice";
 import { useDispatch, useSelector} from "react-redux";
 import { setCrenditails, clearCreditails } from '../redux/slices/authslice';
 import { toast } from 'react-toastify';
+import LogosSlider from '../components/LogoSlider';
 
 
 
@@ -56,7 +57,9 @@ useEffect(()=> {
   return (
     <div id='logMainLayer'>
         <div id='logLeft'>
-          <img className='loginLeftImg' src={LoginImg} alt="login image" />
+          {/* <img className='loginLeftImg' src={LoginImg} alt="login image" /> */}
+          <h4>our <span>happy</span> clients</h4> 
+          <LogosSlider/>
         </div>
         <div id='logRight'>
         <div className='logSignCard'>
@@ -83,7 +86,6 @@ useEffect(()=> {
           </div>
         </div>
         </div>
-         
     </div>
   )
 }

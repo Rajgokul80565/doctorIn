@@ -11,6 +11,7 @@ import {useRegisterMutation} from "../redux/slices/userSlice";
 import {clearCreditails, setCrenditails} from "../redux/slices/authslice"
 import { toast } from 'react-toastify';
 import {validateEmail} from "../utils/"
+import LogosSlider from '../components/LogoSlider';
 
 function SignUp() {
 
@@ -58,7 +59,8 @@ function SignUp() {
   return (
     <div id='logMainLayer'>
         <div id='logLeft'>
-          <img className='loginLeftImg' src={SignupImg} alt="login image" />
+        <h4>our <span>happy</span> clients</h4> 
+        <LogosSlider/>
         </div>
         <div id='logRight'>
         <div className='logSignCard'>
