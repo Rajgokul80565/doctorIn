@@ -31,9 +31,21 @@ export const usersApiSlice = apiSlice.injectEndpoints({
                 method:'PUT',
                 body:data,
             })
+        }),
+        getdoctorlist:builder.mutation({
+            query:(data) => ({
+                url:`${USER_URL}/getdoctors`,
+                method:'GET',
+            })
         })
     })
 })
 
 
-export const {useLoginMutation, useLogoutMutation, useRegisterMutation, useUpdateprofileMutation} = usersApiSlice;
+export const {
+    useLoginMutation,
+     useLogoutMutation, 
+    useRegisterMutation, 
+    useUpdateprofileMutation,
+    useGetdoctorlistMutation
+} = usersApiSlice;

@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState,useEffect} from 'react'
 import "../userdashboard/userdashboardStyles.css";
 import { IoMdHome } from "react-icons/io";
 import { FaBloggerB } from "react-icons/fa6";
@@ -9,7 +9,7 @@ import { IoIosArrowBack } from "react-icons/io";
 import { IoIosArrowForward } from "react-icons/io";
 import { LiaUserEditSolid } from "react-icons/lia";
 import { Link, useNavigate } from "react-router-dom";
-import profilePlaceHolder from "../../assets/images/profile2.jpg";
+import {useGetdoctorlistMutation} from "../../redux/slices/userSlice";
 import { convertToBase64 } from "../../utils";
 
 import { useDispatch, useSelector} from "react-redux";
@@ -21,7 +21,9 @@ function UserDashboard() {
   const [openSide, setOpenSide] = useState(false);
   const {userInfo} = useSelector((state) => state.auth);
   const [profile, setProfile] = useState("");
+  const [docList, setDocList ] = useState([]);
   const navigate = useNavigate();
+  const [getDoctorsList,{isLoading, error} ] = useGetdoctorlistMutation();
 
   const handleProfileImg = async (e) => {
       let selectedFile = e?.target?.files?.[0];
@@ -29,6 +31,20 @@ function UserDashboard() {
       setProfile(base64Format);
      
   }
+
+
+  const getDocList =  async () => {
+      const docs =  await getDoctorsList().unwrap();
+      setDocList([...docs])
+    
+  }
+  console.log("SetdocList", docList);
+
+
+
+  useEffect(() => {
+    getDocList();
+  },[])
 
 
   const sliderLeft = () => {
@@ -42,6 +58,8 @@ function UserDashboard() {
     let sliderForward = document.getElementById("card_slider");
     sliderForward.scrollLeft = sliderForward.scrollLeft + 550;
   }
+
+
   
 // email: "ali@gmail.com"
 // name: "Ali Abdaal"
@@ -105,7 +123,24 @@ function UserDashboard() {
             <div className="doctor_list_container_1">
             <IoIosArrowBack onClick={sliderLeft} className="card_slider_icon"/>
             <div id='card_slider'>
-            <div className="card_slider_item">
+              {docList.length > 0 && (
+                docList.map((doc) =>{
+                  return (
+                    <div className="card_slider_item">
+                    <DoctorsCard 
+                    availabilityStatus={doc?.availabilityStatus}
+                    doctorName={doc?.doctorName}                    
+                    experience={doc?.experience}              
+                    profilePicture={doc?.profilePicture}                    
+                    specialist={doc?.specialist}
+                    />
+                  </div>
+                  )
+                } )
+              )}
+              
+            
+            {/* <div className="card_slider_item">
             <DoctorsCard />
             </div>
             <div className="card_slider_item">
@@ -128,10 +163,7 @@ function UserDashboard() {
             </div>
             <div className="card_slider_item">
             <DoctorsCard />
-            </div>
-            <div className="card_slider_item">
-            <DoctorsCard />
-            </div>
+            </div> */}
             </div>
             <IoIosArrowForward onClick={sliderRight} className="card_slider_icon"/>
             </div>

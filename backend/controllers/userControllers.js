@@ -120,12 +120,18 @@ const getUserProfile = asyncHandler( async(req, res) => {
     res.status(201).json(user);
 });
 
+const getDoctorsList = asyncHandler(async (req,res) => {
+        let doctors = await Doctor.find();
+
+
+        res.status(201).json(doctors);
+})
+
 // @desc  update user profile
 // @route PUT - /api/user/profile
 // @access private
 const updateUserProfile = asyncHandler ( async (req, res) => {
-    debugger;
-
+  
     let user = await User.findById(req.user._id).select("-password");  
     let doctor = await Doctor.find({ loginId: req.user._id});
     let docData = {};
@@ -210,34 +216,6 @@ const updateUserProfile = asyncHandler ( async (req, res) => {
     }
 });
 
-// userName:{
-//         type: String,
-//         required: true,
-//     },
-//     userId:{
-//         type:String,
-//         required: true,
-//     },
-//     doctorName:{
-//         type:String,
-//         required: true,
-//     },
-//      doctorId:{
-//         type:String,
-//         required: true,
-//      },
-//      specialist:{
-//         type:String,
-//         required: true,
-//      },
-//      status:{
-//         type:Boolean,
-//         required: true,
-//      },
-//      bookingDateTime:{
-//         type:Date,
-//         required: true,
-//      },
 
 // @desc  Booking appoinment
 // @route POST - /api/users/booking
@@ -274,4 +252,4 @@ const bookingAppointment = asyncHandler (async (req,res)=> {
 
 
 
-export { authUser, registerUser, loginOutUser, getUserProfile , updateUserProfile,bookingAppointment};
+export { authUser, registerUser, loginOutUser, getUserProfile , updateUserProfile,bookingAppointment, getDoctorsList};

@@ -23,4 +23,10 @@ const convertToBase64 = (file) => {
   })
 }
 
-export {validateEmail, convertToBase64};
+
+const isBase64 = (baseString) => {
+  const base64Regex = /^data:image\/([a-zA-Z]*);base64,([^\"]*)$/;
+  return base64Regex.test(baseString);
+}
+
+export {validateEmail, convertToBase64, isBase64 };
