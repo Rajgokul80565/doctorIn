@@ -1,10 +1,13 @@
-import React from 'react';
+import React, {useState} from 'react';
 import "./doctorcards.css";
 import { TfiLayoutPlaceholder } from "react-icons/tfi"
 import { MdOutlineWorkOutline } from "react-icons/md";
 import { MdAccessTime } from "react-icons/md";
 import { MdWorkspacePremium } from "react-icons/md";
 import {isBase64} from "../../utils";
+import ModalPopUp from '../ModelPopup';
+import BasicDateTimePicker from "../DateTimePicker"
+
 
 
 function DoctorsCard({
@@ -13,9 +16,15 @@ function DoctorsCard({
   experience = 0,         
   profilePicture = "",                
   specialist = " ",
+  id=" "
 }) {
 
-  console.log("isBase64",isBase64(profilePicture));
+  // console.log("isBase64",isBase64(profilePicture));
+  const [showModalPopup, setShowModalPopup] = useState(false);
+
+    const onClose = () => {
+      setShowModalPopup(false);
+    }
 
   return (
     <div id="doctorcard_main">
@@ -45,9 +54,18 @@ function DoctorsCard({
         <p>Monday to Friday, 10am-5pm</p>
         </div>
        </div>
-       <button>
+       <button onClick={() => setShowModalPopup(!showModalPopup)}>
         Book
        </button>
+       {showModalPopup && <ModalPopUp 
+       id={id} 
+       body={<div>
+        <label>select date and time</label>
+        <BasicDateTimePicker/>
+               </div>}
+       onClose={onClose} 
+       Header={"Book an appointment"} 
+        />}
     </div>
   )
 }

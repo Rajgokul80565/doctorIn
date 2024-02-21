@@ -126,13 +126,14 @@ function UserDashboard() {
               {docList.length > 0 && (
                 docList.map((doc) =>{
                   return (
-                    <div className="card_slider_item">
+                    <div key={doc._id} className="card_slider_item">
                     <DoctorsCard 
                     availabilityStatus={doc?.availabilityStatus}
                     doctorName={doc?.doctorName}                    
                     experience={doc?.experience}              
                     profilePicture={doc?.profilePicture}                    
                     specialist={doc?.specialist}
+                    id={doc?.id}
                     />
                   </div>
                   )
@@ -140,9 +141,6 @@ function UserDashboard() {
               )}
               
             
-            {/* <div className="card_slider_item">
-            <DoctorsCard />
-            </div>
             <div className="card_slider_item">
             <DoctorsCard />
             </div>
@@ -163,7 +161,10 @@ function UserDashboard() {
             </div>
             <div className="card_slider_item">
             <DoctorsCard />
-            </div> */}
+            </div>
+            <div className="card_slider_item">
+            <DoctorsCard />
+            </div>
             </div>
             <IoIosArrowForward onClick={sliderRight} className="card_slider_icon"/>
             </div>

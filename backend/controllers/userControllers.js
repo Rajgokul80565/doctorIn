@@ -120,9 +120,11 @@ const getUserProfile = asyncHandler( async(req, res) => {
     res.status(201).json(user);
 });
 
+// @desc  Get Doctors List 
+// @route GET - /api/user/getdoctors
+// @access private
 const getDoctorsList = asyncHandler(async (req,res) => {
         let doctors = await Doctor.find();
-
 
         res.status(201).json(doctors);
 })
