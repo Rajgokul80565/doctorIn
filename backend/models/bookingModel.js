@@ -30,6 +30,22 @@ const bookingSchema = mongoose.Schema({
         default: Date.now,
         required: true,
      },
+     fileName:{
+        type:String,
+        default:""
+     },
+     filePath:{
+        type:String,
+        default:"",
+     },
+     age:{
+      type:Number,
+      required: true,
+     },
+     gender:{
+      type:String,
+      required: true,
+     }
 },{
     timestamps:true,
 });

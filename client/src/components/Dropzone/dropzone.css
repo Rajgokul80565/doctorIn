@@ -1,0 +1,32 @@
+.after_upload{
+    background-color: rgb(236, 235, 235);
+    display: grid;
+    grid-template-columns: 8fr 1fr;
+    justify-content: center;
+    align-items: center;
+    padding-left:30px;
+    padding-right:40px;
+    margin-top: 20px;
+    border-radius: 7px;
+    height: 50px;
+}
+
+.after_upload p {
+    font-family:var(--secondry-font-style);
+    font-size: 13px;
+}
+
+.deleteIconDiv {
+    display: flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.delete_icon{
+    color: var(--primary-app-color);
+    font-size:20px;
+    cursor: pointer;
+}
+
+
+

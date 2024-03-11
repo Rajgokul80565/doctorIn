@@ -21,7 +21,7 @@ const authUser = asyncHandler( async (req, res) => {
         console.log("doctrAuth", doctor);
         if(doctor.length > 0){
             res.status(201).json({
-                _id:user._id,
+                _id:doctor[0]._id,
                 name:user.name,
                 email:user.email,
                 roleType:user.roleType,
@@ -29,7 +29,8 @@ const authUser = asyncHandler( async (req, res) => {
                 profilePicture:user.profilePicture,
                 specialist:doctor[0].specialist,
                 experience:doctor[0].experience,
-                availabilityStatus:doctor[0].availabilityStatus
+                availabilityStatus:doctor[0].availabilityStatus,
+                loginId:doctor[0].loginId
             })
         }else{
             res.status(201).json({
@@ -102,7 +103,6 @@ const loginOutUser =  asyncHandler( async (req, res) => {
 // @route GET - /api/user/profile
 // @access private
 const getUserProfile = asyncHandler( async(req, res) => {
-
     // let userCheck = await User.find({email:"ali@gmail.com"}).select("-password");
     // let doctor = await Doctor.find({ loginId: req.user._id});
     // console.log("userCheck", userCheck);
@@ -119,6 +119,18 @@ const getUserProfile = asyncHandler( async(req, res) => {
 
     res.status(201).json(user);
 });
+
+
+const getUserById = asyncHandler(async(req,res) => {
+    if(req.body.id){
+        let userDeatils = await User.find({_id:req.body.id}).select("-password");
+        console.log("userDeatils",userDeatils);
+        res.status(201).json(userDeatils);
+    }else{
+        res.status(401).json({userDetails:[], message:"User not found"});
+    }
+    
+})
 
 // @desc  Get Doctors List 
 // @route GET - /api/user/getdoctors
@@ -223,8 +235,20 @@ const updateUserProfile = asyncHandler ( async (req, res) => {
 // @route POST - /api/users/booking
 // @access private
 const bookingAppointment = asyncHandler (async (req,res)=> {
-   let {userName,userId,doctorName,doctorId,specialist,bookingDateTime } = req?.body;
-   // status -remaining
+   let {userName,userId,doctorName,doctorId,specialist,bookingDateTime, fileName, filePath, age, gender} = req?.body;
+    
+
+    // Check for missing or invalid data
+    if (!userName || !userId || !doctorName || !doctorId || !specialist || !bookingDateTime || !fileName || !filePath || age === undefined || gender === undefined) {
+        res.status(400);
+        throw new Error('Missing or invalid booking data');
+    }
+
+    // Validate age and gender
+    if (isNaN(age) || age < 0 || !['male', 'female', 'other'].includes(gender.toLowerCase())) {
+        res.status(400);
+        throw new Error('Invalid age or gender');
+    }
 
     let book = await Booking.create({
         userName,
@@ -233,7 +257,11 @@ const bookingAppointment = asyncHandler (async (req,res)=> {
         doctorId,
         specialist,
         bookingDateTime,
-        status:true,
+        status:false,
+        fileName,
+        filePath,
+        age,
+        gender
     });
 
     if(book){
@@ -242,7 +270,7 @@ const bookingAppointment = asyncHandler (async (req,res)=> {
             doctorName,
             doctorId,
             specialist,
-            bookingDateTime
+            bookingDateTime,
         });
     }else{
         res.status(400);
@@ -250,8 +278,44 @@ const bookingAppointment = asyncHandler (async (req,res)=> {
     };
 });
 
+// @desc Get Appointment list
+// @route GET - /api/users/getusersappoinments 
+// access private
+const getUserAppointments = asyncHandler(  async (req, res) => {
+        let listOfAppointments = await Booking.find({userId:req.user._id});
+        console.log("listAppointments", listOfAppointments);
+        if(listOfAppointments.length > 0) {
+            res.status(201).json({appointmentList: listOfAppointments});
+        }else{
+            res.status(201).json({appointmentList:[], message:"There's no appointments under this user"});
+        }
+}); 
+
+
+const getDoctorDetails = asyncHandler( async (req, res) =>{
+    console.log("DoctorDetails Runinng")
+
+        let getDoctorById = await Doctor.findById(req.body.id);
+       
+        if(getDoctorById){
+            res.status(201).json({doctorDetail:getDoctorById})
+        }else{
+            res.status(201).json({doctorDetail:[], message:"Not found"});
+        }
+})
 
 
 
 
-export { authUser, registerUser, loginOutUser, getUserProfile , updateUserProfile,bookingAppointment, getDoctorsList};
+
+export { authUser, 
+    registerUser, 
+    loginOutUser, 
+    getUserProfile , 
+    updateUserProfile,
+    bookingAppointment,
+     getDoctorsList, 
+     getUserAppointments,
+     getDoctorDetails,
+     getUserById
+};

@@ -1,6 +1,7 @@
 #doctorcard_main{
     background-color:rgb(255, 255, 255);
     max-width: 200px;
+    width:200px;
     height: 200px;
     display: grid;
     grid-template-rows: 3fr 5fr 1.3fr;
@@ -10,7 +11,7 @@
     border-radius: 20px;
 }
 
-#doctorcard_main button{
+#doctor_card_btn {
     border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;
     border: none;
@@ -61,3 +62,57 @@
     font-size:0.6rem;
     color:var( --secondary-color);
 }
+
+
+/* Modalpopup style*/
+
+#booking_model_userDetails{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.booking_model_userDetails_divs{
+    display: flex;
+    flex-direction: column;
+    justify-content:center;
+    align-items: start;
+    gap: 4px;
+}
+.booking_model_userDetails_input{
+    border: none;
+    outline: none;
+    height:30px;
+    width: 100px;
+    padding-left: 20px;
+}
+.modal_placeholder{
+    font-family: var(--secondry-font-style);
+    font-size: 12px;
+    color: var(--secondary-color);
+  }
+
+  .buttonDiv{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+  } 
+
+  #submitModalBtn{
+    width:120px;
+    height:40px;
+    border-radius:20px;
+    background: var(--primary-app-color);
+    border:none;
+    color: rgb(255, 255, 255);
+    font-family: var(--secondry-font-style);
+  }
+
+  #cancelModalBtn{
+    width:120px;
+    height:40px;
+    border-radius:20px;
+    border: solid rgb(222, 220, 220);
+    font-family: var(--secondry-font-style);
+    cursor: pointer;
+  }

@@ -4,16 +4,16 @@ import { IoMdHome } from "react-icons/io";
 import { FaBloggerB } from "react-icons/fa6";
 import { FaArrowRight } from "react-icons/fa";
 import { FaArrowLeft } from "react-icons/fa";
-import {ToolTip, DoctorsCard} from "../../components";
+import {ToolTip, DoctorsCard,ScheduleCard} from "../../components";
 import { IoIosArrowBack } from "react-icons/io";
 import { IoIosArrowForward } from "react-icons/io";
 import { LiaUserEditSolid } from "react-icons/lia";
 import { Link, useNavigate } from "react-router-dom";
-import {useGetdoctorlistMutation} from "../../redux/slices/userSlice";
-import { convertToBase64 } from "../../utils";
-
+import {useGetdoctorlistMutation, useGetUserScheduleMutation, useDoctorinfoMutation} from "../../redux/slices/userSlice";
+import { convertToBase64,convertUTCtoLocal } from "../../utils";
 import { useDispatch, useSelector} from "react-redux";
 import { routes } from '../../routes/routes';
+import {formatDate} from "../../utils"
 
 
 function UserDashboard() {
@@ -22,8 +22,15 @@ function UserDashboard() {
   const {userInfo} = useSelector((state) => state.auth);
   const [profile, setProfile] = useState("");
   const [docList, setDocList ] = useState([]);
+  const [scheduleList, setScheduleList] = useState([]);
+  const [doctorinfos, setDoctorInfos] = useState(null);
+  const [newSchedule,setNewSchedule] = useState({});
   const navigate = useNavigate();
   const [getDoctorsList,{isLoading, error} ] = useGetdoctorlistMutation();
+  const [getSchedule, {loading, isError} ] = useGetUserScheduleMutation();
+  const [doctorInfos, {infoLoading, infoError}] = useDoctorinfoMutation();
+
+
 
   const handleProfileImg = async (e) => {
       let selectedFile = e?.target?.files?.[0];
@@ -38,12 +45,40 @@ function UserDashboard() {
       setDocList([...docs])
     
   }
-  console.log("SetdocList", docList);
+
+  const getScheduleList = async () => {
+      const schedules = await getSchedule().unwrap();
+
+      setScheduleList([...schedules?.appointmentList]);
+      setNewSchedule({...schedules?.appointmentList[schedules?.appointmentList?.length - 1]})
+      let newSc = {...schedules?.appointmentList[schedules?.appointmentList?.length - 1]};
+      console.log("newSc", newSc);
+      doctorInfo(newSc?.doctorId)
+  }
+
+  const doctorInfo =  async (id) => {
+    debugger;
+    try {
+      let infos = await doctorInfos({id:id}).unwrap();
+      console.log("infos", infos);
+      setDoctorInfos(infos?.doctorDetail);
+    } catch (error) {
+      console.log("infosError", error);
+    }
+  }
+  // const getDoctorData = async (id) => {
+     
+  //   const doctorData = await getDoctorDetails({id:"65c27a4f06389d99878add96"}).unwrap();
+  //   console.log("doctorData", doctorData);
+  // }
+  console.log("doctorinfos", doctorinfos);
 
 
 
   useEffect(() => {
     getDocList();
+    getScheduleList();
+    doctorInfo();
   },[])
 
 
@@ -133,7 +168,7 @@ function UserDashboard() {
                     experience={doc?.experience}              
                     profilePicture={doc?.profilePicture}                    
                     specialist={doc?.specialist}
-                    id={doc?.id}
+                    id={doc?._id}
                     />
                   </div>
                   )
@@ -169,7 +204,27 @@ function UserDashboard() {
             <IoIosArrowForward onClick={sliderRight} className="card_slider_icon"/>
             </div>
             <div className="doctor_list_container_2">
-            
+                  <div id="schedule_header">
+                    <p>Your Schedule</p>
+                    <span>see all</span>
+                  </div>
+                  <div id="schedule_content">
+                  <ScheduleCard
+                    doctorName={newSchedule.doctorName}
+                    specialist={newSchedule.specialist}
+                    bookDate={formatDate(newSchedule.bookingDateTime)}
+                    profilePicture={doctorinfos?.profilePicture || ""}
+                   />
+                    {/* {scheduleList.length > 0 ? (
+                         scheduleList.map((item) => {
+                           return (
+                           <ScheduleCard />
+                         )})
+                    ) : (
+                      <p>No schedule here yet. Book your doctors</p>
+                    )} */}
+                
+                  </div>
             </div>
            
             </div>

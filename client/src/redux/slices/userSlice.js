@@ -37,7 +37,34 @@ export const usersApiSlice = apiSlice.injectEndpoints({
                 url:`${USER_URL}/getdoctors`,
                 method:'GET',
             })
-        })
+        }),
+        book:builder.mutation({
+            query:(data) => ({
+                url:`${USER_URL}/booking`,
+                method:'POST',
+                body:data,
+            })
+        }),
+        getUserSchedule:builder.mutation({
+            query:(data) => ({
+                url:`${USER_URL}/getusersappoinments`,
+                method:"GET",
+            })
+        }),
+        doctorinfo:builder.mutation({
+            query:(data) =>({
+                url:`${USER_URL}/getDoctorDetails`,
+                method:"POST",
+                body:data,
+            })
+        }),
+        getUserDetailsById:builder.mutation({
+            query:(data)=> ({
+                url:`${USER_URL}/getuserbyId`,
+                method:"POST",
+                body:data
+            })
+        }),
     })
 })
 
@@ -47,5 +74,9 @@ export const {
      useLogoutMutation, 
     useRegisterMutation, 
     useUpdateprofileMutation,
-    useGetdoctorlistMutation
+    useGetdoctorlistMutation,
+useBookMutation,
+useGetUserScheduleMutation,
+useDoctorinfoMutation,
+useGetUserDetailsByIdMutation
 } = usersApiSlice;

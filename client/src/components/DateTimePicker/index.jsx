@@ -2,10 +2,20 @@ import * as React from 'react';
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
+// import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import dayjs from 'dayjs';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
-export default function BasicDateTimePicker() {
+const styles = {
+  dateTimePickerContainer: {
+    width: '200px',
+
+    // Adjust width as needed
+// Adjust height as needed
+  }
+};
+
+export default function BasicDateTimePicker({setTime}) {
 
     // // Calculate the start date of the current week (Monday)
     // const startOfWeek = dayjs().startOf('week').add(1, 'day'); // Add 1 day to start from Monday
@@ -23,19 +33,38 @@ export default function BasicDateTimePicker() {
 
     const minTime = dayjs().set('hour', 10).set('minute', 0);
     const maxTime = dayjs().set('hour', 15).set('minute', 0);
+    
+    const disableDates = date => date.isAfter(nextWeek);
+
+    const handleDateChange = date => {
+      const jsDate = date.toDate();
+      if (setTime) setTime(jsDate);
+    };
+
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <DemoContainer components={['DateTimePicker']}>
-        <DateTimePicker 
-        label="Basic date time picker"
+      <DemoContainer components={['DatePicker']}>
+        <div style={styles.dateTimePickerContainer} >
+
+   
+        <DatePicker
+     
+        label="pick your date"
+        onChange={handleDateChange}
         minDate={currentDate} // Minimum selectable date is the current date
         maxDate={nextWeek}
+        formatDensity="spacious"
         disablePast
-       
-        shouldDisableDate={date => date.isBefore(currentDate, 'day') || isWeekend(date)}
-        minTime={minTime} // Restrict time selection to 10 am
-        maxTime={maxTime} // Restrict time selection to 3 pm
+        InputLabelProps={{ style: { fontSize: '16px' } }} // Adjust the font size of the label
+        InputProps={{ style: { fontSize: '14px' } }} 
+      //   shouldDisableDate={date => isWeekend(date) || disableDates(date)}
+      //     minTime={minTime}
+      //     maxTime={maxTime}
+      //   // shouldDisableDate={date => date.isBefore(currentDate, 'day') || isWeekend(date)}
+      //  // Restrict time selection to 3 pm
+      //   InputLabelProps={{ style: { fontSize: '12px' } }}
          />
+              </div>
       </DemoContainer>
     </LocalizationProvider>
   );

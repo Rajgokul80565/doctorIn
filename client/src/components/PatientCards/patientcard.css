@@ -1,0 +1,93 @@
+#patientCard{
+    background-color: rgb(255, 255, 255);
+    box-shadow:0 4px 8px 0 rgba(0,0,0,0.2);
+    width: 310px;
+    height: 170px;
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr;
+    justify-content: stretch;
+    align-items: center;
+    border-radius: 30px;
+}
+
+#patient_card_header{
+    display:flex;
+    justify-content:flex-start;
+    align-items: center;
+    padding-left: 27px;
+}
+
+#patient_card_header p {
+    font-family: var(--secondry-font-style);
+    font-size: 12px;
+    font-weight: 100;
+    color:rgb(165, 164, 164);;
+}
+#patient_card_profile{
+    display: grid;
+    grid-template-columns: 2fr 5fr;
+    justify-content: center;
+    align-items: center;
+    padding-left: 27px;
+}
+#patient_names{
+    display:flex;
+    flex-direction: column;
+    gap:5px;
+}
+#patient_names h5{
+    font-family: var(--secondry-font-style);
+    font-size: 14px;
+    /* letter-spacing: 1px; */
+    font-weight:300; 
+    color: rgb(105, 104, 104);
+}
+#patient_names h6{
+    font-family: var(--secondry-font-style);
+    font-size: 9px;
+    font-weight:100; 
+    color:rgb(165, 164, 164);
+}
+#patient_profileCard_icon{
+    color: rgb(105, 104, 104);
+    font-size:30px;
+}
+#patient_card_footer {
+    display: grid;
+    grid-template-columns: 3fr 2fr;
+    padding-left: 27px;
+}
+
+/* rgb(240, 240, 240) */
+
+#patientcard_last_visit{
+    background-color: rgb(202, 202, 254);
+    padding: 10px;
+    width:120px;
+    height: 24px;
+    border-radius: 20px;
+    display: flex;
+    justify-content:center;
+    align-items:center;
+}
+#patientcard_last_visit p{
+    font-family: var(--secondry-font-style);
+    font-size: 10px;
+    color: var(--secondary-color);
+}
+#patientcard_footer_right{
+    display: flex;
+    gap: 12px; 
+    font-family: var(--secondry-font-style);  
+    font-size: 12px;
+    font-weight:300;
+    justify-content: center;
+    align-items: center;
+    padding-right: 10px;
+    cursor: pointer;
+}
+
+
+
+
+

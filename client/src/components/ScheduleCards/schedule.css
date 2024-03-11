@@ -1,0 +1,71 @@
+
+
+
+
+#scheduleCard{
+    background-color: var(--primary-app-color);
+    width: 370px;
+    height: 150px;
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    justify-content: stretch;
+    align-items: center;
+    border-radius: 30px;
+}
+#schedule_doc_details{
+    padding-top: 13px;
+    display: grid;
+    grid-template-columns: 2fr 2fr;
+}
+
+#schedule_profile{
+    display:flex;
+    align-items: center;
+    justify-content: center;
+}
+#schedule_doc_names{
+    display: flex;
+    flex-direction: column;
+    justify-content:center;
+    gap: 5px;
+}
+#schedule_doc_names p{
+    font-family:  var( --secondry-font-style);
+    color:white;
+    font-size:16px;
+    font-weight: 600;
+}
+#schedule_doc_names h6{
+    font-family:  var( --secondry-font-style);
+    color:rgb(255, 255, 255);
+    font-weight: 100;
+    font-size:10px;
+}
+.scheduleCard_Icon{
+    font-size:30px;
+    color:#ffff;
+ }
+
+ #schedule_time_details{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+ }
+ #timeIcon{
+    font-size:25px;
+ }
+
+ #schedule_time{
+    display:grid;
+    grid-template-columns: 1fr 2fr;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 25px;
+    width: 300px;
+    background-color:rgb(63, 63, 181);
+    border-radius: 30px;
+    color:rgb(255, 255, 255);
+    font-family: var(--secondry-font-style);
+    font-size: 12px;
+    font-weight: 200;
+ }

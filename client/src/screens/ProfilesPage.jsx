@@ -14,7 +14,7 @@ import { toast } from 'react-toastify';
 import {validateEmail} from "../utils";
 import { FaEdit } from "react-icons/fa";
 import { convertToBase64 } from "../utils";
-import Spinner from '../components/Loading spinner/spinner';
+import Spinner from '../components/Loading spinner/Spinner';
 // import { CiEdit } from "react-icons/ci";
 import { bcrypt } from 'bcryptjs';
 
