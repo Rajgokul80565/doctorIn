@@ -12,7 +12,7 @@ import profilePlaceHolder from "../../assets/images/profile2.jpg";
 import { convertToBase64 } from "../../utils";
 import { useSelector} from "react-redux";
 import { routes } from '../../routes/routes';
-import {PatientCard} from "../../components";
+import {PatientCard, PDFViewer} from "../../components";
 import {usePatientSchedulesMutation} from "../../redux/slices/doctorSlice";
 import {useGetUserDetailsByIdMutation} from "../../redux/slices/userSlice";
 import {ModalPopUp} from "../../components";
@@ -58,6 +58,8 @@ function Admindashboard() {
   useEffect(() => {
     console.log("patientUseEffect", patientDetails[0]?.userId);
     getUpcomingPatientDetails(patientDetails[0]);
+
+   
   },[patientDetails]);
 
   const onClose = () => {
@@ -169,7 +171,8 @@ function Admindashboard() {
           </div>
           <div id="pdf_area">
           <div>
-                previous doc
+          
+          <PDFViewer  title="YupPDF" pdfUrl="http://localhost:5000/uploads//1709660160189-12415407Rajgokul%20Resume%20(3).pdf" />
               </div>
               <div>
                 upload doc

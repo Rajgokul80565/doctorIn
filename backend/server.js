@@ -39,11 +39,14 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 
+
 app.post("/api/upload", upload.single("file") ,(req, res) => {
     console.log("path" , req?.file?.path);
     console.log("fileName", req?.file?.filename);
     res.status(201).json(req.file);
 });
+
+
 
 
 app.use(notFound);
