@@ -5,7 +5,7 @@ import { MdOutlineWorkOutline } from "react-icons/md";
 import { MdAccessTime } from "react-icons/md";
 import { useDispatch, useSelector} from "react-redux";
 import { MdWorkspacePremium } from "react-icons/md";
-import {isBase64} from "../../utils";
+import {isBase64, bookingStatus} from "../../utils";
 import ModalPopUp from '../ModelPopup';
 import {convertToUTC} from "../../utils/validations";
 import {useBookMutation} from "../../redux/slices/userSlice";
@@ -36,58 +36,13 @@ function DoctorsCard({
       setShowModalPopup(false);
     }
 
-    const  onSubmit =  async () => {
-      const formData = new FormData();
-      console.log("fio", files[0]);
-      formData.append("file", files[0]);
-      console.log("formData", formData.get("file"));
-      let bookDate = convertToUTC(date);
-      console.log("bookDate", bookDate);
-      
-      try {
-        let result = await axios.post(
-          "http://localhost:5000/api/upload/",
-          formData,{
-            headers: {
-              'Content-Type': 'multipart/form-data'
-          }},
-        );
-
-        if(result.data.filename){
-            try {
-                let booking  = await book({
-                  userName:userInfo?.name,
-                  userId:userInfo?._id,
-                  doctorName:doctorName,
-                  doctorId:id,
-                  specialist:specialist,
-                  bookingDateTime:bookDate,
-                  status:true,
-                }).unwrap();
-                console.log("bookingRes", booking);
-                if(isLoading === false){
-                  toast.success("Appoinment Booked");
-                  onClose();
-                }
-            } catch (error) {
-              console.log("bookerror", error.message);
-            }
-        }else{
-          console.log("noresult", result);
-        }
-      } catch (error) {
-          console.log("error", error.message);
-      }
-
-     }
-
 const ModalComps = () => {
 
       // console.log("isBase64",isBase64(profilePicture));
   // const [showModalPopup, setShowModalPopup] = useState(false);
   const [date, setDate] = React.useState(null);
   const [files, setfile] = React.useState([]);
-  const [gender, setGender] = React.useState("");
+  const [gender, setGender] = React.useState("Male");
   const [age, setAge] = useState(0);
   const {userInfo} = useSelector((state) => state.auth);
   const [book, {isLoading, error}] = useBookMutation();
@@ -100,7 +55,7 @@ const ModalComps = () => {
       formData.append("file", files[0]);
       console.log("formData", formData.get("file"));
       let bookDate = convertToUTC(date);
-      console.log("bookDate", bookDate);
+      console.log("bookDate", bookDate, age, gender);
       
       try {
         let result = await axios.post(
@@ -123,9 +78,12 @@ const ModalComps = () => {
                   specialist:specialist,
                   bookingDateTime:bookDate,
                   status:true,
+                  statusMessage:bookingStatus(0),
                   fileName:result?.data?.filename,
                   filePath:result?.data?.path,
                   age:age,
+                  allergies: [], 
+                  reasonForVisit:"",
                   gender:gender,
                 }).unwrap();
                 console.log("bookingRes", booking);
@@ -173,10 +131,18 @@ const ModalComps = () => {
                         </div>
                       
      </div>
+     {/* <div>
+      <div id="allergies_container">
+
+      </div>
+      <div id="reason_container">
+
+      </div>
+     </div> */}
      
                         <div>
                           <label className="modal_placeholder" >pervious medical report (not mandatory)</label>
-                        <Dropzone files={files} setfile={setfile}/>
+                        <Dropzone files={files} setfile={setfile} showDelete={true}/>
                         </div>
 
                         <div className="buttonDiv">

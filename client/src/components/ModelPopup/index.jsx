@@ -14,7 +14,7 @@ import Spinner from '../Loading spinner/Spinner';
 function ModalPopUp({id, Header, BodyComponent, onClose, bodyStyle}) {
 
   return (
-    <div className="modal">
+    <div style={{height:"750px"}}  className="modal">
         <div id={id || "Modal"} className="modal-content">
                 <div className="modal-header">
                 <h4>{Header ? Header : "Header"}</h4>

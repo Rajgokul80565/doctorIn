@@ -6,6 +6,7 @@ import asyncHandler from "express-async-handler";
 import Doctor from '../models/doctorsModel.js';
 
 
+
 // @desc Authenticate User
 // @route POST - /api/users/auth
 // @access public
@@ -291,7 +292,9 @@ const getUserAppointments = asyncHandler(  async (req, res) => {
         }
 }); 
 
-
+// @desc get Doctor detail
+// @route POST - /api/users/getResult
+// access private
 const getDoctorDetails = asyncHandler( async (req, res) =>{
     console.log("DoctorDetails Runinng")
 
@@ -302,8 +305,7 @@ const getDoctorDetails = asyncHandler( async (req, res) =>{
         }else{
             res.status(201).json({doctorDetail:[], message:"Not found"});
         }
-})
-
+});
 
 
 
@@ -317,5 +319,5 @@ export { authUser,
      getDoctorsList, 
      getUserAppointments,
      getDoctorDetails,
-     getUserById
+     getUserById,
 };

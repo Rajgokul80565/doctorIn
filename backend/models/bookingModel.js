@@ -25,6 +25,19 @@ const bookingSchema = mongoose.Schema({
         type:Boolean,
         required: true,
      },
+     statusMessage:{
+      type:String,
+      required: true,
+     },
+     allergies:{
+      type:Array,
+      default:[],
+     },
+     reasonForVisit:{
+      type:String,
+      required: true,
+      default:"",
+     },
      bookingDateTime:{
         type:Date,
         default: Date.now,

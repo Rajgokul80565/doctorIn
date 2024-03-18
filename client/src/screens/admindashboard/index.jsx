@@ -5,20 +5,23 @@ import { IoMdHome } from "react-icons/io";
 import { FaBloggerB } from "react-icons/fa6";
 import { FaArrowRight } from "react-icons/fa";
 import { FaArrowLeft } from "react-icons/fa";
-import {ToolTip, DoctorsCard} from "../../components";
+import {ToolTip, Dropzone} from "../../components";
 import { LiaUserEditSolid } from "react-icons/lia";
 import { Link, useNavigate } from "react-router-dom";
-import profilePlaceHolder from "../../assets/images/profile2.jpg";
-import { convertToBase64 } from "../../utils";
+// import profilePlaceHolder from "../../assets/images/profile2.jpg";
+// import { convertToBase64 } from "../../utils";
 import { useSelector} from "react-redux";
 import { routes } from '../../routes/routes';
 import {PatientCard, PDFViewer} from "../../components";
-import {usePatientSchedulesMutation} from "../../redux/slices/doctorSlice";
+import {usePatientSchedulesMutation,usePatientAttendMutation } from "../../redux/slices/doctorSlice";
 import {useGetUserDetailsByIdMutation} from "../../redux/slices/userSlice";
 import {ModalPopUp} from "../../components";
 import { isBase64 } from '../../utils';
 import { GiGooeyEyedSun } from "react-icons/gi";
 import { FaBriefcaseMedical } from "react-icons/fa";
+import axios from "axios";
+import { toast } from 'react-toastify';
+
 
 
 
@@ -29,9 +32,11 @@ function Admindashboard() {
   const [patientDetails, setPatientDetails] = useState([]);
   const [ showModal, setShowModal] = useState(false);
   const [upcomingPatient, setUpcomingPatient] = useState({});
+  const [file, setFile] = useState([]);
   const navigate = useNavigate();
   const [getPatientSchedules , {isloading, error}] = usePatientSchedulesMutation(); 
   const [getUpcomingPatient] = useGetUserDetailsByIdMutation();
+  const [attendPatient, {isattendPatientLoading, attendPatientError}] = usePatientAttendMutation(); 
 
 
   console.log("doctorINFOS", userInfo);
@@ -53,17 +58,82 @@ function Admindashboard() {
   
   useEffect(() => {
     getSchedulesDetails();
+
   },[])
 
   useEffect(() => {
-    console.log("patientUseEffect", patientDetails[0]?.userId);
-    getUpcomingPatientDetails(patientDetails[0]);
+    // console.log("patientUseEffect", patientDetails[patientDetails.length -1]?.userId);
+    if(patientDetails.length >= 1){
+      getUpcomingPatientDetails(patientDetails[patientDetails.length -1]);
+    }
+    
 
    
   },[patientDetails]);
 
   const onClose = () => {
     setShowModal(false)
+  }
+
+  console.log("VITE_APP_API_URL",
+  `${import.meta.env.VITE_APP_API_URL}/${upcomingPatient?.filePath}`, "****", "http://localhost:5000/uploads//1709660160189-12415407Rajgokul%20Resume%20(3).pdf");
+  
+
+   // 65e75800669a4a005a3520aa
+   //65e75800669a4a005a3520aa
+
+ 
+
+  // userId, 
+  // doctorName, 
+  // doctorId,
+  // reportName,
+  // reportPath, 
+  // reportStatus,
+  const submitPatient = async () => {
+
+    const formData = new FormData();
+    console.log("fio", file[0]);
+    formData.append("file", file[0]);
+    console.log("formData", formData.get("file"));
+    
+   try {
+
+    let result = await axios.post(
+      "http://localhost:5000/api/upload/",
+      formData,{
+        headers: {
+          'Content-Type': 'multipart/form-data'
+      }},
+    );
+
+    console.log("uploadFile", result);
+    if(result?.data?.filename){
+
+      let submit_patient = await attendPatient({
+        userId:upcomingPatient?.userId,
+        doctorName:upcomingPatient?.doctorName,
+        doctorId:upcomingPatient?.doctorId,
+        reportName:result?.data?.filename,
+        reportPath:result?.data?.path,
+        reportStatus:true,
+        bookingId:upcomingPatient?._id,
+      }).unwrap();
+
+      console.log("submit_patient", submit_patient, isattendPatientLoading);
+     
+        toast.success("Attended Patient");
+        onClose();
+       
+ 
+    }else{
+      toast.error("Something went wrong!. try again!");
+    }
+
+   } catch (error) {
+    toast.error(error.message);
+   }
+           
   }
 
 
@@ -114,6 +184,7 @@ function Admindashboard() {
 //         </div>
 //     </section>
 // </div>
+
     let arrAllegie = ["wheat", "lemon", "penut"]
     let dumpy = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Non optio est assumenda reiciendis ipsa laborum et, sint debitis quaerat nobis fugit, officia dicta esse modi voluptatem omnis, unde praesentium cupiditate? "
     return (
@@ -172,11 +243,16 @@ function Admindashboard() {
           <div id="pdf_area">
           <div>
           
-          <PDFViewer  title="YupPDF" pdfUrl="http://localhost:5000/uploads//1709660160189-12415407Rajgokul%20Resume%20(3).pdf" />
+          <PDFViewer  title="YupPDF" pdfUrl={`${import.meta.env.VITE_APP_API_URL}${upcomingPatient?.filePath}`}/>
               </div>
               <div>
-                upload doc
+              <Dropzone  files={file} setfile={setFile} showDelete={true} />
               </div>
+          </div>
+          <div id="submit_patient">
+            <button onClick={submitPatient}>
+              Submit
+            </button>
           </div>
         </div>
       </div>
@@ -232,7 +308,8 @@ function Admindashboard() {
               <div id="upcoming_cards">
                     <h6 id="today_schedule">Today Schedule</h6>
                     <PatientCard
-                    patientName={patientDetails[0]?.userName}
+                    patientName={upcomingPatient?.userName}
+                    age={upcomingPatient?.age}
                     profilePicture={upcomingPatient?.profilePicture ? upcomingPatient?.profilePicture : "" }
                     showModal={showModal}
                     setShowModal={setShowModal}

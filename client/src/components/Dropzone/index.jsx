@@ -33,7 +33,7 @@ const baseStyle = {
   };
 
 
-function Dropzone({files,setfile}) {
+function Dropzone({files,setfile, showDelete = false}) {
 
     // const [files, setFiles] = useState([]);
 
@@ -87,7 +87,7 @@ function Dropzone({files,setfile}) {
         {files.map(file => (
             <div className="after_upload">
                     <p style={{overflow:"hidden", textOverflow: "ellipsis"}}>{file?.name}</p>
-                    <div className="deleteIconDiv"><RiDeleteBin6Fill  className='delete_icon' onClick={handleDelete}/></div>
+                    <div className="deleteIconDiv"> {showDelete && <RiDeleteBin6Fill  className='delete_icon' onClick={handleDelete}/> }</div>
                     
             </div>
         ))}

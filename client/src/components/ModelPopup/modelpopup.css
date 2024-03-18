@@ -54,6 +54,7 @@ background-size:100px 100px, 100px 100px, 50px 50px, 50px 50px; */
   .modal-body {
     padding: 2px 16px;
     height: 350px;
+
     padding-top:20px;
     display: flex;
     flex-direction: column;
@@ -63,37 +64,6 @@ background-size:100px 100px, 100px 100px, 50px 50px, 50px 50px; */
   .modal-footer{
     padding: 2px 16px;
   }
-
-  /* .modal_placeholder{
-    font-family: var(--secondry-font-style);
-    font-size: 12px;
-    color: var(--secondary-color);
-    
-  }
-
-  .buttonDiv{
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-  }
-  #submitModalBtn{
-    width:120px;
-    height:40px;
-    border-radius:20px;
-    background: var(--primary-app-color);
-    border:none;
-    color: rgb(255, 255, 255);
-    font-family: var(--secondry-font-style);
-  }
-
-  #cancelModalBtn{
-    width:120px;
-    height:40px;
-    border-radius:20px;
-    border: solid rgb(222, 220, 220);
-    font-family: var(--secondry-font-style);
-  } */
-
   
   @keyframes animateModal {
     from {

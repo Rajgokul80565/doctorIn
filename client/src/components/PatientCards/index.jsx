@@ -32,7 +32,7 @@ function PatientCard({
         ) : ( <TfiLayoutPlaceholder id="patient_profileCard_icon" />)} 
         <div id="patient_names">
                 <h5>{patientName}</h5>
-                <h6>32 years</h6>  
+                <h6>{age} years</h6>  
         </div>
         </div>
         <div id="patient_card_footer">

@@ -58,4 +58,17 @@ function formatDate(dateString) {
   return date.toLocaleDateString('en-US', options);
 }
 
-export {validateEmail, convertToBase64, isBase64, convertToUTC, convertUTCtoLocal,formatDate };
+ 
+const bookingStatus = (messageId) => {
+
+    let message = ["New","Attended", "Unattended"];
+
+    if(messageId > message.length - 1 || messageId < 0) {
+       return message[0];
+    } 
+    return message[messageId];
+}
+
+
+
+export {validateEmail, convertToBase64, isBase64, convertToUTC, convertUTCtoLocal,formatDate,bookingStatus };

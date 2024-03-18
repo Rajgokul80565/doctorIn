@@ -13,7 +13,7 @@ import {useGetdoctorlistMutation, useGetUserScheduleMutation, useDoctorinfoMutat
 import { convertToBase64,convertUTCtoLocal } from "../../utils";
 import { useDispatch, useSelector} from "react-redux";
 import { routes } from '../../routes/routes';
-import {formatDate} from "../../utils"
+import {formatDate, bookingStatus} from "../../utils"
 
 
 function UserDashboard() {
@@ -42,6 +42,7 @@ function UserDashboard() {
 
   const getDocList =  async () => {
       const docs =  await getDoctorsList().unwrap();
+      console.log("docs",docs)
       setDocList([...docs])
     
   }
@@ -72,6 +73,7 @@ function UserDashboard() {
   //   console.log("doctorData", doctorData);
   // }
   console.log("doctorinfos", doctorinfos);
+  console.log("doctorLIst", docList);
 
 
 
