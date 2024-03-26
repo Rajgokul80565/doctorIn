@@ -1,0 +1,16 @@
+#tags_container{
+    display:flex;
+    align-items:center;
+    cursor:pointer;
+    background-color:var(--primary-app-color);
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 20px;
+
+   
+}
+
+#tags_text{
+    color: white;
+
+}

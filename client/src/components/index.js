@@ -6,3 +6,4 @@ export {default as ScheduleCard} from "./ScheduleCards";
 export {default as PatientCard} from './PatientCards';
 export {default as PDFViewer} from './PDFviewer';
 export {default as Dropzone} from "./Dropzone";
+export {default as InputTags} from "./InputTags";

@@ -1,6 +1,22 @@
 import {apiSlice} from "./apiSlice";
+import {createSlice} from "@reduxjs/toolkit";
 
 const USER_URL = "/api/users";
+
+
+const initialState = {
+    schedulesList:[],
+}
+
+const userSlice = createSlice({
+    name:"user",
+    initialState,
+    reducers:{
+        setSchedulesList:(state, action) => {
+                state.schedulesList = action.payload;
+        }
+    }
+})
 
 
 export const usersApiSlice = apiSlice.injectEndpoints({
@@ -68,7 +84,7 @@ export const usersApiSlice = apiSlice.injectEndpoints({
     })
 })
 
-
+export const {setSchedulesList} = userSlice.actions;
 export const {
     useLoginMutation,
      useLogoutMutation, 
@@ -80,3 +96,5 @@ useGetUserScheduleMutation,
 useDoctorinfoMutation,
 useGetUserDetailsByIdMutation
 } = usersApiSlice;
+
+export default userSlice.reducer;

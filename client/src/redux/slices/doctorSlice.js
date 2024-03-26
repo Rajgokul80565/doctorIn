@@ -1,12 +1,26 @@
 import {apiSlice} from "./apiSlice";
+import { createSlice } from '@reduxjs/toolkit';
 
 
 const DOCTOR_URL = "/api/doctors";
 
+const initialState = {
+    doctorsList:[],
+}
+
+const doctorSlice = createSlice({
+    name: 'doctor',
+    initialState,
+    reducers:{
+        setDoctorsList:(state, action) => {
+            state.doctorsList = action.payload;
+        }
+    }
+
+})
 
 
-
-export const doctorSlice = apiSlice.injectEndpoints({
+export const doctorApiSlice = apiSlice.injectEndpoints({
     endpoints:(builder) =>({
         patientSchedules:builder.mutation({
             query:(data) => ({
@@ -25,4 +39,7 @@ export const doctorSlice = apiSlice.injectEndpoints({
     })
 });
 
-export const {usePatientSchedulesMutation, usePatientAttendMutation} = doctorSlice;
+
+export const {setDoctorsList} = doctorSlice.actions;
+export const {usePatientSchedulesMutation, usePatientAttendMutation} = doctorApiSlice;
+export default doctorSlice.reducer;

@@ -11,9 +11,11 @@ import {convertToUTC} from "../../utils/validations";
 import {useBookMutation} from "../../redux/slices/userSlice";
 import { toast } from 'react-toastify';
 import Dropzone from "../Dropzone";
+import {InputTags} from "../../components";
 import axios from "axios";
 import Spinner from '../Loading spinner/Spinner';
-import BasicDateTimePicker from "../DateTimePicker"
+import BasicDateTimePicker from "../DateTimePicker";
+import { GiGooeyEyedSun } from "react-icons/gi";
 
 
 function DoctorsCard({
@@ -44,10 +46,28 @@ const ModalComps = () => {
   const [files, setfile] = React.useState([]);
   const [gender, setGender] = React.useState("Male");
   const [age, setAge] = useState(0);
+  const [reasonForVisit, setReasonForVisit] = React.useState("");
+  const [allergyInput, setAllergyInput] = React.useState("")
+  const [allergyList, setAllergyList] = React.useState([]);
   const {userInfo} = useSelector((state) => state.auth);
   const [book, {isLoading, error}] = useBookMutation();
 
+  console.log("sss234", reasonForVisit, allergyList);
 
+  const removeAllergy = (index) => {
+      setAllergyList(prevAllergy => prevAllergy.filter((_,i) => i != index))
+  }
+
+    const handleChange = (e) => {
+      if(e.key === "Enter" && e.target.value !== ""){
+        setAllergyList([...allergyList, allergyInput]);
+        setAllergyInput("");
+      }
+      if(e.key === "Backspace" && allergyList.length > 0 && e.target.value === ""){
+      allergyList.pop();
+       setAllergyList([...allergyList]);
+      }
+    }
 
     const  onSubmit =  async () => {
       const formData = new FormData();
@@ -82,8 +102,8 @@ const ModalComps = () => {
                   fileName:result?.data?.filename,
                   filePath:result?.data?.path,
                   age:age,
-                  allergies: [], 
-                  reasonForVisit:"",
+                  allergies: allergyList, 
+                  reasonForVisit:reasonForVisit,
                   gender:gender,
                 }).unwrap();
                 console.log("bookingRes", booking);
@@ -110,7 +130,7 @@ const ModalComps = () => {
 
     return (
    
-     <>
+     <div id="booking_model">
      <div id="booking_model_userDetails">
                         <div>
                         <label className="modal_placeholder">select date(10 slots per day)</label>
@@ -131,27 +151,53 @@ const ModalComps = () => {
                         </div>
                       
      </div>
-     {/* <div>
-      <div id="allergies_container">
+     <div id="booking_model_userDetails">
+      <div id="allergy_container">
+        
+      <label className="modal_placeholder" >Allergy</label>
+          <div id="allergy_input">
 
+
+                {allergyList.length > 0 && allergyList.map((item, index) => {
+                  return (
+                    <InputTags text={item} key={index} onClick={() => removeAllergy(index)}/>
+                  );
+                })}
+
+           
+                <input 
+                type="text"
+                value={allergyInput}
+                placeholder='Type and press "Enter" to add'
+                onChange={(e) => setAllergyInput(e.target.value)}
+                onKeyDown={(e) =>handleChange(e)}
+                 />
+           
+          </div>
       </div>
       <div id="reason_container">
-
+           
+      <label className="modal_placeholder" >Reason for visit</label>
+            <div id="reason_input_div">
+                  <textarea value={reasonForVisit} onChange={(e) => setReasonForVisit(e.target.value)} name="reason_for_visit" id="reasonforvisit" cols="35" rows="5"></textarea>
+            </div>
       </div>
-     </div> */}
-     
-                        <div>
+     </div>
+     <div id="booking_model_userDetails">
+                        <div id="booking_model_upload_contaier">
                           <label className="modal_placeholder" >pervious medical report (not mandatory)</label>
-                        <Dropzone files={files} setfile={setfile} showDelete={true}/>
+                        <Dropzone  files={files} setfile={setfile} showDelete={true}/>
                         </div>
-
+                        </div>
+                        <div id="booking_model_userDetails">
                         <div className="buttonDiv">
                           <button onClick={onSubmit} id="submitModalBtn" >
                           {isLoading ?  <Spinner style={{width: '25px', height:"25px"}}/> :  <p>Submit</p> }
                             </button>
                           <button onClick={onClose} id="cancelModalBtn">cancel</button>
                         </div>
-     </>
+                        </div>
+     </div>
      
     )
     

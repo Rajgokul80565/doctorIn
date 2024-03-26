@@ -14,15 +14,19 @@ import { convertToBase64,convertUTCtoLocal } from "../../utils";
 import { useDispatch, useSelector} from "react-redux";
 import { routes } from '../../routes/routes';
 import {formatDate, bookingStatus} from "../../utils"
-
+import {setDoctorsList} from "../../redux/slices/doctorSlice";
+import {setSchedulesList} from "../../redux/slices/userSlice";
 
 function UserDashboard() {
 
   const [openSide, setOpenSide] = useState(false);
   const {userInfo} = useSelector((state) => state.auth);
+  const {doctorsList} = useSelector((state) => state.doctor);
+  const {schedulesList} = useSelector((state) => state.user);
+  const dispatch = useDispatch();
   const [profile, setProfile] = useState("");
-  const [docList, setDocList ] = useState([]);
-  const [scheduleList, setScheduleList] = useState([]);
+  // const [docList, setDocList ] = useState([]);
+  // const [scheduleList, setScheduleList] = useState([]);
   const [doctorinfos, setDoctorInfos] = useState(null);
   const [newSchedule,setNewSchedule] = useState({});
   const navigate = useNavigate();
@@ -43,14 +47,19 @@ function UserDashboard() {
   const getDocList =  async () => {
       const docs =  await getDoctorsList().unwrap();
       console.log("docs",docs)
-      setDocList([...docs])
+      dispatch(setDoctorsList([...docs]));
+ 
+      // setDocList([...docs])
     
   }
 
   const getScheduleList = async () => {
       const schedules = await getSchedule().unwrap();
 
-      setScheduleList([...schedules?.appointmentList]);
+      console.log("schedulesAll", schedules);
+      dispatch(setSchedulesList([...schedules?.appointmentList]))
+
+      // setScheduleList([...schedules?.appointmentList]);
       setNewSchedule({...schedules?.appointmentList[schedules?.appointmentList?.length - 1]})
       let newSc = {...schedules?.appointmentList[schedules?.appointmentList?.length - 1]};
       console.log("newSc", newSc);
@@ -72,8 +81,8 @@ function UserDashboard() {
   //   const doctorData = await getDoctorDetails({id:"65c27a4f06389d99878add96"}).unwrap();
   //   console.log("doctorData", doctorData);
   // }
-  console.log("doctorinfos", doctorinfos);
-  console.log("doctorLIst", docList);
+  console.log("schedulesList", schedulesList);
+  console.log("doctorsList", doctorsList);
 
 
 
@@ -160,8 +169,8 @@ function UserDashboard() {
             <div className="doctor_list_container_1">
             <IoIosArrowBack onClick={sliderLeft} className="card_slider_icon"/>
             <div id='card_slider'>
-              {docList.length > 0 && (
-                docList.map((doc) =>{
+              {doctorsList?.length > 0 && (
+                doctorsList?.map((doc) =>{
                   return (
                     <div key={doc._id} className="card_slider_item">
                     <DoctorsCard 

@@ -236,11 +236,13 @@ const updateUserProfile = asyncHandler ( async (req, res) => {
 // @route POST - /api/users/booking
 // @access private
 const bookingAppointment = asyncHandler (async (req,res)=> {
-   let {userName,userId,doctorName,doctorId,specialist,bookingDateTime, fileName, filePath, age, gender} = req?.body;
+   let {userName,userId,doctorName,doctorId,specialist,bookingDateTime, fileName, filePath, age, gender, allergies, reasonForVisit, statusMessage} = req?.body;
     
 
     // Check for missing or invalid data
-    if (!userName || !userId || !doctorName || !doctorId || !specialist || !bookingDateTime || !fileName || !filePath || age === undefined || gender === undefined) {
+    if (!userName || !userId || !doctorName || !doctorId || !specialist || !bookingDateTime || !fileName || !filePath 
+        || age === undefined || gender === undefined || !Array.isArray(allergies) || !reasonForVisit || !statusMessage
+        ) {
         res.status(400);
         throw new Error('Missing or invalid booking data');
     }
@@ -262,7 +264,10 @@ const bookingAppointment = asyncHandler (async (req,res)=> {
         fileName,
         filePath,
         age,
-        gender
+        gender,
+        allergies,
+        reasonForVisit,
+        statusMessage
     });
 
     if(book){
@@ -275,7 +280,7 @@ const bookingAppointment = asyncHandler (async (req,res)=> {
         });
     }else{
         res.status(400);
-        throw new Error('invalid Booking data')
+        throw new Error('invalid Booking data');
     };
 });
 

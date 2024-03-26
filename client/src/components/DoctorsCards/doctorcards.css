@@ -66,6 +66,13 @@
 
 /* Modalpopup style*/
 
+#booking_model{
+  display: flex;
+  flex-direction: column;
+  gap:10px;
+  justify-items:space-between;
+}
+
 #booking_model_userDetails{
     display: flex;
     justify-content: space-around;
@@ -92,8 +99,102 @@
     color: var(--secondary-color);
   }
 
+  /* #allergies_container{
+    height: 120px;
+    width: 200px;
+    display: grid;
+    grid-template-rows: 1fr 2fr;
+   
+    border-radius: 20px;
+    overflow: hidden;
+  
+    box-shadow:0 1px 4px 0 rgba(41, 41, 41, 0.2);
+  } */
+
+  #allergy_container{
+    display: flex;
+    position: relative;
+    gap: 10px;
+    flex-direction: column;
+    justify-content:center;
+   
+  }
+
+  #allergy_input{
+    width: 215px;
+    height: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 5px;
+    border:1px solid #ccc;
+    border-radius: 20px;
+    overflow-y: auto;
+    background-color:white;
+  }
+
+  #allergy_input input{
+        border: none;
+        height: 20px;
+        width:200px;
+        padding: 3px;
+        /* background-color: #F8F8F8; */
+  }
+
+  #allergy_container input:focus{
+    outline:none;
+  }
+
+  #allergy_container ::-webkit-scrollbar {
+    width:4px;
+  }
+
+  #allergy_container ::-webkit-scrollbar-track{
+    background-color:  #f0f0f0; 
+  }
+
+  #allergy_container ::-webkit-scrollbar-thumb{
+    background-color: #888888; 
+    border-radius: 3px;
+  }
+
+ #reasonforvisit{
+    border-radius:20px;
+    border: none ;
+    padding-top: 10px;
+    padding-left: 20px;
+    padding-right:10px;
+    outline: none;
+ }
+
+
+ #reason_input_div ::-webkit-scrollbar {
+  width:4px;
+}
+
+#reason_input_div ::-webkit-scrollbar-track{
+  background-color:  #f0f0f0; 
+}
+
+#reason_input_div ::-webkit-scrollbar-thumb{
+  background-color: #888888; 
+  border-radius: 3px;
+}
+
+ #booking_model_upload_contaier{
+  display: flex;
+  flex-direction: column;
+  padding-top:10px;
+  min-width:500px;
+ }
+
+
   .buttonDiv{
     display: flex;
+    padding-top: 5px;
+    gap: 40px;
     align-items: center;
     justify-content: space-around;
   } 
