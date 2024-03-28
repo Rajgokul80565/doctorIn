@@ -26,6 +26,11 @@ const resultSchema = mongoose.Schema({
             type:Boolean,
             required: true,
             default: true,
+         },
+         reportStatusMessage:{
+            type:String,
+            required: true,
+            default: "Unattended",
          }
 },{
     timestamps:true

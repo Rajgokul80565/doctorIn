@@ -166,7 +166,7 @@
 
 .left_Main{
     display:grid;
-    grid-template-rows: 1fr 3fr 2fr;
+    grid-template-rows: 1fr 2fr 2fr;
     gap: 20px;
     padding-top: 20px;
     /* background-color: green;

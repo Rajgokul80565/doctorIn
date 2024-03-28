@@ -1,0 +1,52 @@
+#line_card_main_container{
+    background-color: white;
+    width: 440px;
+    height:60px;
+    display: grid;
+    grid-template-columns: 2fr 8fr 1fr;
+    justify-content: center;
+    align-items: center;
+    border-radius: 30px;
+    padding-left: 20px;
+    box-shadow:0 4px 8px 0 rgba(0,0,0,0.2);
+    /* color: #9622ee; */
+    padding-right: 10px;
+
+}
+
+#line_card_patientName{
+    font-size: 16px;
+    font-style: var(--secondry-font-style);
+    font-weight: 400;
+    color: var(--secondary-color);
+}
+
+#line_card_age_gender p{
+    font-size: 15px;
+    font-style: var(--secondry-font-style);
+    font-weight: 400;
+    color: var(--secondary-color);
+
+}
+
+#line_card_patientDetails{
+    display: flex;
+    flex-direction: column;
+    justify-content:center;
+    gap: 7px;
+}
+
+
+#line_card_age_gender{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#line_card_more_details{
+    display: flex;
+    justify-content:center;
+    align-items:center;
+    cursor: pointer;
+}
+

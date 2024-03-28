@@ -47,12 +47,12 @@ const getPatientsSchedules = asyncHandler( async (req, res) => {
 //     default: true,
 //  }
 const submitPatientResult = asyncHandler(async (req, res) => {
-    let {userId, doctorName, doctorId, reportName, reportPath, reportStatus, bookingId} = req?.body;
+    let {userId, doctorName, doctorId, reportName, reportPath, reportStatus, bookingId, reportStatusMessage} = req?.body;
 
     console.log("bookingId", bookingId, typeof bookingId);
 
     // Check for missing or invalid data
-    if (!userId || !doctorName || !doctorId || !reportName || !reportPath || !reportStatus || !bookingId) {
+    if (!userId || !doctorName || !doctorId || !reportName || !reportPath || !reportStatus || !bookingId || !reportStatusMessage) {
         res.status(400);
         throw new Error('Missing or invalid patient data');
     }
@@ -63,7 +63,8 @@ const submitPatientResult = asyncHandler(async (req, res) => {
 
         const bookingResult = await Booking.updateOne(
             {_id:bObjectId, status:false},
-            { $set:{status: true}}
+            { $set:{status: true, 
+                statusMessage:reportStatusMessage}}
             );
 
             console.log("bookingResult", bookingResult);
@@ -77,6 +78,7 @@ const submitPatientResult = asyncHandler(async (req, res) => {
                     reportName,
                     reportPath, 
                     reportStatus,
+                    reportStatusMessage
                 });
             
                 if(resultData){

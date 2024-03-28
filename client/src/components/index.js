@@ -7,3 +7,4 @@ export {default as PatientCard} from './PatientCards';
 export {default as PDFViewer} from './PDFviewer';
 export {default as Dropzone} from "./Dropzone";
 export {default as InputTags} from "./InputTags";
+export {default as NextInLineCard} from "./NextInLineCard";

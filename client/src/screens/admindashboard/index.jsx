@@ -15,12 +15,13 @@ import { routes } from '../../routes/routes';
 import {PatientCard, PDFViewer} from "../../components";
 import {usePatientSchedulesMutation,usePatientAttendMutation } from "../../redux/slices/doctorSlice";
 import {useGetUserDetailsByIdMutation} from "../../redux/slices/userSlice";
-import {ModalPopUp} from "../../components";
-import { isBase64 } from '../../utils';
+import {ModalPopUp, NextInLineCard} from "../../components";
+import { isBase64, bookingStatus } from '../../utils';
 import { GiGooeyEyedSun } from "react-icons/gi";
 import { FaBriefcaseMedical } from "react-icons/fa";
 import axios from "axios";
 import { toast } from 'react-toastify';
+import Spinner from '../../components/Loading spinner/Spinner';
 
 
 
@@ -30,12 +31,13 @@ function Admindashboard() {
   const [openSide, setOpenSide] = useState(false);
   const {userInfo} = useSelector((state) => state.auth);
   const [patientDetails, setPatientDetails] = useState([]);
-  const [ showModal, setShowModal] = useState(false);
+ const [updatedPatientDetails , setUpdatedPatientDetails] = useState([]);
   const [upcomingPatient, setUpcomingPatient] = useState({});
   const [file, setFile] = useState([]);
+  const [ showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
-  const [getPatientSchedules , {isloading, error}] = usePatientSchedulesMutation(); 
-  const [getUpcomingPatient] = useGetUserDetailsByIdMutation();
+  const [getPatientSchedules , {isLoading: patientLoading, errors}] = usePatientSchedulesMutation(); 
+  const [getUpcomingPatient, {isLoading: upcomingLoading, error}] = useGetUserDetailsByIdMutation();
   const [attendPatient, {isattendPatientLoading, attendPatientError}] = usePatientAttendMutation(); 
 
 
@@ -43,7 +45,8 @@ function Admindashboard() {
 
   const getSchedulesDetails = async () => {
     let schedules = await getPatientSchedules({id:userInfo._id}).unwrap();
-    setPatientDetails([...schedules.patientSchedule])
+    setPatientDetails([...schedules.patientSchedule]);
+
    
   }
 
@@ -54,7 +57,7 @@ function Admindashboard() {
       setUpcomingPatient(newUpcomingDetails);
   }
   console.log("patientDetails", patientDetails);
-  console.log("upcomingPatient", upcomingPatient);
+  console.log("upcomingPatient", upcomingPatient, );
   
   useEffect(() => {
     getSchedulesDetails();
@@ -64,11 +67,10 @@ function Admindashboard() {
   useEffect(() => {
     // console.log("patientUseEffect", patientDetails[patientDetails.length -1]?.userId);
     if(patientDetails.length >= 1){
-      getUpcomingPatientDetails(patientDetails[patientDetails.length -1]);
+      getUpcomingPatientDetails(patientDetails[0]);
+    }else{
+      setUpcomingPatient({});
     }
-    
-
-   
   },[patientDetails]);
 
   const onClose = () => {
@@ -117,12 +119,19 @@ function Admindashboard() {
         reportName:result?.data?.filename,
         reportPath:result?.data?.path,
         reportStatus:true,
+        reportStatusMessage:bookingStatus(1),
         bookingId:upcomingPatient?._id,
+
       }).unwrap();
 
       console.log("submit_patient", submit_patient, isattendPatientLoading);
      
         toast.success("Attended Patient");
+        let updatedPatientList = patientDetails;
+        updatedPatientList?.shift();
+        console.log("updatedPatientList",updatedPatientList);
+        setPatientDetails([...updatedPatientList]);
+        setFile([]);
         onClose();
        
  
@@ -138,55 +147,7 @@ function Admindashboard() {
 
 
   const modalPopForm = () => {
-//     <div id="patient_popup">
-//     <section id="Model_profile_part">
-//         <div id="modal_dp">
-//             {isBase64(upcomingPatient?.profilePicture ) ? (
-//                 <img style={{
-//                     width: "65px",
-//                     height:"65px",
-//                     borderRadius: "50px",
-//                 }} src={upcomingPatient?.profilePicture } alt="patient_image" />
-//             ) : (
-//                 <TfiLayoutPlaceholder id="patient_profileCard_icon" />
-//             )}
-//         </div>
-//         <div id="model_profile_name">
-//             <h2 id="patient_name_model">{patientDetails[0]?.userName}</h2>
-//             <dl id="profile_details">
-//                 <dt>Sex:</dt>
-//                 <dd>{upcomingPatient?.gender}</dd>
-//                 <dt>Age:</dt>
-//                 <dd>{upcomingPatient?.age} years</dd>
-//             </dl>
-//             <div class="patient_model_box">
-//                 <h3>65 <span>kg</span></h3> 
-//                 <p>Weight</p>
-//             </div>   
-//             <div class="patient_model_box">
-//                 <h3>65 <span>kg</span></h3> 
-//                 <p>Weight</p>
-//             </div>
-//         </div>
-//     </section>
-//     <section id="patient_details">
-//         <div id="reason_area">
-//             <h3>Allergies</h3>
-//             <p>...</p> 
-//             <h3>Problems</h3>
-//             <p>...</p> 
-//         </div>
-//         <div id="pdf_area">
-//             <h3>Previous Documents</h3>
-//             <p>...</p> 
-//             <h3>Upload Documents</h3>
-//             <p>...</p> 
-//         </div>
-//     </section>
-// </div>
-
-    let arrAllegie = ["wheat", "lemon", "penut"]
-    let dumpy = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Non optio est assumenda reiciendis ipsa laborum et, sint debitis quaerat nobis fugit, officia dicta esse modi voluptatem omnis, unde praesentium cupiditate? "
+  
     return (
       <div id="patient_popup">
         <div id="Model_profile_part">
@@ -225,9 +186,9 @@ function Admindashboard() {
                 </div>
                
                 <div className="reason_allergie_content">
-                    {arrAllegie?.map((aller,index) => (
+                    {upcomingPatient?.allergies?.length > 0 ? upcomingPatient?.allergies?.map((aller,index) => (
                       <p index={index}>{aller},</p>
-                    ))}
+                    )) : <p>no allergies</p>}
                 </div>
 
               </div>
@@ -236,7 +197,7 @@ function Admindashboard() {
                 <FaBriefcaseMedical style={{color:"rgb(81, 79, 79)"}}/> <p>Reason for Visit</p>
                 </div>
                 <div className="reason_allergie_content">
-                  <p style={{paddingLeft:"17px"}}>{dumpy}</p>
+                  <p style={{paddingLeft:"17px"}}>{upcomingPatient?.reasonForVisit}</p>
                 </div>
               </div>
           </div>
@@ -258,6 +219,8 @@ function Admindashboard() {
       </div>
     )
   }
+
+  console.log("isloadingUser", upcomingLoading, patientLoading);
 
 
 
@@ -306,21 +269,39 @@ function Admindashboard() {
                   {/* <IoMdSettings id="settingsIcon" /> */}
               </div>
               <div id="upcoming_cards">
-                    <h6 id="today_schedule">Today Schedule</h6>
-                    <PatientCard
-                    patientName={upcomingPatient?.userName}
-                    age={upcomingPatient?.age}
-                    profilePicture={upcomingPatient?.profilePicture ? upcomingPatient?.profilePicture : "" }
-                    showModal={showModal}
-                    setShowModal={setShowModal}
-                    ModalPopUp={ModalPopUp}
-                    modalForm={modalPopForm}
-                    onClose={onClose}
-                    />
+                    <h6 className="today_schedule">Today Schedule</h6>
+                    {upcomingLoading ? <Spinner style={{width:"60px", height:"60px"}}/> : (
+                      <>
+                        {Object.keys(upcomingPatient).length >0 ? (
+                          <PatientCard
+                          patientName={upcomingPatient?.userName}
+                          age={upcomingPatient?.age}
+                          profilePicture={upcomingPatient?.profilePicture ? upcomingPatient?.profilePicture : "" }
+                          showModal={showModal}
+                          setShowModal={setShowModal}
+                          ModalPopUp={ModalPopUp}
+                          modalForm={modalPopForm}
+                          onClose={onClose}
+                          />
+                      ) : (
+                        <div>
+                         <h6>No appointments today</h6>
+                        </div>
+                      )}
+                      </>
+                    )}
+                   
+                   
               </div>  
-              <div id="right_result">
-              {/* results here */}
-</div>
+              <div id="in_line_patients">
+                <h6 className="today_schedule">In line</h6>
+            <div id="nextLineCard">
+              {patientDetails.slice(1).map((item) => (
+                  <NextInLineCard profilePicture={upcomingPatient?.profilePicture}  patientName={item?.userName} gender={item?.gender} age={item?.age}/>
+              ))}
+            </div>
+             
+              </div>
             </div>
           </div>
 

@@ -6,6 +6,7 @@ const DOCTOR_URL = "/api/doctors";
 
 const initialState = {
     doctorsList:[],
+    appointmentList:[],
 }
 
 const doctorSlice = createSlice({
@@ -14,6 +15,9 @@ const doctorSlice = createSlice({
     reducers:{
         setDoctorsList:(state, action) => {
             state.doctorsList = action.payload;
+        },
+        setAppointmentList:(state, action) => {
+            state.appointmentList = action.payload;
         }
     }
 
@@ -40,6 +44,6 @@ export const doctorApiSlice = apiSlice.injectEndpoints({
 });
 
 
-export const {setDoctorsList} = doctorSlice.actions;
+export const {setDoctorsList, setAppointmentList} = doctorSlice.actions;
 export const {usePatientSchedulesMutation, usePatientAttendMutation} = doctorApiSlice;
 export default doctorSlice.reducer;
