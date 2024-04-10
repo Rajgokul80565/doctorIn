@@ -4,25 +4,30 @@ import { IoMdHome } from "react-icons/io";
 import { FaBloggerB } from "react-icons/fa6";
 import { FaArrowRight } from "react-icons/fa";
 import { FaArrowLeft } from "react-icons/fa";
-import {ToolTip, DoctorsCard,ScheduleCard} from "../../components";
+import {ToolTip, DoctorsCard,ScheduleCard, PDFViewer} from "../../components";
 import { IoIosArrowBack } from "react-icons/io";
 import { IoIosArrowForward } from "react-icons/io";
 import { LiaUserEditSolid } from "react-icons/lia";
 import { Link, useNavigate } from "react-router-dom";
-import {useGetdoctorlistMutation, useGetUserScheduleMutation, useDoctorinfoMutation} from "../../redux/slices/userSlice";
+import {useGetdoctorlistMutation, useGetUserScheduleMutation, useDoctorinfoMutation, useGetUserResultMutation} from "../../redux/slices/userSlice";
 import { convertToBase64,convertUTCtoLocal } from "../../utils";
 import { useDispatch, useSelector} from "react-redux";
 import { routes } from '../../routes/routes';
 import {formatDate, bookingStatus} from "../../utils"
 import {setDoctorsList} from "../../redux/slices/doctorSlice";
-import {setSchedulesList} from "../../redux/slices/userSlice";
-
+import {setSchedulesList, setUserResults} from "../../redux/slices/userSlice";
+import avatarOneImg from "../../assets/images/avatar1.jpg";
+import avatarTwoImg from "../../assets/images/avatar2.jpg";
+import avatarThreeImg from "../../assets/images/avatar3.jpg";
+import dietHeaderImg from "../../assets/images/diet_header.jpg";
+import { Cursor } from 'mongoose';
 function UserDashboard() {
 
   const [openSide, setOpenSide] = useState(false);
   const {userInfo} = useSelector((state) => state.auth);
   const {doctorsList} = useSelector((state) => state.doctor);
-  const {schedulesList} = useSelector((state) => state.user);
+  const {schedulesList, userResults} = useSelector((state) => state.user);
+
   const dispatch = useDispatch();
   const [profile, setProfile] = useState("");
   // const [docList, setDocList ] = useState([]);
@@ -33,6 +38,7 @@ function UserDashboard() {
   const [getDoctorsList,{isLoading, error} ] = useGetdoctorlistMutation();
   const [getSchedule, {loading, isError} ] = useGetUserScheduleMutation();
   const [doctorInfos, {infoLoading, infoError}] = useDoctorinfoMutation();
+  const [getUserResults] = useGetUserResultMutation();
 
 
 
@@ -48,10 +54,17 @@ function UserDashboard() {
       const docs =  await getDoctorsList().unwrap();
       console.log("docs",docs)
       dispatch(setDoctorsList([...docs]));
- 
-      // setDocList([...docs])
     
   }
+
+  const getUerResults = async () => {
+    const userResults = await getUserResults().unwrap();
+    console.log("result", userResults);
+    dispatch(setUserResults([...userResults?.results]));
+
+
+  }
+  
 
   const getScheduleList = async () => {
       const schedules = await getSchedule().unwrap();
@@ -82,6 +95,7 @@ function UserDashboard() {
   //   console.log("doctorData", doctorData);
   // }
   console.log("schedulesList", schedulesList);
+  console.log("userResults", userResults);
   console.log("doctorsList", doctorsList);
 
 
@@ -90,6 +104,7 @@ function UserDashboard() {
     getDocList();
     getScheduleList();
     doctorInfo();
+    getUerResults();
   },[])
 
 
@@ -157,11 +172,51 @@ function UserDashboard() {
                   <LiaUserEditSolid onClick={() => navigate(routes.profile)} id="settingsIcon" />
                   {/* <IoMdSettings id="settingsIcon" /> */}
               </div>
-              <div id="right_blog">
-            
+              <div id="left_blog">
+                  <div id="blog_card">
+                    <img id="avatar1" src={avatarOneImg} alt="avatar" />
+                    <img id="avatar2" src={avatarTwoImg} alt="avatar" />
+                    <img id="avatar3" src={avatarThreeImg} alt="avatar" />
+                      <div id="blog_curve">
+                      
+                      </div>
+                      <div id='blogcard_content'>
+                        <h4>See what our experts say!</h4>
+                          <h6>blogs</h6>
+                      </div>
+                  </div>
+                  <div id="diet_card">
+                    <div id="diet_header">
+                      <img src={dietHeaderImg} alt="diet-image" />
+                    </div>  
+                    {/* <img id="avatar1" src={avatarOneImg} alt="avatar" />
+                    <img id="avatar2" src={avatarTwoImg} alt="avatar" />
+                    <img id="avatar3" src={avatarThreeImg} alt="avatar" /> */}
+                     
+                      <div id='blogcard_content'>
+                        <h4>Check diet for you!</h4>
+                          <h6>Food diet</h6>
+                      </div>
+                  </div>
               </div>
-              <div id="right_result">
+              <div id="left_result">
               {/* results here */}
+              <h6 className="reports">Reports</h6>
+                  <div id="result_container">
+                    {userResults?.length > 0 ? (
+                      <>
+                      {userResults?.map((result) => {
+                        return (
+                        <PDFViewer style={{cursor:"pointer"}} title="report1" pdfUrl={`${import.meta.env.VITE_APP_API_URL}${result?.reportPath}`} />
+                       
+                      )})}
+                      
+                      </>
+                    ) : (
+                      <h6>No reports, yet!</h6>
+                    )}
+                      
+                  </div>
 </div>
             </div>
 
@@ -180,6 +235,8 @@ function UserDashboard() {
                     profilePicture={doc?.profilePicture}                    
                     specialist={doc?.specialist}
                     id={doc?._id}
+                    doctorInfo={doctorInfo}
+                    setNewSchedule={setNewSchedule}
                     />
                   </div>
                   )
@@ -220,12 +277,18 @@ function UserDashboard() {
                     <span>see all</span>
                   </div>
                   <div id="schedule_content">
-                  <ScheduleCard
-                    doctorName={newSchedule.doctorName}
-                    specialist={newSchedule.specialist}
-                    bookDate={formatDate(newSchedule.bookingDateTime)}
-                    profilePicture={doctorinfos?.profilePicture || ""}
-                   />
+                    {schedulesList.length > 0 ? (
+                       <ScheduleCard
+                       doctorName={newSchedule.doctorName}
+                       specialist={newSchedule.specialist}
+                       bookDate={formatDate(newSchedule.bookingDateTime)}
+                       profilePicture={doctorinfos?.profilePicture || ""}
+                       status={newSchedule?.statusMessage ? newSchedule?.statusMessage : null}
+                      />
+                    ) : (
+                      <h6 id='no_appointment'>No appointments schedule, yet!.</h6>
+                    )}
+                 
                     {/* {scheduleList.length > 0 ? (
                          scheduleList.map((item) => {
                            return (

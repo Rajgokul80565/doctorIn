@@ -6,6 +6,7 @@ const USER_URL = "/api/users";
 
 const initialState = {
     schedulesList:[],
+    userResults:[],
 }
 
 const userSlice = createSlice({
@@ -14,6 +15,9 @@ const userSlice = createSlice({
     reducers:{
         setSchedulesList:(state, action) => {
                 state.schedulesList = action.payload;
+        },
+        setUserResults:(state, action) => {
+            state.userResults = action.payload;
         }
     }
 })
@@ -81,10 +85,17 @@ export const usersApiSlice = apiSlice.injectEndpoints({
                 body:data
             })
         }),
+        getUserResult:builder.mutation({
+            query:(data)=>({
+                url:`${USER_URL}/getUserResult`,
+                method:"POST",
+                body:data,
+            })
+        })
     })
 })
 
-export const {setSchedulesList} = userSlice.actions;
+export const {setSchedulesList, setUserResults} = userSlice.actions;
 export const {
     useLoginMutation,
      useLogoutMutation, 
@@ -94,7 +105,8 @@ export const {
 useBookMutation,
 useGetUserScheduleMutation,
 useDoctorinfoMutation,
-useGetUserDetailsByIdMutation
+useGetUserDetailsByIdMutation,
+useGetUserResultMutation,
 } = usersApiSlice;
 
 export default userSlice.reducer;

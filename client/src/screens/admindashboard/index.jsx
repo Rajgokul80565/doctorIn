@@ -270,7 +270,7 @@ function Admindashboard() {
               </div>
               <div id="upcoming_cards">
                     <h6 className="today_schedule">Today Schedule</h6>
-                    {upcomingLoading ? <Spinner style={{width:"60px", height:"60px"}}/> : (
+                    {/* {upcomingLoading ? <Spinner style={{width:"60px", height:"60px"}}/> : (
                       <>
                         {Object.keys(upcomingPatient).length >0 ? (
                           <PatientCard
@@ -289,7 +289,17 @@ function Admindashboard() {
                         </div>
                       )}
                       </>
-                    )}
+                    )} */}
+                     <PatientCard
+                          patientName={upcomingPatient?.userName}
+                          age={upcomingPatient?.age}
+                          profilePicture={upcomingPatient?.profilePicture ? upcomingPatient?.profilePicture : "" }
+                          showModal={showModal}
+                          setShowModal={setShowModal}
+                          ModalPopUp={ModalPopUp}
+                          modalForm={modalPopForm}
+                          onClose={onClose}
+                          />
                    
                    
               </div>  

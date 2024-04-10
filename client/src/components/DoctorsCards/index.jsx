@@ -15,6 +15,7 @@ import {InputTags} from "../../components";
 import axios from "axios";
 import Spinner from '../Loading spinner/Spinner';
 import BasicDateTimePicker from "../DateTimePicker";
+import {setSchedulesList} from "../../redux/slices/userSlice";
 import { GiGooeyEyedSun } from "react-icons/gi";
 
 
@@ -24,7 +25,9 @@ function DoctorsCard({
   experience = 0,         
   profilePicture = "",                
   specialist = " ",
-  id=" "
+  id=" ",
+  doctorInfo,
+  setNewSchedule
 }) {
 
   // console.log("isBase64",isBase64(profilePicture));
@@ -32,7 +35,9 @@ function DoctorsCard({
   const [date, setDate] = React.useState(null);
   const [files, setfile] = React.useState([]);
   const {userInfo} = useSelector((state) => state.auth);
+  const {schedulesList}  = useSelector((state) => state.user);
   const [book, {isLoading, error}] = useBookMutation();
+  const dispatch = useDispatch();
 
     const onClose = () => {
       setShowModalPopup(false);
@@ -52,7 +57,7 @@ const ModalComps = () => {
   const {userInfo} = useSelector((state) => state.auth);
   const [book, {isLoading, error}] = useBookMutation();
 
-  console.log("sss234", reasonForVisit, allergyList);
+  console.log("sss234", reasonForVisit, allergyList, schedulesList);
 
   const removeAllergy = (index) => {
       setAllergyList(prevAllergy => prevAllergy.filter((_,i) => i != index))
@@ -106,14 +111,18 @@ const ModalComps = () => {
                   reasonForVisit:reasonForVisit,
                   gender:gender,
                 }).unwrap();
-                console.log("bookingRes", booking);
+                console.log("bookingRes", booking?._doc);
+                dispatch(setSchedulesList([...schedulesList, booking?._doc]))
+                doctorInfo(booking?._doc?.doctorId);
+                setNewSchedule({...booking?._doc})
+
                 if(isLoading === false){
                   toast.success("Appoinment Booked");
                   onClose();
                 }
             } catch (error) {
               console.log("bookerror", error.message);
-              toast.success(error.message);
+              toast.error(error.message);
               onClose();
             }
         }else{

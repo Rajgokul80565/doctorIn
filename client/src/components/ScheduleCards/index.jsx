@@ -6,7 +6,7 @@ import { isBase64 } from '../../utils';
 
 
 
-function ScheduleCard({doctorName, specialist, bookDate, profilePicture}) {
+function ScheduleCard({doctorName, specialist, bookDate, profilePicture, status}) {
   return (
     <div id="scheduleCard">
         <div id="schedule_doc_details">
@@ -31,6 +31,11 @@ function ScheduleCard({doctorName, specialist, bookDate, profilePicture}) {
            <p>{bookDate}</p>
            </div>
         </div>
+        {status && <div id ="schedule_status">
+              <h6>{status }</h6>
+        </div>
+        }
+        
     </div>
   )
 }

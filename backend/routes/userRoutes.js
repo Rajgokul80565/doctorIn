@@ -7,7 +7,8 @@ import { authUser,
     getDoctorsList,
     getUserAppointments,
     getDoctorDetails,
-    getUserById
+    getUserById,
+    getUserReport
 } from "../controllers/userControllers.js";
 import { protect } from "../middleware/authMiddleware.js";
 
@@ -22,6 +23,7 @@ router.route("/booking").post(protect,bookingAppointment);
 router.route("/getusersappoinments").get(protect, getUserAppointments);
 router.route("/getDoctorDetails").post(protect, getDoctorDetails)
 router.route("/getuserbyId").post(protect, getUserById);
+router.route("/getUserResult").post(protect, getUserReport);
 // router.post("/profile", getUserProfile);
 // router.get("/profile", updateUserProfile);s
 

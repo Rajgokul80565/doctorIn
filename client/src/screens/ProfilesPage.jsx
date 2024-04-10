@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import "../App.css";
 // import { ReactComponent as LoginImg } from "../../public/images/login_img.svg"
-import SignupImg from "../assets/images/signUp2.svg"
+
 import { FaRegEye } from "react-icons/fa";
 import { FaRegEyeSlash } from "react-icons/fa";
 import profilePlaceholder from "../assets/images/profile2.jpg"

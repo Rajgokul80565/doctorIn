@@ -1,9 +1,12 @@
 import User from "../models/userModel.js";
+import Doctor from '../models/doctorsModel.js';
+import Result from "../models/resultModel.js";
 import Booking from "../models/bookingModel.js";
 import generateToken from "../utils/generateToken.js";
 import asyncHandler from "express-async-handler";
 
-import Doctor from '../models/doctorsModel.js';
+
+
 
 
 
@@ -269,14 +272,11 @@ const bookingAppointment = asyncHandler (async (req,res)=> {
         reasonForVisit,
         statusMessage
     });
+    console.log("bookjkli", book);
 
     if(book){
         res.status(201).json({
-            _id:book._id,
-            doctorName,
-            doctorId,
-            specialist,
-            bookingDateTime,
+            ...book,
         });
     }else{
         res.status(400);
@@ -298,7 +298,7 @@ const getUserAppointments = asyncHandler(  async (req, res) => {
 }); 
 
 // @desc get Doctor detail
-// @route POST - /api/users/getResult
+// @route POST - /api/users/getDoctorDetails
 // access private
 const getDoctorDetails = asyncHandler( async (req, res) =>{
     console.log("DoctorDetails Runinng")
@@ -311,6 +311,23 @@ const getDoctorDetails = asyncHandler( async (req, res) =>{
             res.status(201).json({doctorDetail:[], message:"Not found"});
         }
 });
+// @desc get User Result
+// @route Post - /api/users/getUserResult
+const getUserReport = asyncHandler(async (req, res) => {
+    try {
+        const userReport = await Result.find({ userId: req.user._id });
+
+        if (userReport.length > 0) {
+            return res.status(200).json({ results: userReport });
+        } else {
+            return res.status(404).json({ results: [], message: "No results found for this user" });
+        }
+    } catch (error) {
+        console.error("Error fetching user report:", error);
+        return res.status(500).json({ error: "Internal Server Error" });
+    }
+
+})
 
 
 
@@ -325,4 +342,5 @@ export { authUser,
      getUserAppointments,
      getDoctorDetails,
      getUserById,
+     getUserReport,
 };
