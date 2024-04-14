@@ -1,26 +1,26 @@
 import React, {useState,useEffect} from 'react'
 import "../userdashboard/userdashboardStyles.css";
-import { IoMdHome } from "react-icons/io";
-import { FaBloggerB } from "react-icons/fa6";
-import { FaArrowRight } from "react-icons/fa";
-import { FaArrowLeft } from "react-icons/fa";
-import {ToolTip, DoctorsCard,ScheduleCard, PDFViewer} from "../../components";
+import {DoctorsCard,ScheduleCard, PDFViewer} from "../../components";
 import { IoIosArrowBack } from "react-icons/io";
 import { IoIosArrowForward } from "react-icons/io";
 import { LiaUserEditSolid } from "react-icons/lia";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {useGetdoctorlistMutation, useGetUserScheduleMutation, useDoctorinfoMutation, useGetUserResultMutation} from "../../redux/slices/userSlice";
-import { convertToBase64,convertUTCtoLocal } from "../../utils";
+import { convertToBase64} from "../../utils";
 import { useDispatch, useSelector} from "react-redux";
 import { routes } from '../../routes/routes';
-import {formatDate, bookingStatus} from "../../utils"
+import {ModalPopUp} from '../../components';
+import {formatDate} from "../../utils"
 import {setDoctorsList} from "../../redux/slices/doctorSlice";
 import {setSchedulesList, setUserResults} from "../../redux/slices/userSlice";
 import avatarOneImg from "../../assets/images/avatar1.jpg";
 import avatarTwoImg from "../../assets/images/avatar2.jpg";
 import avatarThreeImg from "../../assets/images/avatar3.jpg";
 import dietHeaderImg from "../../assets/images/diet_header.jpg";
-import { Cursor } from 'mongoose';
+import { BsPersonFill } from "react-icons/bs";
+import {Sidebar} from "../../components";
+import noAppontmentsImg from "../../assets/images/no_appointment.png"
+
 function UserDashboard() {
 
   const [openSide, setOpenSide] = useState(false);
@@ -34,11 +34,13 @@ function UserDashboard() {
   // const [scheduleList, setScheduleList] = useState([]);
   const [doctorinfos, setDoctorInfos] = useState(null);
   const [newSchedule,setNewSchedule] = useState({});
+  const [openPopUp , setOpenPopUp] = useState(false);
   const navigate = useNavigate();
   const [getDoctorsList,{isLoading, error} ] = useGetdoctorlistMutation();
   const [getSchedule, {loading, isError} ] = useGetUserScheduleMutation();
   const [doctorInfos, {infoLoading, infoError}] = useDoctorinfoMutation();
   const [getUserResults] = useGetUserResultMutation();
+  const [dataFetched, setDataFetched] = useState(false);
 
 
 
@@ -54,6 +56,7 @@ function UserDashboard() {
       const docs =  await getDoctorsList().unwrap();
       console.log("docs",docs)
       dispatch(setDoctorsList([...docs]));
+      setDataFetched(true);
     
   }
 
@@ -97,15 +100,22 @@ function UserDashboard() {
   console.log("schedulesList", schedulesList);
   console.log("userResults", userResults);
   console.log("doctorsList", doctorsList);
+  console.log("newSchedule", newSchedule);
 
 
 
   useEffect(() => {
-    getDocList();
     getScheduleList();
     doctorInfo();
     getUerResults();
   },[])
+
+  useEffect(() => {
+    // Fetch doctors list only if it's not already available in the Redux store
+    if (!doctorsList.length && !dataFetched) {
+      getDocList();
+    }
+  }, []);
 
 
   const sliderLeft = () => {
@@ -120,6 +130,36 @@ function UserDashboard() {
     sliderForward.scrollLeft = sliderForward.scrollLeft + 550;
   }
 
+  const onClose = () => {
+    setOpenPopUp(false);
+  }
+
+  const ModalComps = () => {
+
+
+    return (
+      <div id="shedule_pop">
+        {[...schedulesList]?.reverse()?.map((schedule) => {
+          let bookingDate = formatDate(schedule?.bookingDateTime)
+          return (
+          // <div id="shedule_card">
+          //    <BsPersonFill style={{color:"#9622ee", fontSize:"28px"}} />
+          //       {schedule?.doctorName}
+          //   </div>
+          <div id="shedule_card">
+              <BsPersonFill style={{color:"#9622ee", fontSize:"28px"}} />
+              <h5> {schedule?.doctorName}</h5>
+              <h6>{bookingDate}</h6>
+              <h6>{schedule?.statusMessage}</h6>
+        </div>
+          )
+        })}
+       
+          
+      </div>
+    )
+  }
+
 
   
 // email: "ali@gmail.com"
@@ -130,16 +170,16 @@ function UserDashboard() {
 
   return (
     <div className={`main ${openSide ? "active" : "inactive"}`}>
-        <div className="sidebar_main">
+        {/* <div className="sidebar_main">
         <ToolTip text="Home" show={openSide}>
-        <div  className="sidebar_main_item">
+        <div  className="sidebar_main_item" onClick={() => navigate(routes.userHome)}>
         <IoMdHome className='sidebar_icon'/>
         { openSide && <h6>Home</h6>}
           
         </div>
         </ToolTip>
         <ToolTip text="blogs"  show={openSide}>
-        <div className="sidebar_main_item">
+        <div className="sidebar_main_item" onClick={() => navigate(routes.userBlog)}>
         <FaBloggerB />
         { openSide && <h6>Blogs</h6>}
        
@@ -157,7 +197,8 @@ function UserDashboard() {
         )}
        
 
-        </div>
+        </div> */}
+        <Sidebar openSide={openSide} setOpenSide={setOpenSide} />
         
         <div className="main_content">
             <div className="left_Main">
@@ -207,7 +248,7 @@ function UserDashboard() {
                       <>
                       {userResults?.map((result) => {
                         return (
-                        <PDFViewer style={{cursor:"pointer"}} title="report1" pdfUrl={`${import.meta.env.VITE_APP_API_URL}${result?.reportPath}`} />
+                        <PDFViewer style={{cursor:"pointer"}} title={formatDate(result?.BookedDate)} pdfUrl={`${import.meta.env.VITE_APP_API_URL}${result?.reportPath}`} />
                        
                       )})}
                       
@@ -273,11 +314,11 @@ function UserDashboard() {
             </div>
             <div className="doctor_list_container_2">
                   <div id="schedule_header">
-                    <p>Your Schedule</p>
-                    <span>see all</span>
+                  <h6 className="reports">Your Schedule</h6>
+                    <span onClick={()=> setOpenPopUp(true)}>see history</span>
                   </div>
-                  <div id="schedule_content">
-                    {schedulesList.length > 0 ? (
+                  <div id="schedule_content" >
+                    {schedulesList.length > 50 ? (
                        <ScheduleCard
                        doctorName={newSchedule.doctorName}
                        specialist={newSchedule.specialist}
@@ -286,7 +327,11 @@ function UserDashboard() {
                        status={newSchedule?.statusMessage ? newSchedule?.statusMessage : null}
                       />
                     ) : (
-                      <h6 id='no_appointment'>No appointments schedule, yet!.</h6>
+                      <div id="no_appointment">
+                        <img src={noAppontmentsImg} alt="no_appointment_img" />
+                          <h6 >No appointments schedule, yet!.</h6>
+                      </div>
+                      
                     )}
                  
                     {/* {scheduleList.length > 0 ? (
@@ -303,6 +348,17 @@ function UserDashboard() {
            
             </div>
         </div>
+        { openPopUp &&
+          <ModalPopUp
+
+          id={3} 
+     
+       onClose={onClose} 
+       BodyComponent={ModalComps}
+       Header={"Shedule List History"} 
+          
+          />
+        }
     </div>
   )
 }

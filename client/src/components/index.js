@@ -8,3 +8,5 @@ export {default as PDFViewer} from './PDFviewer';
 export {default as Dropzone} from "./Dropzone";
 export {default as InputTags} from "./InputTags";
 export {default as NextInLineCard} from "./NextInLineCard";
+export {default as Sidebar} from "./Sidebar";
+export {default as NotFound} from "./NotFound";

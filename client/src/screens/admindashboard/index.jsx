@@ -1,15 +1,12 @@
 import React, {useState, useEffect} from 'react';
 import "../userdashboard/userdashboardStyles.css";
 import "./admindashboard.css";
-import { IoMdHome } from "react-icons/io";
-import { FaBloggerB } from "react-icons/fa6";
 import { FaArrowRight } from "react-icons/fa";
-import { FaArrowLeft } from "react-icons/fa";
-import {ToolTip, Dropzone} from "../../components";
+
+import {Dropzone} from "../../components";
 import { LiaUserEditSolid } from "react-icons/lia";
-import { Link, useNavigate } from "react-router-dom";
-// import profilePlaceHolder from "../../assets/images/profile2.jpg";
-// import { convertToBase64 } from "../../utils";
+import {  useNavigate } from "react-router-dom";
+import { GrFormEdit } from "react-icons/gr";
 import { useSelector} from "react-redux";
 import { routes } from '../../routes/routes';
 import {PatientCard, PDFViewer} from "../../components";
@@ -21,7 +18,7 @@ import { GiGooeyEyedSun } from "react-icons/gi";
 import { FaBriefcaseMedical } from "react-icons/fa";
 import axios from "axios";
 import { toast } from 'react-toastify';
-import Spinner from '../../components/Loading spinner/Spinner';
+import {Sidebar} from "../../components";
 
 
 
@@ -83,7 +80,7 @@ function Admindashboard() {
 
    // 65e75800669a4a005a3520aa
    //65e75800669a4a005a3520aa
-
+      console.log("jkkk", upcomingPatient);
  
 
   // userId, 
@@ -116,6 +113,7 @@ function Admindashboard() {
         userId:upcomingPatient?.userId,
         doctorName:upcomingPatient?.doctorName,
         doctorId:upcomingPatient?.doctorId,
+        BookedDate:upcomingPatient?.bookingDateTime,
         reportName:result?.data?.filename,
         reportPath:result?.data?.path,
         reportStatus:true,
@@ -226,7 +224,7 @@ function Admindashboard() {
 
   return (
     <div className={`main ${openSide ? "active" : "inactive"}`}>
-       <div className="sidebar_main">
+       {/* <div className="sidebar_main">
         <ToolTip text="Home" show={openSide}>
         <div  className="sidebar_main_item">
         <IoMdHome className='sidebar_icon'/>
@@ -253,7 +251,8 @@ function Admindashboard() {
         )}
 
 
-        </div>
+        </div> */}
+        <Sidebar openSide={openSide} setOpenSide={setOpenSide} />
 
         <div className="main_content">
         <div className="left_Main">
@@ -305,13 +304,137 @@ function Admindashboard() {
               </div>  
               <div id="in_line_patients">
                 <h6 className="today_schedule">In line</h6>
-            <div id="nextLineCard">
+           
               {patientDetails.slice(1).map((item) => (
                   <NextInLineCard profilePicture={upcomingPatient?.profilePicture}  patientName={item?.userName} gender={item?.gender} age={item?.age}/>
               ))}
-            </div>
+           
              
               </div>
+            </div>
+            <div className="right_Main">
+                  <div id="profile_content">
+                    <div id="profile_card">
+                      <div id="profile_nav">
+                      <GrFormEdit onClick={() => navigate(routes.profile)} style={{cursor:"pointer"}} id="profile_edit_icon"/>
+                      </div>
+                    {/* userInfo?.profilePicture */}
+                    <div id="profile_details">
+                    <div id="profile_pic">
+          {isBase64(userInfo?.profilePicture  ) ? (
+                <img style={{
+                  width: "65px",
+                  height:"65px",
+                  borderRadius: "50px",
+                  objectFit: "cover",
+                }} src={userInfo?.profilePicture } alt="doctor_image" />
+        ) : ( <TfiLayoutPlaceholder id="patient_profileCard_icon" />)} 
+                     </div>
+                      <h4>{userInfo?.name}</h4>
+                      <h6>{userInfo?.specialist}</h6>
+                    </div>
+                    <div id="active_patient">
+                      <h5>Active patients</h5>
+                      <div className="avatar-group">
+                      
+                      
+                      <div className="avatar">
+                      <img src="https://pixinvent.com/materialize-material-design-admin-template/app-assets/images/user/12.jpg"/>
+                      </div>
+
+                      <div className="avatar">
+                      <img src="https://htmlstream.com/preview/unify-v2.6.2/assets/img-temp/400x450/img5.jpg"/>
+                      </div>
+
+                      <div className="avatar">
+                      <img src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"/>
+                      </div>
+
+                      <div className="avatar">
+                      <img src="https://rimage.gnst.jp/livejapan.com/public/article/detail/a/00/04/a0004213/img/basic/a0004213_main.jpg?20200710184501&q=80&rw=750&rh=536"/>
+                      </div>
+                      
+                      <div className="avatar">
+                      <img src="https://da4e1j5r7gw87.cloudfront.net/wp-content/uploads/sites/768/2018/08/glasses-american-man-20s-hipster.jpg"/>
+                      </div>
+                      <div className="hidden-avatars">
+                        +10
+                      </div>
+
+                    </div>
+                      {/* <div class="avatars">
+                          <span className="avatar">
+                                <img  src="https://picsum.photos/70"/>
+                            </span>
+                          <span className="avatar">
+                                <img src="https://picsum.photos/80"/>
+                            </span>
+                          <span className="avatar">
+                                <img src="https://picsum.photos/90"/>
+                            </span>
+                          
+                      
+                      </div> */}
+                      {/* <ul>
+                      <li></li>
+                      <li></li>
+                      <li></li>
+                      <li></li>
+                    </ul> */}
+                   
+
+                    </div>
+
+                    </div>
+                  </div>
+                  <div id="meeting_right">
+                    <div id="meeting_content">
+                    <h6 className="today_schedule">Team meeting</h6>
+                    <div id="meeting_card">
+                          <div id="left_side_meeting_card">
+                             
+                                  <h6 className='meeting_label'>Topic</h6>
+                                  <h6 className="meeting_main">Daily brief</h6>
+                            
+                             
+                                <h6 className='meeting_label'>Link</h6>
+                                <h6 className="meeting_main"><a href="https://zoom.us/">Zoom video</a></h6>
+                          
+                           
+                                  <h6 className='meeting_label'>Paticipants</h6>
+                                  <h6 className="meeting_main">
+                                    <div class="avatar-group">                 
+                                      <div className="avatar2">
+                                      <img src="https://images.pexels.com/photos/8460157/pexels-photo-8460157.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"/>
+                                      </div>
+                                      <div className="avatar2">
+                                      <img src="https://images.pexels.com/photos/5215024/pexels-photo-5215024.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"/>
+                                      </div>
+                                      <div className="avatar2">
+                                      <img src="https://img.freepik.com/free-photo/portrait-3d-female-doctor_23-2151107332.jpg?t=st=1712933622~exp=1712937222~hmac=11340b41f4f935b744717bf1eac9cba7c6f2ac44379688a9ea9bfc6811e2b560&w=900"/>
+                                      </div>
+                                      <div className="hidden-avatars2">
+                                        +2
+                                      </div>
+                                    </div>
+                                  </h6> 
+                          </div>
+                          <div id="right_side_meeting_card">
+                            <div id="meeting_date_area">
+                            <div id="meeting_date">
+                                  <h4>Dec</h4>
+                                  <h3>13</h3>
+                              </div>
+                            </div>
+                              <div id="see_more_meeting">
+                                  <h6 className='see_details'>See Details </h6>
+                                  <FaArrowRight className="see_details"/>
+                              </div>
+                          </div>
+                    </div>
+                    </div>
+          
+                  </div>
             </div>
           </div>
 

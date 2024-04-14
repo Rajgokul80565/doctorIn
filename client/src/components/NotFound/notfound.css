@@ -1,0 +1,10 @@
+#notfound_main{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+#notfound_main img{
+        width:900px;
+        height:600px;
+}

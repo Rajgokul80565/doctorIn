@@ -29,8 +29,10 @@ const storage = multer.diskStorage({
       cb(null, 'uploads/')
     },
     filename: function (req, file, cb) {
+      console.log("bookDateTwo", req?.body?.bookDate);
       const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
     console.log("files -", file);
+    
       cb(null, uniqueSuffix + file.originalname);
     }
   })
@@ -41,7 +43,8 @@ const upload = multer({ storage });
 
 
 app.post("/api/upload", upload.single("file") ,(req, res) => {
-    console.log("path" , req?.file?.path);
+    console.log("path" , req?.file);
+    console.log("bookDate", req?.body?.bookDate);
     console.log("fileName", req?.file?.filename);
     res.status(201).json(req.file);
 });

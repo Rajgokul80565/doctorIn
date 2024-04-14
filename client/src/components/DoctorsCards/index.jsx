@@ -80,6 +80,9 @@ const ModalComps = () => {
       formData.append("file", files[0]);
       console.log("formData", formData.get("file"));
       let bookDate = convertToUTC(date);
+      formData.append("bookDate",bookDate)
+      console.log("bookDate87", formData.get("bookDate"));
+
       console.log("bookDate", bookDate, age, gender);
       
       try {

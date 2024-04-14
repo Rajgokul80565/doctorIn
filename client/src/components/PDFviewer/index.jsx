@@ -16,11 +16,15 @@ const PDFViewer = ({ title, pdfUrl }) => {
     setShowPDF(!showPDF);
   };
 
+  // overflow: hidden; /* make sure it hides the content that overflows */
+  // white-space: nowrap; /* don't break the line */
+  // text-overflow: ellipsis
+
   return (
-    <div style={{ cursor: 'pointer' }} onClick={handleClick}>
+    <div style={{ cursor: 'pointer'}} onClick={handleClick}>
       <div>
       <div className="after_upload">
-                    <p style={{overflow:"hidden", textOverflow: "ellipsis"}}>{title}</p>
+                    <p style={{overflow:"hidden", textOverflow: "ellipsis", whiteSpace: "nowrap"}}>{title}</p>
                     <div className="deleteIconDiv"><FaEye  className='delete_icon' /></div>
                     
             </div>

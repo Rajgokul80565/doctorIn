@@ -4,3 +4,4 @@ export {default as Home} from "./Home";
 export {default as UserDashboard} from "./userdashboard";
 export {default as Admindashboard} from "./admindashboard";
 export {default as ProfileScreen} from "./ProfilesPage";
+export {default as UserBlog} from "./userdashboard/blog";

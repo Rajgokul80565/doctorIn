@@ -1,0 +1,17 @@
+#blog_main{
+    display:flex;
+    flex-direction: column;
+    justify-content:center;
+    align-items:center;
+}
+
+#blog_main h2{
+    font-family: var(--secondry-font-style);
+    font-size: 30px;
+    color:var(--primary-app-color);
+}
+
+#blog_main img{
+    width:800px;
+    height:500px;
+}

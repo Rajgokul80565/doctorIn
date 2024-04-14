@@ -140,14 +140,28 @@
     display: flex;
     flex-direction: column;
     justify-content:flex-start;
-    padding-top:10px;
+    padding-top:20px;
     align-items: center;
  
 }
 
 #no_appointment{
+    height: 170px;
+    width: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+#no_appointment img{
+    width:170px;
+    height:150px;
+}
+#no_appointment h6{
     font-family: var(--secondry-font-style);
     color: var(--secondary-color);
+    font-size: 13px;
+    font-weight:400;
 }
 
 
@@ -223,7 +237,7 @@
 #diet_header img{
     object-fit: cover;
     width:100%;
-    border-radius:inherit; 
+    border-radius:30px 30px 0px 0px; 
     /* border-radius:inherit; 
     border-radius: 0px 0px 30px 30px; */
 }
@@ -302,21 +316,89 @@
     font-size: 10.9px;
 }
 
+#left_result{
+    display: flex;
+    flex-direction: column;
+    align-items:start;
+    padding-left: 50px;
+    
+}
+
 
 .reports{
     font-family: var(--secondry-font-style);
     font-size: 18px;
     font-weight:600;
     color: rgb(134, 135, 135);
+    margin-bottom: 10px;
 }
 
 #result_container{
-
-    height: 100%;
-    width: 70%;
+    padding:0px 10px 10px 10px;
+    height: 70%;
+    width: 80%;
+    margin: 0px;
     display: grid;
     grid-template-columns: 1fr 1fr;
+    grid-auto-rows: auto 1fr;
     gap: 10px;
+    overflow-y: auto;
+    
+}
+
+#result_container::-webkit-scrollbar {
+    width: 4px; 
+}
+
+#result_container::-webkit-scrollbar-track {
+    background-color: #f0f0f0; 
+}
+
+#result_container::-webkit-scrollbar-thumb {
+    background-color: #888888; 
+    border-radius: 3px; 
+}
+
+
+#shedule_pop{
+    height: 100%;
+    overflow-y: auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+}
+
+#shedule_card{
+    background-color: white;
+    height:50px;
+    display: flex;  
+    justify-content:space-around;
+    align-items:center;
+   
+}
+#shedule_card h5{
+    font-family: var(--secondry-font-style);
+    font-size: 12px;
+    font-weight: 600;
+}
+#shedule_card h6{
+    font-family: var(--secondry-font-style);
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--secondary-color);
+}
+
+#shedule_pop::-webkit-scrollbar {
+    width: 4px; 
+}
+
+#shedule_pop::-webkit-scrollbar-track {
+    background-color: #f0f0f0; 
+}
+
+#shedule_pop::-webkit-scrollbar-thumb {
+    background-color: #888888; 
+    border-radius: 3px; 
 }
 
 
@@ -333,13 +415,7 @@
     padding-left: 50px;
     gap: 50px;
 }
-#left_result{
- 
-    display: flex;
-    flex-direction: column;
-    align-items:start;
-    padding-left: 50px;
-}
+
 
 
 /* #left_userinfo{

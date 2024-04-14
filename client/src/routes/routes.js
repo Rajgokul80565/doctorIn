@@ -6,6 +6,7 @@ const routes = {
     profile:"/profile",
     userHome:"/user/dashboard",
     doctorHome:"/doctor/dashboard",
+    userBlog:"/user/blog",
 }
 
 export {routes} ;

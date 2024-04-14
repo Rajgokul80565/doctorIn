@@ -14,6 +14,11 @@ const resultSchema = mongoose.Schema({
             type:String,
             required: true,
          },
+         BookedDate:{
+            type:Date,
+            default: Date.now,
+            required: true,
+         },
         reportName:{
             type:String,
             default:""
