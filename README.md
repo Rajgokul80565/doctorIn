@@ -29,4 +29,5 @@ Welcome to DoctorIn a desktop web application GitHub repository! This project ai
 - Express.js
 - MongoDB
 - React.js
+- Javascript
 
